@@ -2,8 +2,7 @@
 <img src='https://i.ibb.co/30dppbL/Smart-Device.png'>
 
 ## About
-Это приложение использует [tinytuya](https://github.com/jasonacox/tinytuya) для управления устройствами умного дома.
-
+This app uses[tinytuya](https://github.com/jasonacox/tinytuya) to control smart home devices.
 
 Controlling and monitoring Tuya devices on your network requires the following:
 * *Address* - Network address (IPv4) of the device e.g. 10.0.1.100
@@ -12,7 +11,7 @@ Controlling and monitoring Tuya devices on your network requires the following:
 * *Local_Key* - Security key needed to access the Tuya device.
 
 
-Для получения данных для подключения устройства используйте [инструкцию](https://github.com/jasonacox/tinytuya#tuya-device-preparation).
+To obtain data to connect the device, use [instructions](https://github.com/jasonacox/tinytuya#tuya-device-preparation).
 
 ## Features
 - [ ] RGB Light
