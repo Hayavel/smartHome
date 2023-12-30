@@ -2,7 +2,7 @@
 <img src='https://i.ibb.co/30dppbL/Smart-Device.png'>
 
 ## About
-This app uses[tinytuya](https://github.com/jasonacox/tinytuya) to control smart home devices.
+This app uses [tinytuya](https://github.com/jasonacox/tinytuya) to control smart home devices.
 
 Controlling and monitoring Tuya devices on your network requires the following:
 * *Address* - Network address (IPv4) of the device e.g. 10.0.1.100
