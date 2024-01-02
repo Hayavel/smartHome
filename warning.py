@@ -13,7 +13,7 @@ class WarningDialog(QDialog):
         self.buttonBox.rejected.connect(self.reject)
 
         self.layout = QVBoxLayout()
-        message = QLabel("Wrong ID, IP, KEY or Version")
+        message = QLabel("Check Type, Name, ID, IP, KEY or Version of your device!")
         self.layout.addWidget(message)
         self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
