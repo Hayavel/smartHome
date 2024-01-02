@@ -26,13 +26,23 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(900, 750)
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
+        MainWindow.setMinimumSize(QSize(900, 750))
+        MainWindow.setMaximumSize(QSize(900, 750))
         MainWindow.setStyleSheet(u"QMainWindow{\n"
 "	background-color: rgb(50, 50, 50);\n"
 "	font-weight: bold;\n"
 "	color: white;\n"
 "	font-family: Comfortaa;\n"
 "}\n"
-"\n"
+"QPushButton{\n"
+"	font-family: Comfortaa;\n"
+"	font-weight: bold;\n"
+"}\n"
 "QScrollBar {\n"
 "	border: none;\n"
 "	background: rgba(0, 0, 0, 0);\n"
@@ -63,11 +73,11 @@ class Ui_MainWindow(object):
 "}\n"
 "QScrollBar::sub-line:vertical {\n"
 "	background: rgba(175, 175, 175, 0);\n"
-"	height: 0 px;\n"
+"	height:"
+                        " 0 px;\n"
 "	subcontrol-position: top;\n"
 "	subcontrol-origin: margin;\n"
-""
-                        "}")
+"}")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.screens = QStackedWidget(self.centralwidget)
@@ -162,6 +172,7 @@ class Ui_MainWindow(object):
 
         self.deviceType = QComboBox(self.addFrame)
         self.deviceType.setObjectName(u"deviceType")
+        self.deviceType.setLayoutDirection(Qt.LeftToRight)
         self.deviceType.setStyleSheet(u"QComboBox {	\n"
 "	background-color: rgba(120, 120, 120, 0);\n"
 "	font-size: 18px;\n"
@@ -1223,14 +1234,14 @@ class Ui_MainWindow(object):
         self.sideBarClose.setGeometry(QRect(160, 10, 60, 24))
         self.devicesList = QComboBox(self.sideBar)
         self.devicesList.setObjectName(u"devicesList")
-        self.devicesList.setGeometry(QRect(10, 125, 210, 22))
+        self.devicesList.setGeometry(QRect(10, 120, 210, 29))
         self.devicesList.setStyleSheet(u"QComboBox {	\n"
 "	background-color: rgba(120, 120, 120, 0);\n"
 "	font-size: 20px;\n"
 "	font-weight: bold;\n"
 "	font-family: Comfortaa;\n"
 "	color: white;	\n"
-"	padding-top: 3px;\n"
+"	padding-top: 6px;\n"
 "	padding-left: 25px;\n"
 "	border-top: 0px solid rgb(90, 90, 90);\n"
 "	border-bottom: 2px solid rgb(90, 90, 90);\n"
