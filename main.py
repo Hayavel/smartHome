@@ -30,12 +30,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         font.setBold(True)
         self.setFont(font)
 
+        self._adding_devices_in_devicesList()
+        # If there is an added device
+        if len(self.active_devices) != 0:
+            self.screens.setCurrentIndex(1)
+        self._adding_device_types_in_deviceType()
+
         self.sideBar.setVisible(False)
         self.editScene.setVisible(False)
         self.colourSceneEdit.setVisible(False)
 
         self.add.clicked.connect(lambda: self.add_new_device())
         self.clear.clicked.connect(lambda: self.clear_addFrame())
+
+    def _adding_devices_in_devicesList(self):
+        '''Add all local devices'''
+        try:
+            with open('devicesList.json', 'r') as f:
+                self.active_devices = f.read()
+                self.active_devices = json.loads(self.active_devices)
+        except (json.decoder.JSONDecodeError, FileNotFoundError):
+            self.active_devices = {}
+
+        self.devicesList.addItems(self.active_devices)
+
+    def _adding_device_types_in_deviceType(self):
+        '''Add all available devices types'''
+        types = ['RGB Light', 'Light']
+        self.deviceType.addItems(types)
+
 
     def add_new_device(self):
         '''Add new Light and save updated list'''
@@ -49,12 +72,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if deviceName!='' and deviceId!='' and deviceIp!='' and\
            deviceKey!='' and deviceVersion!='' and deviceType!='':
             
-            self.active_devices[self.deviceName.text()] = dict
-            self.active_devices[self.deviceName.text()]['type'] = self.deviceType.currentText()
-            self.active_devices[self.deviceName.text()]['id'] = self.id.text()
-            self.active_devices[self.deviceName.text()]['ip'] = self.ip.text()
-            self.active_devices[self.deviceName.text()]['key'] = self.key.text()
-            self.active_devices[self.deviceName.text()]['ver'] = self.ver.text()
+            self.active_devices[deviceName] = {}
+            self.active_devices[deviceName]['type'] = deviceType
+            self.active_devices[deviceName]['id'] = deviceId
+            self.active_devices[deviceName]['ip'] = deviceIp
+            self.active_devices[deviceName]['key'] = deviceKey
+            self.active_devices[deviceName]['ver'] = deviceVersion
 
             self.devicesList.addItem(self.deviceName.text())
             self.clear_addFrame()
