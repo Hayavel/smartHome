@@ -17,6 +17,9 @@ import time
 #import local_statistics as lStat
 
 
+device_types = {'RGB Light': 0, # Device type and Page interface
+                'Light': 1}
+
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
@@ -33,9 +36,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._adding_devices_in_devicesList() # Data preload
         self._adding_device_types_in_deviceType() # Data preload
 
+        # Hide element in RGB Light screen
         self.sideBar.setVisible(False)
         self.editScene.setVisible(False)
         self.colourSceneEdit.setVisible(False)
+
+        # Hide element in Light screen
+        self.editScene_Light.setVisible(False)
+        self.colourSceneEdit_Light.setVisible(False)
+        self.sceneMode_Light.setVisible(False)
+        self.editSceneButton_Light.setVisible(False)
 
         self.devicesList_start.currentIndexChanged.connect(self.devicesList.setCurrentIndex) # Reverse swap index
         self.devicesList.currentIndexChanged.connect(self.devicesList_start.setCurrentIndex) # Reverse swap index
@@ -53,6 +63,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.removeButton_start.clicked.connect(lambda: self.remove_device())
         self.removeButton.clicked.connect(lambda: self.remove_device())
 
+        self.white_Light.clicked.connect(lambda: self.change_mode_on_Light_screen(self.white_Light.text()))
+        self.scene_Light.clicked.connect(lambda: self.change_mode_on_Light_screen(self.scene_Light.text()))
+
 
     def _adding_devices_in_devicesList(self):
         '''Add all local devices'''
@@ -68,8 +81,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def _adding_device_types_in_deviceType(self):
         '''Add all available devices types'''
-        types = ['RGB Light', 'Light']
-        self.deviceType.addItems(types)
+        self.deviceType.addItems(device_types.keys())
     
     def _change_active_device_name(self, text:str):
         self.deviceName_onScreen.setText(text)
@@ -98,6 +110,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.devicesList.addItem(deviceName)
             self.clear_addFrame()
             self.screens.setCurrentIndex(2)
+            self.type_screens.setCurrentIndex(device_types[deviceType])
 
             with open('devicesList.json', 'w') as f:
                 f.write(json.dumps(self.active_devices, indent=4))
@@ -122,6 +135,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._change_active_device_name(text)
         self.screens.setCurrentIndex(2)
 
+        deviceType = self.active_devices[text]['type']
+        self.type_screens.setCurrentIndex(device_types[deviceType])
+
     def close_addFrame(self):
         '''Сloses if there are already devices'''
         if self.devicesList.currentIndex() == -1:
@@ -139,6 +155,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.devicesList_start.removeItem(removed_device_index)
             self.devicesList.removeItem(removed_device_index)
             self.active_devices.pop(removed_device)
+    
+    def change_mode_on_Light_screen(self, mode:str):
+        '''Hide or Show "scene" element on Light device screen'''
+        match mode:
+            case 'White':
+                self.editScene_Light.setVisible(False)
+                self.colourSceneEdit_Light.setVisible(False)
+                self.sceneMode_Light.setVisible(False)
+                self.editSceneButton_Light.setVisible(False)
+            case 'Scene':
+                self.sceneMode_Light.setVisible(True)
+                self.editSceneButton_Light.setVisible(True)
     
            
 if __name__ == '__main__':

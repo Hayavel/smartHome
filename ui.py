@@ -313,9 +313,11 @@ class Ui_MainWindow(object):
 "	font-size: 24px;\n"
 "	color: white;\n"
 "}")
-        self.type_devices = QStackedWidget(self.main_screen)
-        self.type_devices.setObjectName(u"type_devices")
-        self.type_devices.setGeometry(QRect(0, 0, 900, 750))
+        self.type_screens = QStackedWidget(self.main_screen)
+        self.type_screens.setObjectName(u"type_screens")
+        self.type_screens.setGeometry(QRect(0, 0, 900, 750))
+        self.type_screens.setLayoutDirection(Qt.LeftToRight)
+        self.type_screens.setStyleSheet(u"")
         self.RGB_Light = QWidget()
         self.RGB_Light.setObjectName(u"RGB_Light")
         self.RGB_Light.setStyleSheet(u"QLabel{\n"
@@ -1248,10 +1250,724 @@ class Ui_MainWindow(object):
         self.onOFF_music.setIcon(icon)
         self.onOFF_music.setIconSize(QSize(96, 96))
         self.mode.addTab(self.music, "")
-        self.type_devices.addWidget(self.RGB_Light)
+        self.type_screens.addWidget(self.RGB_Light)
         self.Light = QWidget()
         self.Light.setObjectName(u"Light")
-        self.type_devices.addWidget(self.Light)
+        self.Light.setStyleSheet(u"QPushButton  {	\n"
+"	background-color: rgba(120, 120, 120, 0);\n"
+"	font-size: 18px;\n"
+"	color: white;	\n"
+"	border-top: 1px solid rgba(90, 90, 90, 0);\n"
+"	border-bottom: 2px solid rgb(90, 90, 90);\n"
+"	\n"
+"}\n"
+"QPushButton:hover{\n"
+"	background-color: rgb(60, 60, 60);\n"
+"	border-bottom: 2px solid rgb(175, 175, 175);\n"
+"\n"
+"	border-top-left-radius: 10%;\n"
+"	border-top-right-radius: 10%;\n"
+"	border-bottom-left-radius: 1%;\n"
+"	border-bottom-right-radius: 1%;\n"
+"}\n"
+"\n"
+"QPushButton:pressed{\n"
+"	padding-top: 3px;\n"
+"	border-bottom: 2px solid rgb(236, 236, 236);\n"
+"}\n"
+"\n"
+"QLabel{\n"
+"	font-family: Comfortaa;\n"
+"	font-weight: Bold;\n"
+"	font-size: 12px;\n"
+"}")
+        self.white_Light = QPushButton(self.Light)
+        self.white_Light.setObjectName(u"white_Light")
+        self.white_Light.setGeometry(QRect(210, 55, 194, 24))
+        self.white_Light.setLayoutDirection(Qt.LeftToRight)
+        self.scene_Light = QPushButton(self.Light)
+        self.scene_Light.setObjectName(u"scene_Light")
+        self.scene_Light.setGeometry(QRect(495, 55, 194, 24))
+        self.scene_Light.setLayoutDirection(Qt.LeftToRight)
+        self.brightSlider_Light = QSlider(self.Light)
+        self.brightSlider_Light.setObjectName(u"brightSlider_Light")
+        self.brightSlider_Light.setEnabled(True)
+        self.brightSlider_Light.setGeometry(QRect(255, 661, 400, 22))
+        self.brightSlider_Light.setLayoutDirection(Qt.LeftToRight)
+        self.brightSlider_Light.setStyleSheet(u"QSlider{\n"
+"	background-color:rgba(120, 120, 120, 0);\n"
+"	}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 5px; \n"
+"    background-color:rgba(120, 120, 120, 0);\n"
+"    margin: 2px 0;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"	background-color:rgb(60, 60, 60);\n"
+"    border: 2px solid white;\n"
+"    width: 10px;\n"
+"    margin: -5px 0;\n"
+"	border-radius: 7.4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:hover {\n"
+"	background-color:  rgb(102, 102, 102);\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:pressed {\n"
+"	background-color: rgb(135, 135, 135)\n"
+"}\n"
+"\n"
+"\n"
+"")
+        self.brightSlider_Light.setMaximum(100)
+        self.brightSlider_Light.setValue(100)
+        self.brightSlider_Light.setOrientation(Qt.Horizontal)
+        self.whiteRound_Light = QLabel(self.Light)
+        self.whiteRound_Light.setObjectName(u"whiteRound_Light")
+        self.whiteRound_Light.setGeometry(QRect(230, 145, 450, 450))
+        self.whiteRound_Light.setLayoutDirection(Qt.LeftToRight)
+        self.whiteRound_Light.setStyleSheet(u"")
+        self.whiteRound_Light.setPixmap(QPixmap(u"design/coldWarm.png"))
+        self.whiteRound_Light.setScaledContents(True)
+        self.whiteRound_Light.setAlignment(Qt.AlignCenter)
+        self.onOFF_Light = QPushButton(self.Light)
+        self.onOFF_Light.setObjectName(u"onOFF_Light")
+        self.onOFF_Light.setGeometry(QRect(405, 320, 100, 100))
+        self.onOFF_Light.setLayoutDirection(Qt.LeftToRight)
+        self.onOFF_Light.setStyleSheet(u"QPushButton { \n"
+"	background-color: rgba(120, 120, 120, 0);\n"
+"	border-radius: 50%;\n"
+"	border: none;\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgba(120, 120, 120, 50);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"	padding-top: 3px;\n"
+"	 background-color: rgba(60, 60, 60, 25);\n"
+"}\n"
+"")
+        self.onOFF_Light.setIcon(icon)
+        self.onOFF_Light.setIconSize(QSize(96, 96))
+        self.brightBar_Light = QProgressBar(self.Light)
+        self.brightBar_Light.setObjectName(u"brightBar_Light")
+        self.brightBar_Light.setEnabled(True)
+        self.brightBar_Light.setGeometry(QRect(255, 665, 400, 15))
+        self.brightBar_Light.setLayoutDirection(Qt.LeftToRight)
+        self.brightBar_Light.setStyleSheet(u"QProgressBar {	\n"
+"	background-color: rgb(120, 120, 120);\n"
+"	border-radius: 5px;\n"
+"}\n"
+"\n"
+"QProgressBar::chunk {\n"
+"	background-color: white;\n"
+"	border-radius: 5px;\n"
+"}\n"
+"\n"
+"")
+        self.brightBar_Light.setValue(100)
+        self.brightBar_Light.setTextVisible(False)
+        self.brightness_Light = QLabel(self.Light)
+        self.brightness_Light.setObjectName(u"brightness_Light")
+        self.brightness_Light.setGeometry(QRect(145, 655, 131, 31))
+        self.brightness_Light.setLayoutDirection(Qt.LeftToRight)
+        self.brightness_Light.setStyleSheet(u"color: white;")
+        self.dial_Light = QDial(self.Light)
+        self.dial_Light.setObjectName(u"dial_Light")
+        self.dial_Light.setEnabled(True)
+        self.dial_Light.setGeometry(QRect(200, 120, 510, 500))
+        self.dial_Light.setLayoutDirection(Qt.LeftToRight)
+        self.dial_Light.setStyleSheet(u"QDial{\n"
+"	background-color: rgb(0, 0, 0);\n"
+"}")
+        self.dial_Light.setMinimum(0)
+        self.dial_Light.setMaximum(100)
+        self.dial_Light.setWrapping(False)
+        self.sceneMode_Light = QFrame(self.Light)
+        self.sceneMode_Light.setObjectName(u"sceneMode_Light")
+        self.sceneMode_Light.setGeometry(QRect(0, 590, 900, 160))
+        self.sceneMode_Light.setStyleSheet(u"QFrame{\n"
+"	background-color: rgb(25, 25, 25);\n"
+"	border-bottom: 2px solid rgb(120, 120, 120);\n"
+"	border-top: 2px solid rgb(120, 120, 120);\n"
+"	font-size: 20px;\n"
+"\n"
+"}\n"
+"\n"
+"QLabel {\n"
+"	color: white;\n"
+"	border-bottom: 0px;\n"
+"	border-top: 0px;\n"
+"	border-left: 0px;\n"
+"}\n"
+"\n"
+"QPushButton { \n"
+"	background-color: rgba(120, 120, 120, 0);\n"
+"	border-radius: 37%;\n"
+"	border-top: 0px;\n"
+"	border-bottom: 0px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: rgba(120, 120, 120, 50);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"	 padding-top: 3px;\n"
+"	 background-color: rgba(60, 60, 60, 25);\n"
+"}\n"
+"")
+        self.sceneMode_Light.setFrameShape(QFrame.StyledPanel)
+        self.sceneMode_Light.setFrameShadow(QFrame.Raised)
+        self.scene1Button_Light = QPushButton(self.sceneMode_Light)
+        self.scene1Button_Light.setObjectName(u"scene1Button_Light")
+        self.scene1Button_Light.setGeometry(QRect(40, 20, 75, 75))
+        self.scene1Button_Light.setStyleSheet(u"")
+        self.scene1Button_Light.setIconSize(QSize(75, 75))
+        self.scene1Label_Light = QLabel(self.sceneMode_Light)
+        self.scene1Label_Light.setObjectName(u"scene1Label_Light")
+        self.scene1Label_Light.setGeometry(QRect(27, 110, 100, 21))
+        self.scene1Label_Light.setAlignment(Qt.AlignCenter)
+        self.scene2Button_Light = QPushButton(self.sceneMode_Light)
+        self.scene2Button_Light.setObjectName(u"scene2Button_Light")
+        self.scene2Button_Light.setGeometry(QRect(145, 20, 75, 75))
+        self.scene2Button_Light.setStyleSheet(u"")
+        self.scene2Button_Light.setIconSize(QSize(75, 75))
+        self.scene3Button_Light = QPushButton(self.sceneMode_Light)
+        self.scene3Button_Light.setObjectName(u"scene3Button_Light")
+        self.scene3Button_Light.setGeometry(QRect(250, 20, 75, 75))
+        self.scene3Button_Light.setStyleSheet(u"")
+        self.scene3Button_Light.setIconSize(QSize(75, 75))
+        self.scene4Button_Light = QPushButton(self.sceneMode_Light)
+        self.scene4Button_Light.setObjectName(u"scene4Button_Light")
+        self.scene4Button_Light.setGeometry(QRect(355, 20, 75, 75))
+        self.scene4Button_Light.setStyleSheet(u"")
+        self.scene4Button_Light.setIconSize(QSize(75, 75))
+        self.scene5Button_Light = QPushButton(self.sceneMode_Light)
+        self.scene5Button_Light.setObjectName(u"scene5Button_Light")
+        self.scene5Button_Light.setGeometry(QRect(460, 20, 75, 75))
+        self.scene5Button_Light.setStyleSheet(u"")
+        self.scene5Button_Light.setIconSize(QSize(75, 75))
+        self.scene6Button_Light = QPushButton(self.sceneMode_Light)
+        self.scene6Button_Light.setObjectName(u"scene6Button_Light")
+        self.scene6Button_Light.setGeometry(QRect(565, 20, 75, 75))
+        self.scene6Button_Light.setStyleSheet(u"")
+        self.scene6Button_Light.setIconSize(QSize(75, 75))
+        self.scene7Button_Light = QPushButton(self.sceneMode_Light)
+        self.scene7Button_Light.setObjectName(u"scene7Button_Light")
+        self.scene7Button_Light.setGeometry(QRect(670, 20, 75, 75))
+        self.scene7Button_Light.setStyleSheet(u"")
+        self.scene7Button_Light.setIconSize(QSize(75, 75))
+        self.scene8Button_Light = QPushButton(self.sceneMode_Light)
+        self.scene8Button_Light.setObjectName(u"scene8Button_Light")
+        self.scene8Button_Light.setGeometry(QRect(775, 20, 75, 75))
+        self.scene8Button_Light.setStyleSheet(u"")
+        self.scene8Button_Light.setIconSize(QSize(75, 75))
+        self.scene2Label_Light = QLabel(self.sceneMode_Light)
+        self.scene2Label_Light.setObjectName(u"scene2Label_Light")
+        self.scene2Label_Light.setGeometry(QRect(133, 110, 100, 21))
+        self.scene2Label_Light.setAlignment(Qt.AlignCenter)
+        self.scene3Label_Light = QLabel(self.sceneMode_Light)
+        self.scene3Label_Light.setObjectName(u"scene3Label_Light")
+        self.scene3Label_Light.setGeometry(QRect(237, 110, 100, 21))
+        self.scene3Label_Light.setAlignment(Qt.AlignCenter)
+        self.scene4Label_Light = QLabel(self.sceneMode_Light)
+        self.scene4Label_Light.setObjectName(u"scene4Label_Light")
+        self.scene4Label_Light.setGeometry(QRect(343, 110, 100, 21))
+        self.scene4Label_Light.setAlignment(Qt.AlignCenter)
+        self.scene5Label_Light = QLabel(self.sceneMode_Light)
+        self.scene5Label_Light.setObjectName(u"scene5Label_Light")
+        self.scene5Label_Light.setGeometry(QRect(447, 110, 100, 21))
+        self.scene5Label_Light.setAlignment(Qt.AlignCenter)
+        self.scene6Label_Light = QLabel(self.sceneMode_Light)
+        self.scene6Label_Light.setObjectName(u"scene6Label_Light")
+        self.scene6Label_Light.setGeometry(QRect(553, 110, 100, 21))
+        self.scene6Label_Light.setAlignment(Qt.AlignCenter)
+        self.scene7Label_Light = QLabel(self.sceneMode_Light)
+        self.scene7Label_Light.setObjectName(u"scene7Label_Light")
+        self.scene7Label_Light.setGeometry(QRect(657, 110, 100, 21))
+        self.scene7Label_Light.setAlignment(Qt.AlignCenter)
+        self.scene8Label_Light = QLabel(self.sceneMode_Light)
+        self.scene8Label_Light.setObjectName(u"scene8Label_Light")
+        self.scene8Label_Light.setGeometry(QRect(763, 110, 100, 21))
+        self.scene8Label_Light.setAlignment(Qt.AlignCenter)
+        self.editSceneButton_Light = QPushButton(self.Light)
+        self.editSceneButton_Light.setObjectName(u"editSceneButton_Light")
+        self.editSceneButton_Light.setGeometry(QRect(790, 90, 91, 31))
+        self.editSceneButton_Light.setStyleSheet(u"QPushButton  {	\n"
+"	background-color: rgba(120, 120, 120, 0);\n"
+"	font-size: 18px;\n"
+"	color: white;	\n"
+"	border-top: 1px solid rgba(90, 90, 90, 0);\n"
+"	border-bottom: 2px solid rgb(90, 90, 90);\n"
+"	\n"
+"}\n"
+"QPushButton:hover{\n"
+"	background-color: rgb(60, 60, 60);\n"
+"	border-bottom: 2px solid rgb(175, 175, 175);\n"
+"\n"
+"	border-top-left-radius: 10%;\n"
+"	border-top-right-radius: 10%;\n"
+"	border-bottom-left-radius: 1%;\n"
+"	border-bottom-right-radius: 1%;\n"
+"}\n"
+"\n"
+"QPushButton:pressed{\n"
+"	padding-top: 3px;\n"
+"	border-bottom: 2px solid rgb(236, 236, 236);\n"
+"}")
+        self.editSceneButton_Light.setIcon(icon2)
+        self.editSceneButton_Light.setIconSize(QSize(24, 24))
+        self.editScene_Light = QFrame(self.Light)
+        self.editScene_Light.setObjectName(u"editScene_Light")
+        self.editScene_Light.setGeometry(QRect(470, 130, 430, 560))
+        self.editScene_Light.setStyleSheet(u"QFrame{\n"
+"	background-color: rgb(25, 25, 25);\n"
+"	border-bottom: 2px solid rgb(120, 120, 120);\n"
+"	border-top: 2px solid rgb(120, 120, 120);\n"
+"	border-left: 2px solid rgb(120, 120, 120);\n"
+"	font-size: 20px;\n"
+"	border-top-left-radius: 10%;\n"
+"	border-bottom-left-radius: 10%;\n"
+"}\n"
+"\n"
+"QLabel {\n"
+"	color: white;\n"
+"	border-bottom: 0px;\n"
+"	border-top: 0px;\n"
+"	border-left: 0px;\n"
+"}\n"
+"\n"
+"QLineEdit {	\n"
+"	background-color: rgba(120, 120, 120, 0);\n"
+"	font-size: 18px;\n"
+"	color: white;	\n"
+"	border-top: 0px solid rgb(90, 90, 90);\n"
+"	border-bottom: 2px solid rgb(90, 90, 90);\n"
+"	\n"
+"}\n"
+"QLineEdit:hover{\n"
+"	border-bottom: 2px solid rgb(175, 175, 175);\n"
+"}\n"
+"\n"
+"QLineEdit:focus{\n"
+"	border-bottom: 2px solid rgb(236, 236, 236);\n"
+"}\n"
+"\n"
+"QPushButton  {	\n"
+"	background-color: rgba(120, 120, 120, 0);\n"
+"	font-size: 18px;\n"
+"	color: white;	\n"
+"	border-top: 1px solid rgba(90, 90, 90, 0);\n"
+"	border-bottom: 2px solid rgb(90, 90, 90);\n"
+"	\n"
+"}\n"
+"QPushButton:hover{\n"
+""
+                        "	background-color: rgb(60, 60, 60);\n"
+"	border-bottom: 2px solid rgb(175, 175, 175);\n"
+"\n"
+"	border-top-left-radius: 10%;\n"
+"	border-top-right-radius: 10%;\n"
+"	border-bottom-left-radius: 1%;\n"
+"	border-bottom-right-radius: 1%;\n"
+"}\n"
+"\n"
+"QPushButton:pressed{\n"
+"	padding-top: 3px;\n"
+"	border-bottom: 2px solid rgb(236, 236, 236);\n"
+"}")
+        self.editScene_Light.setFrameShape(QFrame.StyledPanel)
+        self.editScene_Light.setFrameShadow(QFrame.Raised)
+        self.nameScene_Light = QLabel(self.editScene_Light)
+        self.nameScene_Light.setObjectName(u"nameScene_Light")
+        self.nameScene_Light.setGeometry(QRect(10, 60, 410, 30))
+        self.nameScene_Light.setAlignment(Qt.AlignCenter)
+        self.nameSceneEdit_Light = QLineEdit(self.editScene_Light)
+        self.nameSceneEdit_Light.setObjectName(u"nameSceneEdit_Light")
+        self.nameSceneEdit_Light.setGeometry(QRect(10, 100, 410, 24))
+        self.nameSceneEdit_Light.setAlignment(Qt.AlignCenter)
+        self.colourScene_Light = QLabel(self.editScene_Light)
+        self.colourScene_Light.setObjectName(u"colourScene_Light")
+        self.colourScene_Light.setGeometry(QRect(10, 150, 410, 30))
+        self.colourScene_Light.setAlignment(Qt.AlignCenter)
+        self.modeColourFlicker_Light = QLabel(self.editScene_Light)
+        self.modeColourFlicker_Light.setObjectName(u"modeColourFlicker_Light")
+        self.modeColourFlicker_Light.setGeometry(QRect(10, 250, 410, 30))
+        self.modeColourFlicker_Light.setAlignment(Qt.AlignCenter)
+        self.modeColourFlickerBox_Light = QComboBox(self.editScene_Light)
+        self.modeColourFlickerBox_Light.addItem("")
+        self.modeColourFlickerBox_Light.addItem("")
+        self.modeColourFlickerBox_Light.addItem("")
+        self.modeColourFlickerBox_Light.setObjectName(u"modeColourFlickerBox_Light")
+        self.modeColourFlickerBox_Light.setGeometry(QRect(10, 290, 410, 24))
+        self.modeColourFlickerBox_Light.setStyleSheet(u"QComboBox {	\n"
+"	background-color: rgba(120, 120, 120, 0);\n"
+"	font-size: 20px;\n"
+"	font-weight: bold;\n"
+"	font-family: Comfortaa;\n"
+"	color: white;	\n"
+"	padding-top: 3px;\n"
+"	padding-left: 160px;\n"
+"	border-top: 0px solid rgb(90, 90, 90);\n"
+"	border-bottom: 2px solid rgb(90, 90, 90);\n"
+"}\n"
+"QComboBox:hover{\n"
+"	border-bottom: 2px solid rgb(175, 175, 175);\n"
+"}\n"
+"\n"
+"QComboBox:focus{\n"
+"	border-bottom: 2px solid rgb(236, 236, 236);\n"
+"}\n"
+"QComboBox::drop-down {\n"
+"  	subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: 15px;\n"
+"    border-top-right-radius: 3px;\n"
+"    border-bottom-right-radius: 3px;\n"
+"}\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: rgb(50, 50, 50);\n"
+"	border-bottom-left-radius: 10px;\n"
+"	border-bottom-right-radius: 10px;\n"
+"	color: white;\n"
+"}\n"
+"QComboBox QAbstractItemView::item:hover {\n"
+"	background: #484848;\n"
+"}")
+        self.speedFlickerBar_Light = QProgressBar(self.editScene_Light)
+        self.speedFlickerBar_Light.setObjectName(u"speedFlickerBar_Light")
+        self.speedFlickerBar_Light.setGeometry(QRect(10, 380, 410, 16))
+        self.speedFlickerBar_Light.setStyleSheet(u"QProgressBar {	\n"
+"	background-color: rgb(120, 120, 120);\n"
+"	border-radius: 5px;\n"
+"}\n"
+"\n"
+"QProgressBar::chunk {\n"
+"	background-color: white;\n"
+"	border-radius: 5px;\n"
+"}\n"
+"")
+        self.speedFlickerBar_Light.setValue(0)
+        self.speedFlickerBar_Light.setTextVisible(False)
+        self.speedFlickerSlider_Light = QSlider(self.editScene_Light)
+        self.speedFlickerSlider_Light.setObjectName(u"speedFlickerSlider_Light")
+        self.speedFlickerSlider_Light.setGeometry(QRect(10, 380, 410, 16))
+        self.speedFlickerSlider_Light.setStyleSheet(u"QSlider{\n"
+"	background-color:rgba(120, 120, 120, 0);\n"
+"	}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 5px; \n"
+"    background-color:rgba(120, 120, 120, 0);\n"
+"    margin: 2px 0;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"	background-color:rgb(60, 60, 60);\n"
+"    border: 2px solid white;\n"
+"    width: 10px;\n"
+"    margin: -5px 0;\n"
+"	border-radius: 7.4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:hover {\n"
+"	background-color:  rgb(102, 102, 102);\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:pressed {\n"
+"	background-color: rgb(135, 135, 135)\n"
+"}\n"
+"\n"
+"")
+        self.speedFlickerSlider_Light.setMaximum(100)
+        self.speedFlickerSlider_Light.setOrientation(Qt.Horizontal)
+        self.speedFlicker_Light = QLabel(self.editScene_Light)
+        self.speedFlicker_Light.setObjectName(u"speedFlicker_Light")
+        self.speedFlicker_Light.setGeometry(QRect(10, 340, 410, 30))
+        self.speedFlicker_Light.setAlignment(Qt.AlignCenter)
+        self.addNewScene_Light = QPushButton(self.editScene_Light)
+        self.addNewScene_Light.setObjectName(u"addNewScene_Light")
+        self.addNewScene_Light.setGeometry(QRect(10, 510, 410, 31))
+        self.exitFromScene_Light = QPushButton(self.editScene_Light)
+        self.exitFromScene_Light.setObjectName(u"exitFromScene_Light")
+        self.exitFromScene_Light.setGeometry(QRect(380, 10, 40, 24))
+        self.sceneColoursList_Light = QFrame(self.editScene_Light)
+        self.sceneColoursList_Light.setObjectName(u"sceneColoursList_Light")
+        self.sceneColoursList_Light.setGeometry(QRect(2, 190, 430, 50))
+        self.sceneColoursList_Light.setStyleSheet(u"QFrame{\n"
+"	background-color: rgb(25, 25, 25);\n"
+"	border-bottom: 0px solid rgb(120, 120, 120);\n"
+"	border-top: 0px solid rgb(120, 120, 120);\n"
+"	border-left: 0px solid rgb(120, 120, 120);\n"
+"}\n"
+"QPushButton { \n"
+"	background-color: rgb(45, 45, 45);\n"
+"	border-radius: 20%;\n"
+"	border-top: 0px;\n"
+"	border-bottom: 0px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color:  rgb(60, 60, 60);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"	 background-color:  rgb(60, 60, 60);\n"
+"}\n"
+"QPushButton:!enabled {\n"
+"	 background-color:  rgb(60, 60, 60);\n"
+"}")
+        self.sceneColoursList_Light.setFrameShape(QFrame.StyledPanel)
+        self.sceneColoursList_Light.setFrameShadow(QFrame.Raised)
+        self.baseColour_Light = QPushButton(self.sceneColoursList_Light)
+        self.baseColour_Light.setObjectName(u"baseColour_Light")
+        self.baseColour_Light.setGeometry(QRect(15, 5, 40, 40))
+        self.baseColour_Light.setStyleSheet(u"image: url(design/plus.png);")
+        self.sceneImage_Light = QLabel(self.editScene_Light)
+        self.sceneImage_Light.setObjectName(u"sceneImage_Light")
+        self.sceneImage_Light.setGeometry(QRect(10, 440, 410, 30))
+        self.sceneImage_Light.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.sceneImageButton_Light = QPushButton(self.editScene_Light)
+        self.sceneImageButton_Light.setObjectName(u"sceneImageButton_Light")
+        self.sceneImageButton_Light.setGeometry(QRect(310, 420, 75, 75))
+        self.sceneImageButton_Light.setStyleSheet(u"QPushButton { \n"
+"	background-color: #ecd105;\n"
+"	border-radius: 37%;\n"
+"	border-top: 0px;\n"
+"	border-bottom: 0px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"	background-color: #ddc004;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"	 background-color: #c6ac03;\n"
+"}\n"
+"QPushButton:!enabled {\n"
+"	 background-color: #c6b43e;\n"
+"}")
+        self.sceneImageButton_Light.setIconSize(QSize(75, 75))
+        self.colourSceneEdit_Light = QFrame(self.editScene_Light)
+        self.colourSceneEdit_Light.setObjectName(u"colourSceneEdit_Light")
+        self.colourSceneEdit_Light.setGeometry(QRect(0, 190, 430, 370))
+        self.colourSceneEdit_Light.setFrameShape(QFrame.StyledPanel)
+        self.colourSceneEdit_Light.setFrameShadow(QFrame.Raised)
+        self.addNewColour_Light = QPushButton(self.colourSceneEdit_Light)
+        self.addNewColour_Light.setObjectName(u"addNewColour_Light")
+        self.addNewColour_Light.setGeometry(QRect(10, 320, 410, 31))
+        self.exitFromColour_Light = QPushButton(self.colourSceneEdit_Light)
+        self.exitFromColour_Light.setObjectName(u"exitFromColour_Light")
+        self.exitFromColour_Light.setGeometry(QRect(380, 10, 40, 24))
+        self.colourSceneSlider_Light = QSlider(self.colourSceneEdit_Light)
+        self.colourSceneSlider_Light.setObjectName(u"colourSceneSlider_Light")
+        self.colourSceneSlider_Light.setGeometry(QRect(10, 130, 410, 16))
+        self.colourSceneSlider_Light.setStyleSheet(u"QSlider{\n"
+"	background-color:rgba(120, 120, 120, 0);\n"
+"	}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 5px; \n"
+"    background-color:rgba(120, 120, 120, 0);\n"
+"    margin: 2px 0;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"	background-color:rgb(60, 60, 60);\n"
+"    border: 2px solid white;\n"
+"    width: 10px;\n"
+"    margin: -5px 0;\n"
+"	border-radius: 7.4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:hover {\n"
+"	background-color:  rgb(102, 102, 102);\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:pressed {\n"
+"	background-color: rgb(135, 135, 135)\n"
+"}\n"
+"\n"
+"")
+        self.colourSceneSlider_Light.setMaximum(100)
+        self.colourSceneSlider_Light.setOrientation(Qt.Horizontal)
+        self.colourSceneBar_Light = QProgressBar(self.colourSceneEdit_Light)
+        self.colourSceneBar_Light.setObjectName(u"colourSceneBar_Light")
+        self.colourSceneBar_Light.setGeometry(QRect(10, 130, 410, 16))
+        self.colourSceneBar_Light.setStyleSheet(u"QProgressBar {	\n"
+"	background-color:qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:1, stop:0 rgba(255, 0, 0, 255), stop:0.166 rgba(255, 255, 0, 255), stop:0.333 rgba(0, 255, 0, 255), stop:0.5 rgba(0, 255, 255, 255), stop:0.666 rgba(0, 0, 255, 255), stop:0.833 rgba(255, 0, 255, 255), stop:1 rgba(255, 0, 0, 255));\n"
+"	border-radius: 5px;\n"
+"}\n"
+"\n"
+"QProgressBar::chunk {\n"
+"	background-color: rgba(0, 0, 0, 0);\n"
+"	border-radius: 5px;\n"
+"}\n"
+"")
+        self.colourSceneBar_Light.setValue(0)
+        self.colourSceneBar_Light.setTextVisible(False)
+        self.brightSceneSlider_Light = QSlider(self.colourSceneEdit_Light)
+        self.brightSceneSlider_Light.setObjectName(u"brightSceneSlider_Light")
+        self.brightSceneSlider_Light.setGeometry(QRect(10, 190, 410, 16))
+        self.brightSceneSlider_Light.setStyleSheet(u"QSlider{\n"
+"	background-color:rgba(120, 120, 120, 0);\n"
+"	}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 5px; \n"
+"    background-color:rgba(120, 120, 120, 0);\n"
+"    margin: 2px 0;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"	background-color:rgb(60, 60, 60);\n"
+"    border: 2px solid white;\n"
+"    width: 10px;\n"
+"    margin: -5px 0;\n"
+"	border-radius: 7.4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:hover {\n"
+"	background-color:  rgb(102, 102, 102);\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:pressed {\n"
+"	background-color: rgb(135, 135, 135)\n"
+"}\n"
+"\n"
+"")
+        self.brightSceneSlider_Light.setMaximum(1000)
+        self.brightSceneSlider_Light.setOrientation(Qt.Horizontal)
+        self.brightSceneBar_Light = QProgressBar(self.colourSceneEdit_Light)
+        self.brightSceneBar_Light.setObjectName(u"brightSceneBar_Light")
+        self.brightSceneBar_Light.setGeometry(QRect(10, 190, 410, 16))
+        self.brightSceneBar_Light.setStyleSheet(u"QProgressBar {	\n"
+"	background-color: rgb(120, 120, 120);\n"
+"	border-radius: 5px;\n"
+"}\n"
+"\n"
+"QProgressBar::chunk {\n"
+"	background-color: white;\n"
+"	border-radius: 5px;\n"
+"}\n"
+"")
+        self.brightSceneBar_Light.setMaximum(1000)
+        self.brightSceneBar_Light.setValue(0)
+        self.brightSceneBar_Light.setTextVisible(False)
+        self.deleteSceneColour_Light = QPushButton(self.colourSceneEdit_Light)
+        self.deleteSceneColour_Light.setObjectName(u"deleteSceneColour_Light")
+        self.deleteSceneColour_Light.setGeometry(QRect(330, 50, 91, 24))
+        self.deleteSceneColour_Light.setIcon(icon1)
+        self.deleteSceneColour_Light.setIconSize(QSize(16, 16))
+        self.colourMode_Light = QRadioButton(self.colourSceneEdit_Light)
+        self.colourMode_Light.setObjectName(u"colourMode_Light")
+        self.colourMode_Light.setGeometry(QRect(20, 40, 50, 50))
+        self.colourMode_Light.setLayoutDirection(Qt.LeftToRight)
+        self.colourMode_Light.setStyleSheet(u"QRadioButton::indicator{\n"
+"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(255, 0, 0, 255), stop:0.166 rgba(255, 255, 0, 255), stop:0.333 rgba(0, 255, 0, 255), stop:0.5 rgba(0, 255, 255, 255), stop:0.666 rgba(0, 0, 255, 255), stop:0.833 rgba(255, 0, 255, 255), stop:1 rgba(255, 0, 0, 255));\n"
+"	border-radius: 20%;\n"
+"	width: 40px;\n"
+"	height: 40px;\n"
+"	margin-left:5px;\n"
+"}\n"
+"\n"
+"QRadioButton::checked {\n"
+"	background-color: rgb(60, 60, 60);\n"
+"	border-radius: 25%\n"
+"}")
+        self.warmMode_Light = QRadioButton(self.colourSceneEdit_Light)
+        self.warmMode_Light.setObjectName(u"warmMode_Light")
+        self.warmMode_Light.setGeometry(QRect(80, 40, 50, 50))
+        self.warmMode_Light.setStyleSheet(u"QRadioButton::indicator{\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0.506, x2:1, y2:0.517, stop:0 rgba(255, 221, 161, 255), stop:1 rgba(220, 249, 255, 255));\n"
+"	border-radius: 20%;\n"
+"	width: 40px;	\n"
+"	height: 40px;\n"
+"	margin-left:5px;\n"
+"}\n"
+"\n"
+"QRadioButton::checked {\n"
+"	background-color:  rgb(60, 60, 60);\n"
+"	border-radius: 25%\n"
+"}")
+        self.colourTempSceneSlider_Light = QSlider(self.colourSceneEdit_Light)
+        self.colourTempSceneSlider_Light.setObjectName(u"colourTempSceneSlider_Light")
+        self.colourTempSceneSlider_Light.setGeometry(QRect(10, 250, 410, 16))
+        self.colourTempSceneSlider_Light.setStyleSheet(u"QSlider{\n"
+"	background-color:rgba(120, 120, 120, 0);\n"
+"	}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 5px; \n"
+"    background-color:rgba(120, 120, 120, 0);\n"
+"    margin: 2px 0;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"	background-color:rgb(60, 60, 60);\n"
+"    border: 2px solid white;\n"
+"    width: 10px;\n"
+"    margin: -5px 0;\n"
+"	border-radius: 7.4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:hover {\n"
+"	background-color:  rgb(102, 102, 102);\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:pressed {\n"
+"	background-color: rgb(135, 135, 135)\n"
+"}\n"
+"\n"
+"")
+        self.colourTempSceneSlider_Light.setMaximum(1000)
+        self.colourTempSceneSlider_Light.setOrientation(Qt.Horizontal)
+        self.colourTempSceneBar_Light = QProgressBar(self.colourSceneEdit_Light)
+        self.colourTempSceneBar_Light.setObjectName(u"colourTempSceneBar_Light")
+        self.colourTempSceneBar_Light.setGeometry(QRect(10, 250, 410, 16))
+        self.colourTempSceneBar_Light.setStyleSheet(u"QProgressBar {	\n"
+"	background-color: rgb(120, 120, 120);\n"
+"	border-radius: 5px;\n"
+"}\n"
+"\n"
+"QProgressBar::chunk {\n"
+"	background-color: white;\n"
+"	border-radius: 5px;\n"
+"}\n"
+"")
+        self.colourTempSceneBar_Light.setMaximum(1000)
+        self.colourTempSceneBar_Light.setValue(0)
+        self.colourTempSceneBar_Light.setTextVisible(False)
+        self.addNewColour_Light.raise_()
+        self.exitFromColour_Light.raise_()
+        self.colourSceneBar_Light.raise_()
+        self.brightSceneBar_Light.raise_()
+        self.deleteSceneColour_Light.raise_()
+        self.colourMode_Light.raise_()
+        self.warmMode_Light.raise_()
+        self.colourTempSceneBar_Light.raise_()
+        self.brightSceneSlider_Light.raise_()
+        self.colourSceneSlider_Light.raise_()
+        self.colourTempSceneSlider_Light.raise_()
+        self.nameScene_Light.raise_()
+        self.nameSceneEdit_Light.raise_()
+        self.colourScene_Light.raise_()
+        self.modeColourFlicker_Light.raise_()
+        self.modeColourFlickerBox_Light.raise_()
+        self.speedFlickerBar_Light.raise_()
+        self.speedFlicker_Light.raise_()
+        self.addNewScene_Light.raise_()
+        self.exitFromScene_Light.raise_()
+        self.sceneImage_Light.raise_()
+        self.sceneImageButton_Light.raise_()
+        self.speedFlickerSlider_Light.raise_()
+        self.sceneColoursList_Light.raise_()
+        self.colourSceneEdit_Light.raise_()
+        self.type_screens.addWidget(self.Light)
+        self.white_Light.raise_()
+        self.scene_Light.raise_()
+        self.whiteRound_Light.raise_()
+        self.brightBar_Light.raise_()
+        self.brightness_Light.raise_()
+        self.dial_Light.raise_()
+        self.brightSlider_Light.raise_()
+        self.onOFF_Light.raise_()
+        self.sceneMode_Light.raise_()
+        self.editSceneButton_Light.raise_()
+        self.editScene_Light.raise_()
         self.deviceName_onScreen = QLabel(self.main_screen)
         self.deviceName_onScreen.setObjectName(u"deviceName_onScreen")
         self.deviceName_onScreen.setGeometry(QRect(350, 5, 200, 40))
@@ -1437,9 +2153,18 @@ class Ui_MainWindow(object):
         self.brightSceneSlider.valueChanged.connect(self.brightSceneBar.setValue)
         self.addNewColour.clicked.connect(self.colourSceneEdit.hide)
         self.addNewScene.clicked.connect(self.editScene.hide)
+        self.exitFromScene_Light.clicked.connect(self.editScene_Light.hide)
+        self.exitFromColour_Light.clicked.connect(self.colourSceneEdit_Light.hide)
+        self.addNewColour_Light.clicked.connect(self.colourSceneEdit_Light.hide)
+        self.addNewScene_Light.clicked.connect(self.editScene_Light.hide)
+        self.baseColour_Light.clicked.connect(self.colourSceneEdit_Light.show)
+        self.editSceneButton_Light.clicked.connect(self.editScene_Light.show)
+        self.speedFlickerSlider_Light.valueChanged.connect(self.speedFlickerBar_Light.setValue)
+        self.colourTempSceneSlider_Light.valueChanged.connect(self.colourTempSceneBar_Light.setValue)
+        self.brightSceneSlider_Light.valueChanged.connect(self.brightSceneBar_Light.setValue)
 
         self.screens.setCurrentIndex(0)
-        self.mode.setCurrentIndex(0)
+        self.mode.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1508,6 +2233,46 @@ class Ui_MainWindow(object):
         self.mode.setTabText(self.mode.indexOf(self.scene), QCoreApplication.translate("MainWindow", u"Scene", None))
         self.onOFF_music.setText("")
         self.mode.setTabText(self.mode.indexOf(self.music), QCoreApplication.translate("MainWindow", u"Music", None))
+        self.white_Light.setText(QCoreApplication.translate("MainWindow", u"White", None))
+        self.scene_Light.setText(QCoreApplication.translate("MainWindow", u"Scene", None))
+        self.whiteRound_Light.setText("")
+        self.onOFF_Light.setText("")
+        self.brightness_Light.setText(QCoreApplication.translate("MainWindow", u"Brightness", None))
+        self.scene1Button_Light.setText("")
+        self.scene1Label_Light.setText(QCoreApplication.translate("MainWindow", u"Scene1", None))
+        self.scene2Button_Light.setText("")
+        self.scene3Button_Light.setText("")
+        self.scene4Button_Light.setText("")
+        self.scene5Button_Light.setText("")
+        self.scene6Button_Light.setText("")
+        self.scene7Button_Light.setText("")
+        self.scene8Button_Light.setText("")
+        self.scene2Label_Light.setText(QCoreApplication.translate("MainWindow", u"Scene2", None))
+        self.scene3Label_Light.setText(QCoreApplication.translate("MainWindow", u"Scene3", None))
+        self.scene4Label_Light.setText(QCoreApplication.translate("MainWindow", u"Scene4", None))
+        self.scene5Label_Light.setText(QCoreApplication.translate("MainWindow", u"Scene5", None))
+        self.scene6Label_Light.setText(QCoreApplication.translate("MainWindow", u"Scene6", None))
+        self.scene7Label_Light.setText(QCoreApplication.translate("MainWindow", u"Scene7", None))
+        self.scene8Label_Light.setText(QCoreApplication.translate("MainWindow", u"Scene8", None))
+        self.editSceneButton_Light.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
+        self.nameScene_Light.setText(QCoreApplication.translate("MainWindow", u"Scene name", None))
+        self.colourScene_Light.setText(QCoreApplication.translate("MainWindow", u"Scene color", None))
+        self.modeColourFlicker_Light.setText(QCoreApplication.translate("MainWindow", u"Jumping color mode", None))
+        self.modeColourFlickerBox_Light.setItemText(0, QCoreApplication.translate("MainWindow", u"Static", None))
+        self.modeColourFlickerBox_Light.setItemText(1, QCoreApplication.translate("MainWindow", u"Jumping", None))
+        self.modeColourFlickerBox_Light.setItemText(2, QCoreApplication.translate("MainWindow", u"Gradient", None))
+
+        self.speedFlicker_Light.setText(QCoreApplication.translate("MainWindow", u"Jumping speed", None))
+        self.addNewScene_Light.setText(QCoreApplication.translate("MainWindow", u"OK", None))
+        self.exitFromScene_Light.setText(QCoreApplication.translate("MainWindow", u"X", None))
+        self.baseColour_Light.setText("")
+        self.sceneImage_Light.setText(QCoreApplication.translate("MainWindow", u"Scene image", None))
+        self.sceneImageButton_Light.setText("")
+        self.addNewColour_Light.setText(QCoreApplication.translate("MainWindow", u"OK", None))
+        self.exitFromColour_Light.setText(QCoreApplication.translate("MainWindow", u"X", None))
+        self.deleteSceneColour_Light.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
+        self.colourMode_Light.setText("")
+        self.warmMode_Light.setText("")
         self.deviceName_onScreen.setText(QCoreApplication.translate("MainWindow", u"Device name", None))
         self.sideBarButton.setText("")
         self.sideBarClose.setText(QCoreApplication.translate("MainWindow", u"Close", None))
