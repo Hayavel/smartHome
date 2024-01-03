@@ -88,7 +88,96 @@ class Ui_MainWindow(object):
         self.screens.setMidLineWidth(0)
         self.start_screen = QWidget()
         self.start_screen.setObjectName(u"start_screen")
-        self.start_screen.setStyleSheet(u"QLineEdit {	\n"
+        self.start_screen.setStyleSheet(u"QPushButton  {	\n"
+"	background-color: rgba(120, 120, 120, 0);\n"
+"	font-size: 18px;\n"
+"	color: white;	\n"
+"	border-top: 1px solid rgba(90, 90, 90, 0);\n"
+"	border-bottom: 2px solid rgb(90, 90, 90);\n"
+"	\n"
+"}\n"
+"QPushButton:hover{\n"
+"	background-color: rgb(60, 60, 60);\n"
+"	border-bottom: 2px solid rgb(175, 175, 175);\n"
+"\n"
+"	border-top-left-radius: 10%;\n"
+"	border-top-right-radius: 10%;\n"
+"	border-bottom-left-radius: 1%;\n"
+"	border-bottom-right-radius: 1%;\n"
+"}\n"
+"\n"
+"QPushButton:pressed{\n"
+"	padding-top: 3px;\n"
+"	border-bottom: 2px solid rgb(236, 236, 236);\n"
+"}\n"
+"\n"
+"QLabel{\n"
+"	font-family: Comfortaa;\n"
+"	font-weight: Bold;\n"
+"	font-size: 24px;\n"
+"	color: white;\n"
+"	border: none;\n"
+"}")
+        self.selectFrame = QFrame(self.start_screen)
+        self.selectFrame.setObjectName(u"selectFrame")
+        self.selectFrame.setGeometry(QRect(150, 75, 600, 600))
+        self.selectFrame.setFrameShape(QFrame.StyledPanel)
+        self.selectFrame.setFrameShadow(QFrame.Raised)
+        self.devicesList_label_select = QLabel(self.selectFrame)
+        self.devicesList_label_select.setObjectName(u"devicesList_label_select")
+        self.devicesList_label_select.setGeometry(QRect(200, 150, 200, 30))
+        self.devicesList_label_select.setAlignment(Qt.AlignCenter)
+        self.devicesList_select = QComboBox(self.selectFrame)
+        self.devicesList_select.setObjectName(u"devicesList_select")
+        self.devicesList_select.setGeometry(QRect(100, 190, 400, 33))
+        self.devicesList_select.setStyleSheet(u"QComboBox {	\n"
+"	background-color: rgba(120, 120, 120, 0);\n"
+"	font-size: 20px;\n"
+"	font-weight: bold;\n"
+"	font-family: Comfortaa;\n"
+"	color: white;	\n"
+"	padding-top: 6px;\n"
+"	padding-left: 25px;\n"
+"	border-top: 0px solid rgb(90, 90, 90);\n"
+"	border-bottom: 2px solid rgb(90, 90, 90);\n"
+"}\n"
+"QComboBox:hover{\n"
+"	border-bottom: 2px solid rgb(175, 175, 175);\n"
+"}\n"
+"\n"
+"QComboBox:focus{\n"
+"	border-bottom: 2px solid rgb(236, 236, 236);\n"
+"}\n"
+"QComboBox::drop-down {\n"
+"  	subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: 15px;\n"
+"    border-top-right-radius: 3px;\n"
+"    border-bottom-right-radius: 3px;\n"
+"}\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: rgb(50, 50, 50);\n"
+"	border-bottom-left-radius: 10px;\n"
+"	border-bottom-right-radius: 10px;\n"
+"	color: white;\n"
+"}\n"
+"QComboBox QAbstractItemView::item:hover {\n"
+"	background: #484848;\n"
+"}\n"
+"")
+        self.select = QPushButton(self.selectFrame)
+        self.select.setObjectName(u"select")
+        self.select.setGeometry(QRect(200, 270, 200, 24))
+        self.addButton_select = QPushButton(self.selectFrame)
+        self.addButton_select.setObjectName(u"addButton_select")
+        self.addButton_select.setGeometry(QRect(50, 350, 200, 24))
+        self.removeButton_select = QPushButton(self.selectFrame)
+        self.removeButton_select.setObjectName(u"removeButton_select")
+        self.removeButton_select.setGeometry(QRect(350, 350, 200, 24))
+        self.screens.addWidget(self.start_screen)
+        self.add_screen = QWidget()
+        self.add_screen.setObjectName(u"add_screen")
+        self.add_screen.setStyleSheet(u"QLineEdit {	\n"
 "	background-color: rgba(120, 120, 120, 0);\n"
 "	font-size: 18px;\n"
 "	font-weight: Bold;\n"
@@ -128,7 +217,7 @@ class Ui_MainWindow(object):
 "	padding-top: 3px;\n"
 "	border-bottom: 2px solid rgb(236, 236, 236);\n"
 "}")
-        self.addFrame = QFrame(self.start_screen)
+        self.addFrame = QFrame(self.add_screen)
         self.addFrame.setObjectName(u"addFrame")
         self.addFrame.setGeometry(QRect(100, 200, 700, 300))
         self.addFrame.setFrameShape(QFrame.StyledPanel)
@@ -211,7 +300,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.deviceType, 2, 1, 1, 1)
 
-        self.screens.addWidget(self.start_screen)
+        self.addFrameClose = QPushButton(self.add_screen)
+        self.addFrameClose.setObjectName(u"addFrameClose")
+        self.addFrameClose.setGeometry(QRect(830, 10, 60, 24))
+        self.screens.addWidget(self.add_screen)
         self.main_screen = QWidget()
         self.main_screen.setObjectName(u"main_screen")
         self.main_screen.setStyleSheet(u"QLabel{\n"
@@ -1120,9 +1212,7 @@ class Ui_MainWindow(object):
 "	 background-color: rgba(60, 60, 60, 25);\n"
 "}\n"
 "")
-        icon3 = QIcon()
-        icon3.addFile(u"design/modeOFF.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.onOFF_scene.setIcon(icon3)
+        self.onOFF_scene.setIcon(icon)
         self.onOFF_scene.setIconSize(QSize(96, 96))
         self.active_scene = QLabel(self.scene)
         self.active_scene.setObjectName(u"active_scene")
@@ -1154,7 +1244,7 @@ class Ui_MainWindow(object):
 "	 background-color: rgba(60, 60, 60, 25);\n"
 "}\n"
 "")
-        self.onOFF_music.setIcon(icon3)
+        self.onOFF_music.setIcon(icon)
         self.onOFF_music.setIconSize(QSize(96, 96))
         self.mode.addTab(self.music, "")
         self.type_devices.addWidget(self.RGB_Light)
@@ -1183,9 +1273,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed{\n"
 "	padding-top: 3px;\n"
 "}")
-        icon4 = QIcon()
-        icon4.addFile(u"design/menu.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.sideBarButton.setIcon(icon4)
+        icon3 = QIcon()
+        icon3.addFile(u"design/menu.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.sideBarButton.setIcon(icon3)
         self.sideBarButton.setIconSize(QSize(24, 24))
         self.sideBar = QFrame(self.centralwidget)
         self.sideBar.setObjectName(u"sideBar")
@@ -1343,6 +1433,8 @@ class Ui_MainWindow(object):
         self.brightSceneSlider.valueChanged.connect(self.brightSceneBar.setValue)
         self.addNewColour.clicked.connect(self.colourSceneEdit.hide)
         self.addNewScene.clicked.connect(self.editScene.hide)
+        self.devicesList.currentIndexChanged.connect(self.devicesList_select.setCurrentIndex)
+        self.devicesList_select.currentIndexChanged.connect(self.devicesList.setCurrentIndex)
 
         self.screens.setCurrentIndex(0)
         self.mode.setCurrentIndex(0)
@@ -1353,6 +1445,10 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.devicesList_label_select.setText(QCoreApplication.translate("MainWindow", u"Devices list", None))
+        self.select.setText(QCoreApplication.translate("MainWindow", u"Select", None))
+        self.addButton_select.setText(QCoreApplication.translate("MainWindow", u"Add new device", None))
+        self.removeButton_select.setText(QCoreApplication.translate("MainWindow", u"Remove device", None))
         self.key.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Local Key", None))
         self.ver.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Version", None))
         self.ip.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Device IP", None))
@@ -1360,6 +1456,7 @@ class Ui_MainWindow(object):
         self.clear.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
         self.add.setText(QCoreApplication.translate("MainWindow", u"Add new device", None))
         self.deviceName.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Device Name", None))
+        self.addFrameClose.setText(QCoreApplication.translate("MainWindow", u"Close", None))
         self.whiteRound.setText("")
         self.onOFF.setText("")
         self.brightness.setText(QCoreApplication.translate("MainWindow", u"Brightness", None))

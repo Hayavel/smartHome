@@ -31,9 +31,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setFont(font)
 
         self._adding_devices_in_devicesList()
-        # If there is an added device
-        if len(self.active_devices) != 0:
-            self.screens.setCurrentIndex(1)
         self._adding_device_types_in_deviceType()
 
         self.sideBar.setVisible(False)
@@ -42,6 +39,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.add.clicked.connect(lambda: self.add_new_device())
         self.clear.clicked.connect(lambda: self.clear_addFrame())
+        self.addFrameClose.clicked.connect(lambda: self.screens.setCurrentIndex(2)) # Close Add device screen
+
+        self.addButton.clicked.connect(lambda: self.open_addFrame()) 
+
+        # Change device name on main screen, if not selected
+        self._change_active_device_name(self.devicesList.currentText())
+
+        self.devicesList.currentTextChanged.connect(self._change_active_device_name) #devicesList_select also change it
+        self.devicesList.currentTextChanged.connect(self.set_selected_device)
+
+        self.select.clicked.connect(lambda: self.set_selected_device(self.devicesList_select.currentText()))
+
 
     def _adding_devices_in_devicesList(self):
         '''Add all local devices'''
@@ -53,6 +62,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.active_devices = {}
 
         self.devicesList.addItems(self.active_devices)
+        self.devicesList_select.addItems(self.active_devices)
 
     def _adding_device_types_in_deviceType(self):
         '''Add all available devices types'''
@@ -79,9 +89,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.active_devices[deviceName]['key'] = deviceKey
             self.active_devices[deviceName]['ver'] = deviceVersion
 
-            self.devicesList.addItem(self.deviceName.text())
+            self.devicesList.addItem(deviceName)
+            self.devicesList_select.addItem(deviceName)
             self.clear_addFrame()
-            self.screens.setCurrentIndex(1)
+            self.screens.setCurrentIndex(2)
 
             with open('devicesList.json', 'w') as f:
                 f.write(json.dumps(self.active_devices, indent=4))
@@ -98,6 +109,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.key.clear()
         self.ver.clear()
         
+    def open_addFrame(self):
+        self.sideBar.hide()
+        self.screens.setCurrentIndex(1)
+
+    def set_selected_device(self, text:str):
+        self.screens.setCurrentIndex(2)
+
+    def _change_active_device_name(self, text:str):
+        self.deviceName_onScreen.setText(text)
            
 if __name__ == '__main__':
 
