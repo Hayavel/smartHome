@@ -1,5 +1,5 @@
 # SmartHome
-<img src='https://i.ibb.co/30dppbL/Smart-Device.png'>
+<img src='https://i.ibb.co/MpQfCvZ/image.png'>
 
 ## About
 This app uses [tinytuya](https://github.com/jasonacox/tinytuya) to control smart home devices.
@@ -15,11 +15,13 @@ To obtain data to connect the device, use [instructions](https://github.com/jaso
 
 ## Features
 - [ ] RGB Light
-    - [X] White mode
-    - [X] Color mode
-    - [X] Scene mode
+    - [ ] White mode
+    - [ ] Color mode
+    - [ ] Scene mode
     - [ ] Music mode
-
+- [ ] Light
+    - [ ] White mode
+    - [ ] Scene mode
 
 ## Installation
 - Download and extract the repository.
@@ -27,3 +29,5 @@ To obtain data to connect the device, use [instructions](https://github.com/jaso
 ```
 python.exe -m pip install -r requirements.txt
 ```
+
+P.S Qt designer is used for UI.
