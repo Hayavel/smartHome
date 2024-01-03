@@ -1,7 +1,7 @@
 import tinytuya
 import json
 
-class Bulb:
+class Light:
     def __init__(self, id:str, ip:str, local_key:str, ver:float):
         self.id = id
         self.ip = ip
@@ -23,13 +23,14 @@ class Bulb:
             for device in devices.values():
                 if device['gwId'] == self.id:
                     self.ip = device['ip']
-                    with open('listBulb.json', 'r') as f:
+                    with open('devicesList.json', 'r') as f:
                         new = f.read()
                         new = json.loads(new)
                     for n in new.values():
                         if n['id'] == self.id:
                             n['ip'] = self.ip
-                    with open('listBulb.json', 'w') as f:
+                            break
+                    with open('devicesList.json', 'w') as f:
                         f.write(json.dumps(new, indent=4))
                     break
         self.__init__(self.id, self.ip, self.local_key, self.ver)
