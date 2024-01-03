@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (QMainWindow, QApplication, QPushButton, QComboBox
 from PySide6.QtGui import QPixmap, QIcon, QFontDatabase, QFont
 
 from ui import Ui_MainWindow
-from warning import WarningDialog
+from warning import WarningDialog, RemoveDeviceDialog
 
 import sys
 import json
@@ -30,26 +30,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         font.setBold(True)
         self.setFont(font)
 
-        self._adding_devices_in_devicesList()
-        self._adding_device_types_in_deviceType()
+        self._adding_devices_in_devicesList() # Data preload
+        self._adding_device_types_in_deviceType() # Data preload
 
         self.sideBar.setVisible(False)
         self.editScene.setVisible(False)
         self.colourSceneEdit.setVisible(False)
 
+        self.devicesList_start.currentIndexChanged.connect(self.devicesList.setCurrentIndex) # Reverse swap index
+        self.devicesList.currentIndexChanged.connect(self.devicesList_start.setCurrentIndex) # Reverse swap index
+
         self.add.clicked.connect(lambda: self.add_new_device())
         self.clear.clicked.connect(lambda: self.clear_addFrame())
-        self.addFrameClose.clicked.connect(lambda: self.screens.setCurrentIndex(2)) # Close Add device screen
+        self.addFrameClose.clicked.connect(lambda: self.close_addFrame()) # Close Add device screen
 
-        self.addButton.clicked.connect(lambda: self.open_addFrame()) 
+        self.addButton_start.clicked.connect(lambda: self.open_addFrame())
+        self.addButton.clicked.connect(lambda: self.open_addFrame())
 
-        # Change device name on main screen, if not selected
-        self._change_active_device_name(self.devicesList.currentText())
+        self.select_start.clicked.connect(lambda: self.set_selected_device(self.devicesList_start.currentText()))
+        self.select.clicked.connect(lambda: self.set_selected_device(self.devicesList.currentText()))
 
-        self.devicesList.currentTextChanged.connect(self._change_active_device_name) #devicesList_select also change it
-        self.devicesList.currentTextChanged.connect(self.set_selected_device)
-
-        self.select.clicked.connect(lambda: self.set_selected_device(self.devicesList_select.currentText()))
+        self.removeButton_start.clicked.connect(lambda: self.remove_device())
+        self.removeButton.clicked.connect(lambda: self.remove_device())
 
 
     def _adding_devices_in_devicesList(self):
@@ -61,13 +63,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except (json.decoder.JSONDecodeError, FileNotFoundError):
             self.active_devices = {}
 
+        self.devicesList_start.addItems(self.active_devices)
         self.devicesList.addItems(self.active_devices)
-        self.devicesList_select.addItems(self.active_devices)
 
     def _adding_device_types_in_deviceType(self):
         '''Add all available devices types'''
         types = ['RGB Light', 'Light']
         self.deviceType.addItems(types)
+    
+    def _change_active_device_name(self, text:str):
+        self.deviceName_onScreen.setText(text)
 
 
     def add_new_device(self):
@@ -89,8 +94,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.active_devices[deviceName]['key'] = deviceKey
             self.active_devices[deviceName]['ver'] = deviceVersion
 
+            self.devicesList_start.addItem(deviceName)
             self.devicesList.addItem(deviceName)
-            self.devicesList_select.addItem(deviceName)
             self.clear_addFrame()
             self.screens.setCurrentIndex(2)
 
@@ -114,10 +119,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.screens.setCurrentIndex(1)
 
     def set_selected_device(self, text:str):
+        self._change_active_device_name(text)
         self.screens.setCurrentIndex(2)
 
-    def _change_active_device_name(self, text:str):
-        self.deviceName_onScreen.setText(text)
+    def close_addFrame(self):
+        '''Сloses if there are already devices'''
+        if self.devicesList.currentIndex() == -1:
+            dlg = WarningDialog()
+            dlg.exec()
+        else:
+            self.screens.setCurrentIndex(2)
+
+    def remove_device(self):
+        '''Open remove dialog and if answer is Yes delete selected device'''
+        remove_dialog = RemoveDeviceDialog()
+        if remove_dialog.exec():
+            removed_device = self.devicesList.currentText()
+            removed_device_index = self.devicesList.currentIndex()
+            self.devicesList_start.removeItem(removed_device_index)
+            self.devicesList.removeItem(removed_device_index)
+            self.active_devices.pop(removed_device)
+    
            
 if __name__ == '__main__':
 
