@@ -44,7 +44,7 @@ class Light:
         self.device.set_value(20, value)
 
     def set_mode(self, mode:str):
-        '''Set white, color, scene and music mode'''
+        '''Set white, colour, scene and music mode'''
         self.device.set_mode(mode)
 
     def set_brightness(self, value:int):
@@ -70,7 +70,7 @@ class Light:
 
 class RGB_Light(Light):
 
-    def set_hsv(self, h:int, s:int, v:int):
+    def set_hsv(self, h:float, s:float, v:float):
         self.device.set_hsv(h, s, v)
 
     def set_colourTemp(self, value:int):

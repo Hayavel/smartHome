@@ -134,6 +134,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sideBar.hide()
         self.screens.setCurrentIndex(1)
 
+    def close_addFrame(self):
+        '''Сloses if there are already devices'''
+        if self.devicesList.currentIndex() == -1:
+            dlg = WarningDialog()
+            dlg.exec()
+        else:
+            self.screens.setCurrentIndex(2)
+
+    def remove_device(self):
+        '''Open remove dialog and if answer is Yes delete selected device'''
+        remove_dialog = RemoveDeviceDialog()
+        if remove_dialog.exec():
+            removed_device = self.devicesList.currentText()
+            removed_device_index = self.devicesList.currentIndex()
+            self.devicesList_start.removeItem(removed_device_index)
+            self.devicesList.removeItem(removed_device_index)
+            self.active_devices.pop(removed_device)
+
+    def change_mode_on_Light_screen(self, mode:str):
+        '''Hide or Show "scene" element on Light device screen'''
+        match mode:
+            case 'White':
+                self.editScene_Light.setVisible(False)
+                self.colourSceneEdit_Light.setVisible(False)
+                self.sceneMode_Light.setVisible(False)
+                self.editSceneButton_Light.setVisible(False)
+            case 'Scene':
+                self.sceneMode_Light.setVisible(True)
+                self.editSceneButton_Light.setVisible(True)
+
     def set_selected_device(self, text:str):
         '''Switch on device type screen
             and connection to device'''
@@ -156,36 +186,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.type_screens.setCurrentIndex(device_types[deviceType]) # Switch on device type screen
 
         self.switch_icon_state_of_device() # Switch device state(on/off)
-
-    def close_addFrame(self):
-        '''Сloses if there are already devices'''
-        if self.devicesList.currentIndex() == -1:
-            dlg = WarningDialog()
-            dlg.exec()
-        else:
-            self.screens.setCurrentIndex(2)
-
-    def remove_device(self):
-        '''Open remove dialog and if answer is Yes delete selected device'''
-        remove_dialog = RemoveDeviceDialog()
-        if remove_dialog.exec():
-            removed_device = self.devicesList.currentText()
-            removed_device_index = self.devicesList.currentIndex()
-            self.devicesList_start.removeItem(removed_device_index)
-            self.devicesList.removeItem(removed_device_index)
-            self.active_devices.pop(removed_device)
-    
-    def change_mode_on_Light_screen(self, mode:str):
-        '''Hide or Show "scene" element on Light device screen'''
-        match mode:
-            case 'White':
-                self.editScene_Light.setVisible(False)
-                self.colourSceneEdit_Light.setVisible(False)
-                self.sceneMode_Light.setVisible(False)
-                self.editSceneButton_Light.setVisible(False)
-            case 'Scene':
-                self.sceneMode_Light.setVisible(True)
-                self.editSceneButton_Light.setVisible(True)
 
     def switch_icon_state_of_device(self):
         '''Switching the button icon to the one corresponding to the device state'''
