@@ -35,6 +35,10 @@ class Light:
                     break
         self.__init__(self.id, self.ip, self.local_key, self.ver)
 
+    def get_state(self):
+        '''Return state of Light'''
+        return self.device.state()
+
     def set_state(self, value:bool):
         '''On or Off Bulb'''
         self.device.set_value(20, value)
@@ -45,12 +49,6 @@ class Light:
 
     def set_brightness(self, value:int):
         self.device.set_brightness_percentage(value)
-
-    def set_hsv(self, h:int, s:int, v:int):
-        self.device.set_hsv(h, s, v)
-
-    def set_colourTemp(self, value:int):
-        self.device.set_colourtemp_percentage(value)
 
     def set_scene(self, value:str):
         '''
@@ -69,6 +67,14 @@ class Light:
         0000: color_temp: 0 to 1000, in hexadecimal...
         '''
         self.device.set_value(25, value)
+
+class RGB_Light(Light):
+
+    def set_hsv(self, h:int, s:int, v:int):
+        self.device.set_hsv(h, s, v)
+
+    def set_colourTemp(self, value:int):
+        self.device.set_colourtemp_percentage(value)
 
     def send_music_data(self, value:str):
         '''
