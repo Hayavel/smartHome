@@ -11,7 +11,7 @@ import sys
 import json
 import time
 
-#from smartDevice import Bulb
+from smartDevice import *
 #from roundedImage import rounded_image
 #import hexadecimal as hexDec
 #import local_statistics as lStat
@@ -24,8 +24,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
-
-        self.active_devices = {}
 
         self.setWindowTitle('SmartDevice')
         self.setWindowIcon(QIcon('design/icon.ico'))
@@ -63,8 +61,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.removeButton_start.clicked.connect(lambda: self.remove_device())
         self.removeButton.clicked.connect(lambda: self.remove_device())
 
+        # Change mode on Light screen
         self.white_Light.clicked.connect(lambda: self.change_mode_on_Light_screen(self.white_Light.text()))
         self.scene_Light.clicked.connect(lambda: self.change_mode_on_Light_screen(self.scene_Light.text()))
+
+        # Switch state of device on main screen
+        self.onOFF_Light.clicked.connect(lambda: self.switch_state_of_device())
+        self.onOFF_RGB_Light.clicked.connect(lambda: self.switch_state_of_device())
 
 
     def _adding_devices_in_devicesList(self):
@@ -132,11 +135,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.screens.setCurrentIndex(1)
 
     def set_selected_device(self, text:str):
+        '''Switch on device type screen
+            and connection to device'''
         self._change_active_device_name(text)
+
+        selected_device = self.active_devices[text] # Selected device data
+
+        deviceClassName = selected_device['type']
+        deviceClassName = deviceClassName.replace(' ', '_')
+        deviceClassName = globals()[deviceClassName] # Get variable of device type
+
+        self.current_device = deviceClassName(selected_device['id'],
+                                              selected_device['ip'],
+                                              selected_device['key'],
+                                              float(selected_device['ver']))
+
         self.screens.setCurrentIndex(2)
 
-        deviceType = self.active_devices[text]['type']
-        self.type_screens.setCurrentIndex(device_types[deviceType])
+        deviceType = selected_device['type']
+        self.type_screens.setCurrentIndex(device_types[deviceType]) # Switch on device type screen
+
+        self.switch_icon_state_of_device() # Switch device state(on/off)
 
     def close_addFrame(self):
         '''Сloses if there are already devices'''
@@ -167,7 +186,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             case 'Scene':
                 self.sceneMode_Light.setVisible(True)
                 self.editSceneButton_Light.setVisible(True)
-    
+
+    def switch_icon_state_of_device(self):
+        '''Switching the button icon to the one corresponding to the device state'''
+        state = self.current_device.get_state()
+        
+        ui_device_type = self.type_screens.currentWidget().objectName()
+        name_button = f'self.onOFF_{ui_device_type}'
+        
+        match state['is_on']:
+            case True:
+                icon = QIcon('design/modeON.png')
+                exec(f'{name_button}.setIcon(icon)') # Switching the icon of the current button
+
+            case False:
+                 icon = QIcon('design/modeOFF.png')
+                 exec(f'{name_button}.setIcon(icon)') # Switching the icon of the current button
+
+    def switch_state_of_device(self):
+        '''Switching the state of the device itself'''
+        state = self.current_device.get_state()
+        reState = not state['is_on']
+        self.current_device.set_state(reState)
+
+        self.switch_icon_state_of_device()
+
            
 if __name__ == '__main__':
 
