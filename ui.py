@@ -370,37 +370,18 @@ class Ui_MainWindow(object):
         self.mode.setTabBarAutoHide(False)
         self.white = QWidget()
         self.white.setObjectName(u"white")
-        self.whiteRound = QLabel(self.white)
-        self.whiteRound.setObjectName(u"whiteRound")
-        self.whiteRound.setGeometry(QRect(225, 50, 450, 450))
-        self.whiteRound.setStyleSheet(u"")
-        self.whiteRound.setPixmap(QPixmap(u"design/coldWarm.png"))
-        self.whiteRound.setScaledContents(True)
-        self.whiteRound.setAlignment(Qt.AlignCenter)
-        self.onOFF = QPushButton(self.white)
-        self.onOFF.setObjectName(u"onOFF")
-        self.onOFF.setGeometry(QRect(400, 225, 100, 100))
-        self.onOFF.setStyleSheet(u"QPushButton { \n"
-"	background-color: rgba(120, 120, 120, 0);\n"
-"	border-radius: 50%;\n"
-"}\n"
-"QPushButton:hover {\n"
-"	background-color: rgba(120, 120, 120, 50);\n"
-"}\n"
-"QPushButton:pressed {\n"
-"	padding-top: 3px;\n"
-"	 background-color: rgba(60, 60, 60, 25);\n"
-"}\n"
-"")
-        icon = QIcon()
-        icon.addFile(u"design/modeOFF.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.onOFF.setIcon(icon)
-        self.onOFF.setIconSize(QSize(96, 96))
-        self.brightSlider = QSlider(self.white)
-        self.brightSlider.setObjectName(u"brightSlider")
-        self.brightSlider.setEnabled(True)
-        self.brightSlider.setGeometry(QRect(250, 566, 400, 22))
-        self.brightSlider.setStyleSheet(u"QSlider{\n"
+        self.whiteRound_white = QLabel(self.white)
+        self.whiteRound_white.setObjectName(u"whiteRound_white")
+        self.whiteRound_white.setGeometry(QRect(225, 50, 450, 450))
+        self.whiteRound_white.setStyleSheet(u"")
+        self.whiteRound_white.setPixmap(QPixmap(u"design/coldWarm.png"))
+        self.whiteRound_white.setScaledContents(True)
+        self.whiteRound_white.setAlignment(Qt.AlignCenter)
+        self.brightSlider_white = QSlider(self.white)
+        self.brightSlider_white.setObjectName(u"brightSlider_white")
+        self.brightSlider_white.setEnabled(True)
+        self.brightSlider_white.setGeometry(QRect(250, 566, 400, 22))
+        self.brightSlider_white.setStyleSheet(u"QSlider{\n"
 "	background-color:rgba(120, 120, 120, 0);\n"
 "	}\n"
 "QSlider::groove:horizontal {\n"
@@ -427,28 +408,28 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.brightSlider.setMaximum(100)
-        self.brightSlider.setValue(100)
-        self.brightSlider.setOrientation(Qt.Horizontal)
-        self.dial = QDial(self.white)
-        self.dial.setObjectName(u"dial")
-        self.dial.setEnabled(True)
-        self.dial.setGeometry(QRect(195, 25, 510, 500))
-        self.dial.setStyleSheet(u"QDial{\n"
+        self.brightSlider_white.setMaximum(100)
+        self.brightSlider_white.setValue(100)
+        self.brightSlider_white.setOrientation(Qt.Horizontal)
+        self.dial_white = QDial(self.white)
+        self.dial_white.setObjectName(u"dial_white")
+        self.dial_white.setEnabled(True)
+        self.dial_white.setGeometry(QRect(195, 25, 510, 500))
+        self.dial_white.setStyleSheet(u"QDial{\n"
 "	background-color: rgb(0, 0, 0);\n"
 "}")
-        self.dial.setMinimum(0)
-        self.dial.setMaximum(100)
-        self.dial.setWrapping(False)
-        self.brightness = QLabel(self.white)
-        self.brightness.setObjectName(u"brightness")
-        self.brightness.setGeometry(QRect(140, 560, 131, 31))
-        self.brightness.setStyleSheet(u"color: white;")
-        self.brightBar = QProgressBar(self.white)
-        self.brightBar.setObjectName(u"brightBar")
-        self.brightBar.setEnabled(True)
-        self.brightBar.setGeometry(QRect(250, 570, 400, 15))
-        self.brightBar.setStyleSheet(u"QProgressBar {	\n"
+        self.dial_white.setMinimum(0)
+        self.dial_white.setMaximum(100)
+        self.dial_white.setWrapping(False)
+        self.brightness_white = QLabel(self.white)
+        self.brightness_white.setObjectName(u"brightness_white")
+        self.brightness_white.setGeometry(QRect(140, 560, 131, 31))
+        self.brightness_white.setStyleSheet(u"color: white;")
+        self.brightBar_white = QProgressBar(self.white)
+        self.brightBar_white.setObjectName(u"brightBar_white")
+        self.brightBar_white.setEnabled(True)
+        self.brightBar_white.setGeometry(QRect(250, 570, 400, 15))
+        self.brightBar_white.setStyleSheet(u"QProgressBar {	\n"
 "	background-color: rgb(120, 120, 120);\n"
 "	border-radius: 5px;\n"
 "}\n"
@@ -459,15 +440,14 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "")
-        self.brightBar.setValue(100)
-        self.brightBar.setTextVisible(False)
+        self.brightBar_white.setValue(100)
+        self.brightBar_white.setTextVisible(False)
         self.mode.addTab(self.white, "")
-        self.whiteRound.raise_()
-        self.dial.raise_()
-        self.brightness.raise_()
-        self.brightBar.raise_()
-        self.brightSlider.raise_()
-        self.onOFF.raise_()
+        self.whiteRound_white.raise_()
+        self.dial_white.raise_()
+        self.brightness_white.raise_()
+        self.brightBar_white.raise_()
+        self.brightSlider_white.raise_()
         self.color = QWidget()
         self.color.setObjectName(u"color")
         self.colourSlider = QSlider(self.color)
@@ -568,23 +548,6 @@ class Ui_MainWindow(object):
         self.brightSlider_color.setMaximum(100)
         self.brightSlider_color.setValue(100)
         self.brightSlider_color.setOrientation(Qt.Horizontal)
-        self.onOFF_color = QPushButton(self.color)
-        self.onOFF_color.setObjectName(u"onOFF_color")
-        self.onOFF_color.setGeometry(QRect(400, 225, 100, 100))
-        self.onOFF_color.setStyleSheet(u"QPushButton { \n"
-"	background-color: rgba(120, 120, 120, 0);\n"
-"	border-radius: 50%;\n"
-"}\n"
-"QPushButton:hover {\n"
-"	background-color: rgba(120, 120, 120, 50);\n"
-"}\n"
-"QPushButton:pressed {\n"
-"	padding-top: 3px;\n"
-"	 background-color: rgba(60, 60, 60, 25);\n"
-"}\n"
-"")
-        self.onOFF_color.setIcon(icon)
-        self.onOFF_color.setIconSize(QSize(96, 96))
         self.brightness_color = QLabel(self.color)
         self.brightness_color.setObjectName(u"brightness_color")
         self.brightness_color.setGeometry(QRect(140, 560, 131, 31))
@@ -622,12 +585,11 @@ class Ui_MainWindow(object):
         self.brightBar_color.raise_()
         self.brightSlider_color.raise_()
         self.colourSlider.raise_()
-        self.onOFF_color.raise_()
         self.scene = QWidget()
         self.scene.setObjectName(u"scene")
         self.editScene = QFrame(self.scene)
         self.editScene.setObjectName(u"editScene")
-        self.editScene.setGeometry(QRect(470, 50, 430, 560))
+        self.editScene.setGeometry(QRect(500, 50, 400, 560))
         self.editScene.setStyleSheet(u"QFrame{\n"
 "	background-color: rgb(25, 25, 25);\n"
 "	border-bottom: 2px solid rgb(120, 120, 120);\n"
@@ -688,26 +650,26 @@ class Ui_MainWindow(object):
         self.editScene.setFrameShadow(QFrame.Raised)
         self.nameScene = QLabel(self.editScene)
         self.nameScene.setObjectName(u"nameScene")
-        self.nameScene.setGeometry(QRect(10, 60, 410, 30))
+        self.nameScene.setGeometry(QRect(10, 60, 380, 30))
         self.nameScene.setAlignment(Qt.AlignCenter)
         self.nameSceneEdit = QLineEdit(self.editScene)
         self.nameSceneEdit.setObjectName(u"nameSceneEdit")
-        self.nameSceneEdit.setGeometry(QRect(10, 100, 410, 24))
+        self.nameSceneEdit.setGeometry(QRect(10, 100, 380, 24))
         self.nameSceneEdit.setAlignment(Qt.AlignCenter)
         self.colourScene = QLabel(self.editScene)
         self.colourScene.setObjectName(u"colourScene")
-        self.colourScene.setGeometry(QRect(10, 150, 410, 30))
+        self.colourScene.setGeometry(QRect(10, 150, 380, 30))
         self.colourScene.setAlignment(Qt.AlignCenter)
         self.modeColourFlicker = QLabel(self.editScene)
         self.modeColourFlicker.setObjectName(u"modeColourFlicker")
-        self.modeColourFlicker.setGeometry(QRect(10, 250, 410, 30))
+        self.modeColourFlicker.setGeometry(QRect(10, 250, 380, 30))
         self.modeColourFlicker.setAlignment(Qt.AlignCenter)
         self.modeColourFlickerBox = QComboBox(self.editScene)
         self.modeColourFlickerBox.addItem("")
         self.modeColourFlickerBox.addItem("")
         self.modeColourFlickerBox.addItem("")
         self.modeColourFlickerBox.setObjectName(u"modeColourFlickerBox")
-        self.modeColourFlickerBox.setGeometry(QRect(10, 290, 410, 24))
+        self.modeColourFlickerBox.setGeometry(QRect(10, 290, 380, 24))
         self.modeColourFlickerBox.setStyleSheet(u"QComboBox {	\n"
 "	background-color: rgba(120, 120, 120, 0);\n"
 "	font-size: 20px;\n"
@@ -744,7 +706,7 @@ class Ui_MainWindow(object):
 "}")
         self.speedFlickerBar = QProgressBar(self.editScene)
         self.speedFlickerBar.setObjectName(u"speedFlickerBar")
-        self.speedFlickerBar.setGeometry(QRect(10, 380, 410, 16))
+        self.speedFlickerBar.setGeometry(QRect(10, 380, 380, 16))
         self.speedFlickerBar.setStyleSheet(u"QProgressBar {	\n"
 "	background-color: rgb(120, 120, 120);\n"
 "	border-radius: 5px;\n"
@@ -759,7 +721,7 @@ class Ui_MainWindow(object):
         self.speedFlickerBar.setTextVisible(False)
         self.speedFlickerSlider = QSlider(self.editScene)
         self.speedFlickerSlider.setObjectName(u"speedFlickerSlider")
-        self.speedFlickerSlider.setGeometry(QRect(10, 380, 410, 16))
+        self.speedFlickerSlider.setGeometry(QRect(10, 380, 380, 16))
         self.speedFlickerSlider.setStyleSheet(u"QSlider{\n"
 "	background-color:rgba(120, 120, 120, 0);\n"
 "	}\n"
@@ -790,17 +752,17 @@ class Ui_MainWindow(object):
         self.speedFlickerSlider.setOrientation(Qt.Horizontal)
         self.speedFlicker = QLabel(self.editScene)
         self.speedFlicker.setObjectName(u"speedFlicker")
-        self.speedFlicker.setGeometry(QRect(10, 340, 410, 30))
+        self.speedFlicker.setGeometry(QRect(10, 340, 380, 30))
         self.speedFlicker.setAlignment(Qt.AlignCenter)
         self.addNewScene = QPushButton(self.editScene)
         self.addNewScene.setObjectName(u"addNewScene")
-        self.addNewScene.setGeometry(QRect(10, 510, 410, 31))
+        self.addNewScene.setGeometry(QRect(10, 510, 380, 31))
         self.exitFromScene = QPushButton(self.editScene)
         self.exitFromScene.setObjectName(u"exitFromScene")
-        self.exitFromScene.setGeometry(QRect(380, 10, 40, 24))
+        self.exitFromScene.setGeometry(QRect(350, 10, 40, 24))
         self.sceneColoursList = QFrame(self.editScene)
         self.sceneColoursList.setObjectName(u"sceneColoursList")
-        self.sceneColoursList.setGeometry(QRect(2, 190, 430, 50))
+        self.sceneColoursList.setGeometry(QRect(2, 190, 400, 50))
         self.sceneColoursList.setStyleSheet(u"QFrame{\n"
 "	background-color: rgb(25, 25, 25);\n"
 "	border-bottom: 0px solid rgb(120, 120, 120);\n"
@@ -830,11 +792,11 @@ class Ui_MainWindow(object):
         self.baseColour.setStyleSheet(u"image: url(design/plus.png);")
         self.sceneImage = QLabel(self.editScene)
         self.sceneImage.setObjectName(u"sceneImage")
-        self.sceneImage.setGeometry(QRect(10, 440, 410, 30))
+        self.sceneImage.setGeometry(QRect(10, 440, 380, 30))
         self.sceneImage.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.sceneImageButton = QPushButton(self.editScene)
         self.sceneImageButton.setObjectName(u"sceneImageButton")
-        self.sceneImageButton.setGeometry(QRect(310, 420, 75, 75))
+        self.sceneImageButton.setGeometry(QRect(280, 420, 75, 75))
         self.sceneImageButton.setStyleSheet(u"QPushButton { \n"
 "	background-color: #ecd105;\n"
 "	border-radius: 37%;\n"
@@ -853,18 +815,18 @@ class Ui_MainWindow(object):
         self.sceneImageButton.setIconSize(QSize(75, 75))
         self.colourSceneEdit = QFrame(self.editScene)
         self.colourSceneEdit.setObjectName(u"colourSceneEdit")
-        self.colourSceneEdit.setGeometry(QRect(0, 190, 430, 370))
+        self.colourSceneEdit.setGeometry(QRect(0, 190, 400, 370))
         self.colourSceneEdit.setFrameShape(QFrame.StyledPanel)
         self.colourSceneEdit.setFrameShadow(QFrame.Raised)
         self.addNewColour = QPushButton(self.colourSceneEdit)
         self.addNewColour.setObjectName(u"addNewColour")
-        self.addNewColour.setGeometry(QRect(10, 320, 410, 31))
+        self.addNewColour.setGeometry(QRect(10, 320, 380, 31))
         self.exitFromColour = QPushButton(self.colourSceneEdit)
         self.exitFromColour.setObjectName(u"exitFromColour")
-        self.exitFromColour.setGeometry(QRect(380, 10, 40, 24))
+        self.exitFromColour.setGeometry(QRect(350, 10, 40, 24))
         self.colourSceneSlider = QSlider(self.colourSceneEdit)
         self.colourSceneSlider.setObjectName(u"colourSceneSlider")
-        self.colourSceneSlider.setGeometry(QRect(10, 130, 410, 16))
+        self.colourSceneSlider.setGeometry(QRect(10, 130, 380, 16))
         self.colourSceneSlider.setStyleSheet(u"QSlider{\n"
 "	background-color:rgba(120, 120, 120, 0);\n"
 "	}\n"
@@ -895,7 +857,7 @@ class Ui_MainWindow(object):
         self.colourSceneSlider.setOrientation(Qt.Horizontal)
         self.colourSceneBar = QProgressBar(self.colourSceneEdit)
         self.colourSceneBar.setObjectName(u"colourSceneBar")
-        self.colourSceneBar.setGeometry(QRect(10, 130, 410, 16))
+        self.colourSceneBar.setGeometry(QRect(10, 130, 380, 16))
         self.colourSceneBar.setStyleSheet(u"QProgressBar {	\n"
 "	background-color:qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:1, stop:0 rgba(255, 0, 0, 255), stop:0.166 rgba(255, 255, 0, 255), stop:0.333 rgba(0, 255, 0, 255), stop:0.5 rgba(0, 255, 255, 255), stop:0.666 rgba(0, 0, 255, 255), stop:0.833 rgba(255, 0, 255, 255), stop:1 rgba(255, 0, 0, 255));\n"
 "	border-radius: 5px;\n"
@@ -910,7 +872,7 @@ class Ui_MainWindow(object):
         self.colourSceneBar.setTextVisible(False)
         self.brightSceneSlider = QSlider(self.colourSceneEdit)
         self.brightSceneSlider.setObjectName(u"brightSceneSlider")
-        self.brightSceneSlider.setGeometry(QRect(10, 190, 410, 16))
+        self.brightSceneSlider.setGeometry(QRect(10, 190, 380, 16))
         self.brightSceneSlider.setStyleSheet(u"QSlider{\n"
 "	background-color:rgba(120, 120, 120, 0);\n"
 "	}\n"
@@ -941,7 +903,7 @@ class Ui_MainWindow(object):
         self.brightSceneSlider.setOrientation(Qt.Horizontal)
         self.brightSceneBar = QProgressBar(self.colourSceneEdit)
         self.brightSceneBar.setObjectName(u"brightSceneBar")
-        self.brightSceneBar.setGeometry(QRect(10, 190, 410, 16))
+        self.brightSceneBar.setGeometry(QRect(10, 190, 380, 16))
         self.brightSceneBar.setStyleSheet(u"QProgressBar {	\n"
 "	background-color: rgb(120, 120, 120);\n"
 "	border-radius: 5px;\n"
@@ -957,10 +919,10 @@ class Ui_MainWindow(object):
         self.brightSceneBar.setTextVisible(False)
         self.deleteSceneColour = QPushButton(self.colourSceneEdit)
         self.deleteSceneColour.setObjectName(u"deleteSceneColour")
-        self.deleteSceneColour.setGeometry(QRect(330, 50, 91, 24))
-        icon1 = QIcon()
-        icon1.addFile(u"design/trash.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.deleteSceneColour.setIcon(icon1)
+        self.deleteSceneColour.setGeometry(QRect(300, 50, 91, 24))
+        icon = QIcon()
+        icon.addFile(u"design/trash.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.deleteSceneColour.setIcon(icon)
         self.deleteSceneColour.setIconSize(QSize(16, 16))
         self.colourMode = QRadioButton(self.colourSceneEdit)
         self.colourMode.setObjectName(u"colourMode")
@@ -995,7 +957,7 @@ class Ui_MainWindow(object):
 "}")
         self.colourTempSceneSlider = QSlider(self.colourSceneEdit)
         self.colourTempSceneSlider.setObjectName(u"colourTempSceneSlider")
-        self.colourTempSceneSlider.setGeometry(QRect(10, 250, 410, 16))
+        self.colourTempSceneSlider.setGeometry(QRect(10, 250, 380, 16))
         self.colourTempSceneSlider.setStyleSheet(u"QSlider{\n"
 "	background-color:rgba(120, 120, 120, 0);\n"
 "	}\n"
@@ -1026,7 +988,7 @@ class Ui_MainWindow(object):
         self.colourTempSceneSlider.setOrientation(Qt.Horizontal)
         self.colourTempSceneBar = QProgressBar(self.colourSceneEdit)
         self.colourTempSceneBar.setObjectName(u"colourTempSceneBar")
-        self.colourTempSceneBar.setGeometry(QRect(10, 250, 410, 16))
+        self.colourTempSceneBar.setGeometry(QRect(10, 250, 380, 16))
         self.colourTempSceneBar.setStyleSheet(u"QProgressBar {	\n"
 "	background-color: rgb(120, 120, 120);\n"
 "	border-radius: 5px;\n"
@@ -1090,9 +1052,9 @@ class Ui_MainWindow(object):
 "	padding-top: 3px;\n"
 "	border-bottom: 2px solid rgb(236, 236, 236);\n"
 "}")
-        icon2 = QIcon()
-        icon2.addFile(u"design/edit.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.editSceneButton.setIcon(icon2)
+        icon1 = QIcon()
+        icon1.addFile(u"design/edit.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.editSceneButton.setIcon(icon1)
         self.editSceneButton.setIconSize(QSize(24, 24))
         self.sceneMode = QFrame(self.scene)
         self.sceneMode.setObjectName(u"sceneMode")
@@ -1200,23 +1162,6 @@ class Ui_MainWindow(object):
         self.scene8Label.setObjectName(u"scene8Label")
         self.scene8Label.setGeometry(QRect(763, 110, 100, 21))
         self.scene8Label.setAlignment(Qt.AlignCenter)
-        self.onOFF_scene = QPushButton(self.scene)
-        self.onOFF_scene.setObjectName(u"onOFF_scene")
-        self.onOFF_scene.setGeometry(QRect(400, 225, 100, 100))
-        self.onOFF_scene.setStyleSheet(u"QPushButton { \n"
-"	background-color: rgba(120, 120, 120, 0);\n"
-"	border-radius: 50%;\n"
-"}\n"
-"QPushButton:hover {\n"
-"	background-color: rgba(120, 120, 120, 50);\n"
-"}\n"
-"QPushButton:pressed {\n"
-"	padding-top: 3px;\n"
-"	 background-color: rgba(60, 60, 60, 25);\n"
-"}\n"
-"")
-        self.onOFF_scene.setIcon(icon)
-        self.onOFF_scene.setIconSize(QSize(96, 96))
         self.active_scene = QLabel(self.scene)
         self.active_scene.setObjectName(u"active_scene")
         self.active_scene.setGeometry(QRect(225, 50, 450, 450))
@@ -1228,14 +1173,14 @@ class Ui_MainWindow(object):
         self.editSceneButton.raise_()
         self.active_scene.raise_()
         self.sceneMode.raise_()
-        self.onOFF_scene.raise_()
         self.editScene.raise_()
         self.music = QWidget()
         self.music.setObjectName(u"music")
-        self.onOFF_music = QPushButton(self.music)
-        self.onOFF_music.setObjectName(u"onOFF_music")
-        self.onOFF_music.setGeometry(QRect(400, 225, 100, 100))
-        self.onOFF_music.setStyleSheet(u"QPushButton { \n"
+        self.mode.addTab(self.music, "")
+        self.onOFF_RGB_Light = QPushButton(self.RGB_Light)
+        self.onOFF_RGB_Light.setObjectName(u"onOFF_RGB_Light")
+        self.onOFF_RGB_Light.setGeometry(QRect(400, 305, 100, 100))
+        self.onOFF_RGB_Light.setStyleSheet(u"QPushButton { \n"
 "	background-color: rgba(120, 120, 120, 0);\n"
 "	border-radius: 50%;\n"
 "}\n"
@@ -1247,9 +1192,10 @@ class Ui_MainWindow(object):
 "	 background-color: rgba(60, 60, 60, 25);\n"
 "}\n"
 "")
-        self.onOFF_music.setIcon(icon)
-        self.onOFF_music.setIconSize(QSize(96, 96))
-        self.mode.addTab(self.music, "")
+        icon2 = QIcon()
+        icon2.addFile(u"design/modeOFF.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.onOFF_RGB_Light.setIcon(icon2)
+        self.onOFF_RGB_Light.setIconSize(QSize(96, 96))
         self.type_screens.addWidget(self.RGB_Light)
         self.Light = QWidget()
         self.Light.setObjectName(u"Light")
@@ -1349,7 +1295,7 @@ class Ui_MainWindow(object):
 "	 background-color: rgba(60, 60, 60, 25);\n"
 "}\n"
 "")
-        self.onOFF_Light.setIcon(icon)
+        self.onOFF_Light.setIcon(icon2)
         self.onOFF_Light.setIconSize(QSize(96, 96))
         self.brightBar_Light = QProgressBar(self.Light)
         self.brightBar_Light.setObjectName(u"brightBar_Light")
@@ -1516,11 +1462,11 @@ class Ui_MainWindow(object):
 "	padding-top: 3px;\n"
 "	border-bottom: 2px solid rgb(236, 236, 236);\n"
 "}")
-        self.editSceneButton_Light.setIcon(icon2)
+        self.editSceneButton_Light.setIcon(icon1)
         self.editSceneButton_Light.setIconSize(QSize(24, 24))
         self.editScene_Light = QFrame(self.Light)
         self.editScene_Light.setObjectName(u"editScene_Light")
-        self.editScene_Light.setGeometry(QRect(470, 130, 430, 560))
+        self.editScene_Light.setGeometry(QRect(500, 130, 400, 560))
         self.editScene_Light.setStyleSheet(u"QFrame{\n"
 "	background-color: rgb(25, 25, 25);\n"
 "	border-bottom: 2px solid rgb(120, 120, 120);\n"
@@ -1581,26 +1527,26 @@ class Ui_MainWindow(object):
         self.editScene_Light.setFrameShadow(QFrame.Raised)
         self.nameScene_Light = QLabel(self.editScene_Light)
         self.nameScene_Light.setObjectName(u"nameScene_Light")
-        self.nameScene_Light.setGeometry(QRect(10, 60, 410, 30))
+        self.nameScene_Light.setGeometry(QRect(10, 60, 380, 30))
         self.nameScene_Light.setAlignment(Qt.AlignCenter)
         self.nameSceneEdit_Light = QLineEdit(self.editScene_Light)
         self.nameSceneEdit_Light.setObjectName(u"nameSceneEdit_Light")
-        self.nameSceneEdit_Light.setGeometry(QRect(10, 100, 410, 24))
+        self.nameSceneEdit_Light.setGeometry(QRect(10, 100, 380, 24))
         self.nameSceneEdit_Light.setAlignment(Qt.AlignCenter)
         self.colourScene_Light = QLabel(self.editScene_Light)
         self.colourScene_Light.setObjectName(u"colourScene_Light")
-        self.colourScene_Light.setGeometry(QRect(10, 150, 410, 30))
+        self.colourScene_Light.setGeometry(QRect(10, 150, 380, 30))
         self.colourScene_Light.setAlignment(Qt.AlignCenter)
         self.modeColourFlicker_Light = QLabel(self.editScene_Light)
         self.modeColourFlicker_Light.setObjectName(u"modeColourFlicker_Light")
-        self.modeColourFlicker_Light.setGeometry(QRect(10, 250, 410, 30))
+        self.modeColourFlicker_Light.setGeometry(QRect(10, 250, 380, 30))
         self.modeColourFlicker_Light.setAlignment(Qt.AlignCenter)
         self.modeColourFlickerBox_Light = QComboBox(self.editScene_Light)
         self.modeColourFlickerBox_Light.addItem("")
         self.modeColourFlickerBox_Light.addItem("")
         self.modeColourFlickerBox_Light.addItem("")
         self.modeColourFlickerBox_Light.setObjectName(u"modeColourFlickerBox_Light")
-        self.modeColourFlickerBox_Light.setGeometry(QRect(10, 290, 410, 24))
+        self.modeColourFlickerBox_Light.setGeometry(QRect(10, 290, 380, 24))
         self.modeColourFlickerBox_Light.setStyleSheet(u"QComboBox {	\n"
 "	background-color: rgba(120, 120, 120, 0);\n"
 "	font-size: 20px;\n"
@@ -1637,7 +1583,7 @@ class Ui_MainWindow(object):
 "}")
         self.speedFlickerBar_Light = QProgressBar(self.editScene_Light)
         self.speedFlickerBar_Light.setObjectName(u"speedFlickerBar_Light")
-        self.speedFlickerBar_Light.setGeometry(QRect(10, 380, 410, 16))
+        self.speedFlickerBar_Light.setGeometry(QRect(10, 380, 380, 16))
         self.speedFlickerBar_Light.setStyleSheet(u"QProgressBar {	\n"
 "	background-color: rgb(120, 120, 120);\n"
 "	border-radius: 5px;\n"
@@ -1652,7 +1598,7 @@ class Ui_MainWindow(object):
         self.speedFlickerBar_Light.setTextVisible(False)
         self.speedFlickerSlider_Light = QSlider(self.editScene_Light)
         self.speedFlickerSlider_Light.setObjectName(u"speedFlickerSlider_Light")
-        self.speedFlickerSlider_Light.setGeometry(QRect(10, 380, 410, 16))
+        self.speedFlickerSlider_Light.setGeometry(QRect(10, 380, 380, 16))
         self.speedFlickerSlider_Light.setStyleSheet(u"QSlider{\n"
 "	background-color:rgba(120, 120, 120, 0);\n"
 "	}\n"
@@ -1683,17 +1629,17 @@ class Ui_MainWindow(object):
         self.speedFlickerSlider_Light.setOrientation(Qt.Horizontal)
         self.speedFlicker_Light = QLabel(self.editScene_Light)
         self.speedFlicker_Light.setObjectName(u"speedFlicker_Light")
-        self.speedFlicker_Light.setGeometry(QRect(10, 340, 410, 30))
+        self.speedFlicker_Light.setGeometry(QRect(10, 340, 380, 30))
         self.speedFlicker_Light.setAlignment(Qt.AlignCenter)
         self.addNewScene_Light = QPushButton(self.editScene_Light)
         self.addNewScene_Light.setObjectName(u"addNewScene_Light")
         self.addNewScene_Light.setGeometry(QRect(10, 510, 410, 31))
         self.exitFromScene_Light = QPushButton(self.editScene_Light)
         self.exitFromScene_Light.setObjectName(u"exitFromScene_Light")
-        self.exitFromScene_Light.setGeometry(QRect(380, 10, 40, 24))
+        self.exitFromScene_Light.setGeometry(QRect(350, 10, 40, 24))
         self.sceneColoursList_Light = QFrame(self.editScene_Light)
         self.sceneColoursList_Light.setObjectName(u"sceneColoursList_Light")
-        self.sceneColoursList_Light.setGeometry(QRect(2, 190, 430, 50))
+        self.sceneColoursList_Light.setGeometry(QRect(2, 190, 400, 50))
         self.sceneColoursList_Light.setStyleSheet(u"QFrame{\n"
 "	background-color: rgb(25, 25, 25);\n"
 "	border-bottom: 0px solid rgb(120, 120, 120);\n"
@@ -1723,11 +1669,11 @@ class Ui_MainWindow(object):
         self.baseColour_Light.setStyleSheet(u"image: url(design/plus.png);")
         self.sceneImage_Light = QLabel(self.editScene_Light)
         self.sceneImage_Light.setObjectName(u"sceneImage_Light")
-        self.sceneImage_Light.setGeometry(QRect(10, 440, 410, 30))
+        self.sceneImage_Light.setGeometry(QRect(10, 440, 380, 30))
         self.sceneImage_Light.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.sceneImageButton_Light = QPushButton(self.editScene_Light)
         self.sceneImageButton_Light.setObjectName(u"sceneImageButton_Light")
-        self.sceneImageButton_Light.setGeometry(QRect(310, 420, 75, 75))
+        self.sceneImageButton_Light.setGeometry(QRect(280, 420, 75, 75))
         self.sceneImageButton_Light.setStyleSheet(u"QPushButton { \n"
 "	background-color: #ecd105;\n"
 "	border-radius: 37%;\n"
@@ -1746,18 +1692,18 @@ class Ui_MainWindow(object):
         self.sceneImageButton_Light.setIconSize(QSize(75, 75))
         self.colourSceneEdit_Light = QFrame(self.editScene_Light)
         self.colourSceneEdit_Light.setObjectName(u"colourSceneEdit_Light")
-        self.colourSceneEdit_Light.setGeometry(QRect(0, 190, 430, 370))
+        self.colourSceneEdit_Light.setGeometry(QRect(0, 190, 400, 370))
         self.colourSceneEdit_Light.setFrameShape(QFrame.StyledPanel)
         self.colourSceneEdit_Light.setFrameShadow(QFrame.Raised)
         self.addNewColour_Light = QPushButton(self.colourSceneEdit_Light)
         self.addNewColour_Light.setObjectName(u"addNewColour_Light")
-        self.addNewColour_Light.setGeometry(QRect(10, 320, 410, 31))
+        self.addNewColour_Light.setGeometry(QRect(10, 320, 380, 31))
         self.exitFromColour_Light = QPushButton(self.colourSceneEdit_Light)
         self.exitFromColour_Light.setObjectName(u"exitFromColour_Light")
-        self.exitFromColour_Light.setGeometry(QRect(380, 10, 40, 24))
+        self.exitFromColour_Light.setGeometry(QRect(350, 10, 40, 24))
         self.colourSceneSlider_Light = QSlider(self.colourSceneEdit_Light)
         self.colourSceneSlider_Light.setObjectName(u"colourSceneSlider_Light")
-        self.colourSceneSlider_Light.setGeometry(QRect(10, 130, 410, 16))
+        self.colourSceneSlider_Light.setGeometry(QRect(10, 130, 380, 16))
         self.colourSceneSlider_Light.setStyleSheet(u"QSlider{\n"
 "	background-color:rgba(120, 120, 120, 0);\n"
 "	}\n"
@@ -1788,9 +1734,9 @@ class Ui_MainWindow(object):
         self.colourSceneSlider_Light.setOrientation(Qt.Horizontal)
         self.colourSceneBar_Light = QProgressBar(self.colourSceneEdit_Light)
         self.colourSceneBar_Light.setObjectName(u"colourSceneBar_Light")
-        self.colourSceneBar_Light.setGeometry(QRect(10, 130, 410, 16))
+        self.colourSceneBar_Light.setGeometry(QRect(10, 130, 380, 16))
         self.colourSceneBar_Light.setStyleSheet(u"QProgressBar {	\n"
-"	background-color:qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:1, stop:0 rgba(255, 0, 0, 255), stop:0.166 rgba(255, 255, 0, 255), stop:0.333 rgba(0, 255, 0, 255), stop:0.5 rgba(0, 255, 255, 255), stop:0.666 rgba(0, 0, 255, 255), stop:0.833 rgba(255, 0, 255, 255), stop:1 rgba(255, 0, 0, 255));\n"
+"		background-color: qlineargradient(spread:pad, x1:0, y1:0.506, x2:1, y2:0.517, stop:0 rgba(255, 221, 161, 255), stop:1 rgba(220, 249, 255, 255));\n"
 "	border-radius: 5px;\n"
 "}\n"
 "\n"
@@ -1803,7 +1749,7 @@ class Ui_MainWindow(object):
         self.colourSceneBar_Light.setTextVisible(False)
         self.brightSceneSlider_Light = QSlider(self.colourSceneEdit_Light)
         self.brightSceneSlider_Light.setObjectName(u"brightSceneSlider_Light")
-        self.brightSceneSlider_Light.setGeometry(QRect(10, 190, 410, 16))
+        self.brightSceneSlider_Light.setGeometry(QRect(10, 190, 380, 16))
         self.brightSceneSlider_Light.setStyleSheet(u"QSlider{\n"
 "	background-color:rgba(120, 120, 120, 0);\n"
 "	}\n"
@@ -1834,7 +1780,7 @@ class Ui_MainWindow(object):
         self.brightSceneSlider_Light.setOrientation(Qt.Horizontal)
         self.brightSceneBar_Light = QProgressBar(self.colourSceneEdit_Light)
         self.brightSceneBar_Light.setObjectName(u"brightSceneBar_Light")
-        self.brightSceneBar_Light.setGeometry(QRect(10, 190, 410, 16))
+        self.brightSceneBar_Light.setGeometry(QRect(10, 190, 380, 16))
         self.brightSceneBar_Light.setStyleSheet(u"QProgressBar {	\n"
 "	background-color: rgb(120, 120, 120);\n"
 "	border-radius: 5px;\n"
@@ -1850,98 +1796,16 @@ class Ui_MainWindow(object):
         self.brightSceneBar_Light.setTextVisible(False)
         self.deleteSceneColour_Light = QPushButton(self.colourSceneEdit_Light)
         self.deleteSceneColour_Light.setObjectName(u"deleteSceneColour_Light")
-        self.deleteSceneColour_Light.setGeometry(QRect(330, 50, 91, 24))
-        self.deleteSceneColour_Light.setIcon(icon1)
+        self.deleteSceneColour_Light.setGeometry(QRect(300, 50, 91, 24))
+        self.deleteSceneColour_Light.setIcon(icon)
         self.deleteSceneColour_Light.setIconSize(QSize(16, 16))
-        self.colourMode_Light = QRadioButton(self.colourSceneEdit_Light)
-        self.colourMode_Light.setObjectName(u"colourMode_Light")
-        self.colourMode_Light.setGeometry(QRect(20, 40, 50, 50))
-        self.colourMode_Light.setLayoutDirection(Qt.LeftToRight)
-        self.colourMode_Light.setStyleSheet(u"QRadioButton::indicator{\n"
-"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(255, 0, 0, 255), stop:0.166 rgba(255, 255, 0, 255), stop:0.333 rgba(0, 255, 0, 255), stop:0.5 rgba(0, 255, 255, 255), stop:0.666 rgba(0, 0, 255, 255), stop:0.833 rgba(255, 0, 255, 255), stop:1 rgba(255, 0, 0, 255));\n"
-"	border-radius: 20%;\n"
-"	width: 40px;\n"
-"	height: 40px;\n"
-"	margin-left:5px;\n"
-"}\n"
-"\n"
-"QRadioButton::checked {\n"
-"	background-color: rgb(60, 60, 60);\n"
-"	border-radius: 25%\n"
-"}")
-        self.warmMode_Light = QRadioButton(self.colourSceneEdit_Light)
-        self.warmMode_Light.setObjectName(u"warmMode_Light")
-        self.warmMode_Light.setGeometry(QRect(80, 40, 50, 50))
-        self.warmMode_Light.setStyleSheet(u"QRadioButton::indicator{\n"
-"	background-color: qlineargradient(spread:pad, x1:0, y1:0.506, x2:1, y2:0.517, stop:0 rgba(255, 221, 161, 255), stop:1 rgba(220, 249, 255, 255));\n"
-"	border-radius: 20%;\n"
-"	width: 40px;	\n"
-"	height: 40px;\n"
-"	margin-left:5px;\n"
-"}\n"
-"\n"
-"QRadioButton::checked {\n"
-"	background-color:  rgb(60, 60, 60);\n"
-"	border-radius: 25%\n"
-"}")
-        self.colourTempSceneSlider_Light = QSlider(self.colourSceneEdit_Light)
-        self.colourTempSceneSlider_Light.setObjectName(u"colourTempSceneSlider_Light")
-        self.colourTempSceneSlider_Light.setGeometry(QRect(10, 250, 410, 16))
-        self.colourTempSceneSlider_Light.setStyleSheet(u"QSlider{\n"
-"	background-color:rgba(120, 120, 120, 0);\n"
-"	}\n"
-"QSlider::groove:horizontal {\n"
-"    height: 5px; \n"
-"    background-color:rgba(120, 120, 120, 0);\n"
-"    margin: 2px 0;\n"
-"}\n"
-"\n"
-"QSlider::handle:horizontal {\n"
-"	background-color:rgb(60, 60, 60);\n"
-"    border: 2px solid white;\n"
-"    width: 10px;\n"
-"    margin: -5px 0;\n"
-"	border-radius: 7.4px;\n"
-"}\n"
-"\n"
-"QSlider::handle:horizontal:hover {\n"
-"	background-color:  rgb(102, 102, 102);\n"
-"}\n"
-"\n"
-"QSlider::handle:horizontal:pressed {\n"
-"	background-color: rgb(135, 135, 135)\n"
-"}\n"
-"\n"
-"")
-        self.colourTempSceneSlider_Light.setMaximum(1000)
-        self.colourTempSceneSlider_Light.setOrientation(Qt.Horizontal)
-        self.colourTempSceneBar_Light = QProgressBar(self.colourSceneEdit_Light)
-        self.colourTempSceneBar_Light.setObjectName(u"colourTempSceneBar_Light")
-        self.colourTempSceneBar_Light.setGeometry(QRect(10, 250, 410, 16))
-        self.colourTempSceneBar_Light.setStyleSheet(u"QProgressBar {	\n"
-"	background-color: rgb(120, 120, 120);\n"
-"	border-radius: 5px;\n"
-"}\n"
-"\n"
-"QProgressBar::chunk {\n"
-"	background-color: white;\n"
-"	border-radius: 5px;\n"
-"}\n"
-"")
-        self.colourTempSceneBar_Light.setMaximum(1000)
-        self.colourTempSceneBar_Light.setValue(0)
-        self.colourTempSceneBar_Light.setTextVisible(False)
         self.addNewColour_Light.raise_()
         self.exitFromColour_Light.raise_()
         self.colourSceneBar_Light.raise_()
         self.brightSceneBar_Light.raise_()
         self.deleteSceneColour_Light.raise_()
-        self.colourMode_Light.raise_()
-        self.warmMode_Light.raise_()
-        self.colourTempSceneBar_Light.raise_()
         self.brightSceneSlider_Light.raise_()
         self.colourSceneSlider_Light.raise_()
-        self.colourTempSceneSlider_Light.raise_()
         self.nameScene_Light.raise_()
         self.nameSceneEdit_Light.raise_()
         self.colourScene_Light.raise_()
@@ -1970,7 +1834,7 @@ class Ui_MainWindow(object):
         self.editScene_Light.raise_()
         self.deviceName_onScreen = QLabel(self.main_screen)
         self.deviceName_onScreen.setObjectName(u"deviceName_onScreen")
-        self.deviceName_onScreen.setGeometry(QRect(350, 5, 200, 40))
+        self.deviceName_onScreen.setGeometry(QRect(250, 5, 400, 40))
         self.deviceName_onScreen.setAlignment(Qt.AlignCenter)
         self.screens.addWidget(self.main_screen)
         self.sideBarButton = QPushButton(self.centralwidget)
@@ -2100,14 +1964,12 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.add, self.clear)
         QWidget.setTabOrder(self.clear, self.sideBarButton)
         QWidget.setTabOrder(self.sideBarButton, self.mode)
-        QWidget.setTabOrder(self.mode, self.onOFF)
-        QWidget.setTabOrder(self.onOFF, self.brightSlider)
-        QWidget.setTabOrder(self.brightSlider, self.dial)
-        QWidget.setTabOrder(self.dial, self.colourSlider)
+        QWidget.setTabOrder(self.mode, self.brightSlider_white)
+        QWidget.setTabOrder(self.brightSlider_white, self.dial_white)
+        QWidget.setTabOrder(self.dial_white, self.colourSlider)
         QWidget.setTabOrder(self.colourSlider, self.dial_color)
         QWidget.setTabOrder(self.dial_color, self.brightSlider_color)
-        QWidget.setTabOrder(self.brightSlider_color, self.onOFF_color)
-        QWidget.setTabOrder(self.onOFF_color, self.nameSceneEdit)
+        QWidget.setTabOrder(self.brightSlider_color, self.nameSceneEdit)
         QWidget.setTabOrder(self.nameSceneEdit, self.modeColourFlickerBox)
         QWidget.setTabOrder(self.modeColourFlickerBox, self.speedFlickerSlider)
         QWidget.setTabOrder(self.speedFlickerSlider, self.addNewScene)
@@ -2131,9 +1993,7 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.scene5Button, self.scene6Button)
         QWidget.setTabOrder(self.scene6Button, self.scene7Button)
         QWidget.setTabOrder(self.scene7Button, self.scene8Button)
-        QWidget.setTabOrder(self.scene8Button, self.onOFF_scene)
-        QWidget.setTabOrder(self.onOFF_scene, self.onOFF_music)
-        QWidget.setTabOrder(self.onOFF_music, self.sideBarClose)
+        QWidget.setTabOrder(self.scene8Button, self.sideBarClose)
         QWidget.setTabOrder(self.sideBarClose, self.devicesList)
         QWidget.setTabOrder(self.devicesList, self.addButton)
         QWidget.setTabOrder(self.addButton, self.removeButton)
@@ -2148,7 +2008,7 @@ class Ui_MainWindow(object):
         self.speedFlickerSlider.valueChanged.connect(self.speedFlickerBar.setValue)
         self.colourTempSceneSlider.valueChanged.connect(self.colourTempSceneBar.setValue)
         self.colourSlider.valueChanged.connect(self.colourBar.setValue)
-        self.brightSlider.valueChanged.connect(self.brightBar.setValue)
+        self.brightSlider_white.valueChanged.connect(self.brightBar_white.setValue)
         self.brightSlider_color.valueChanged.connect(self.brightBar_color.setValue)
         self.brightSceneSlider.valueChanged.connect(self.brightSceneBar.setValue)
         self.addNewColour.clicked.connect(self.colourSceneEdit.hide)
@@ -2160,11 +2020,10 @@ class Ui_MainWindow(object):
         self.baseColour_Light.clicked.connect(self.colourSceneEdit_Light.show)
         self.editSceneButton_Light.clicked.connect(self.editScene_Light.show)
         self.speedFlickerSlider_Light.valueChanged.connect(self.speedFlickerBar_Light.setValue)
-        self.colourTempSceneSlider_Light.valueChanged.connect(self.colourTempSceneBar_Light.setValue)
         self.brightSceneSlider_Light.valueChanged.connect(self.brightSceneBar_Light.setValue)
 
         self.screens.setCurrentIndex(0)
-        self.mode.setCurrentIndex(2)
+        self.mode.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -2184,12 +2043,10 @@ class Ui_MainWindow(object):
         self.add.setText(QCoreApplication.translate("MainWindow", u"Add new device", None))
         self.deviceName.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Device Name", None))
         self.addFrameClose.setText(QCoreApplication.translate("MainWindow", u"Close", None))
-        self.whiteRound.setText("")
-        self.onOFF.setText("")
-        self.brightness.setText(QCoreApplication.translate("MainWindow", u"Brightness", None))
+        self.whiteRound_white.setText("")
+        self.brightness_white.setText(QCoreApplication.translate("MainWindow", u"Brightness", None))
         self.mode.setTabText(self.mode.indexOf(self.white), QCoreApplication.translate("MainWindow", u"White", None))
         self.colourTemp.setText(QCoreApplication.translate("MainWindow", u"Colour", None))
-        self.onOFF_color.setText("")
         self.brightness_color.setText(QCoreApplication.translate("MainWindow", u"Brightness", None))
         self.rgb.setText("")
         self.mode.setTabText(self.mode.indexOf(self.color), QCoreApplication.translate("MainWindow", u"Color", None))
@@ -2228,11 +2085,10 @@ class Ui_MainWindow(object):
         self.scene6Label.setText(QCoreApplication.translate("MainWindow", u"Scene6", None))
         self.scene7Label.setText(QCoreApplication.translate("MainWindow", u"Scene7", None))
         self.scene8Label.setText(QCoreApplication.translate("MainWindow", u"Scene8", None))
-        self.onOFF_scene.setText("")
         self.active_scene.setText("")
         self.mode.setTabText(self.mode.indexOf(self.scene), QCoreApplication.translate("MainWindow", u"Scene", None))
-        self.onOFF_music.setText("")
         self.mode.setTabText(self.mode.indexOf(self.music), QCoreApplication.translate("MainWindow", u"Music", None))
+        self.onOFF_RGB_Light.setText("")
         self.white_Light.setText(QCoreApplication.translate("MainWindow", u"White", None))
         self.scene_Light.setText(QCoreApplication.translate("MainWindow", u"Scene", None))
         self.whiteRound_Light.setText("")
@@ -2271,8 +2127,6 @@ class Ui_MainWindow(object):
         self.addNewColour_Light.setText(QCoreApplication.translate("MainWindow", u"OK", None))
         self.exitFromColour_Light.setText(QCoreApplication.translate("MainWindow", u"X", None))
         self.deleteSceneColour_Light.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
-        self.colourMode_Light.setText("")
-        self.warmMode_Light.setText("")
         self.deviceName_onScreen.setText(QCoreApplication.translate("MainWindow", u"Device name", None))
         self.sideBarButton.setText("")
         self.sideBarClose.setText(QCoreApplication.translate("MainWindow", u"Close", None))
