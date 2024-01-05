@@ -50,6 +50,9 @@ class Light:
     def set_brightness(self, value:int):
         self.device.set_brightness_percentage(value)
 
+    def set_colourTemp(self, value:int):
+        self.device.set_colourtemp_percentage(value)
+
     def set_scene(self, value:str):
         '''
             Get hexadecimal data:
@@ -72,9 +75,6 @@ class RGB_Light(Light):
 
     def set_hsv(self, h:float, s:float, v:float):
         self.device.set_hsv(h, s, v)
-
-    def set_colourTemp(self, value:int):
-        self.device.set_colourtemp_percentage(value)
 
     def send_music_data(self, value:str):
         '''

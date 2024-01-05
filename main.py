@@ -62,12 +62,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.removeButton.clicked.connect(lambda: self.remove_device())
 
         # Change mode on Light screen
-        self.white_Light.clicked.connect(lambda: self.change_mode_on_Light_screen(self.white_Light.text()))
-        self.scene_Light.clicked.connect(lambda: self.change_mode_on_Light_screen(self.scene_Light.text()))
+        self.white_Light.clicked.connect(lambda: self.switch_mode_Light(self.white_Light.text()))
+        self.scene_Light.clicked.connect(lambda: self.switch_mode_Light(self.scene_Light.text()))
+
+        self.mode.currentChanged.connect(self.switch_mode_RGB_Light)
 
         # Switch state of device on main screen
         self.onOFF_Light.clicked.connect(lambda: self.switch_state_of_device())
         self.onOFF_RGB_Light.clicked.connect(lambda: self.switch_state_of_device())
+
+        self.dial_white.valueChanged.connect(self.change_colourTemp)
+        self.dial_color.valueChanged.connect(self.change_hsv)
+        self.dial_Light.valueChanged.connect(self.change_colourTemp)
+        
+        self.brightSlider_white.valueChanged.connect(self.change_brightness)
+        self.brightSlider_color.valueChanged.connect(self.change_hsv)
+        self.colourSlider.valueChanged.connect(self.change_hsv)
+        self.brightSlider_Light.valueChanged.connect(self.change_brightness)
 
 
     def _adding_devices_in_devicesList(self):
@@ -152,18 +163,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.devicesList.removeItem(removed_device_index)
             self.active_devices.pop(removed_device)
 
-    def change_mode_on_Light_screen(self, mode:str):
-        '''Hide or Show "scene" element on Light device screen'''
-        match mode:
-            case 'White':
-                self.editScene_Light.setVisible(False)
-                self.colourSceneEdit_Light.setVisible(False)
-                self.sceneMode_Light.setVisible(False)
-                self.editSceneButton_Light.setVisible(False)
-            case 'Scene':
-                self.sceneMode_Light.setVisible(True)
-                self.editSceneButton_Light.setVisible(True)
-
     def set_selected_device(self, text:str):
         '''Switch on device type screen
             and connection to device'''
@@ -211,7 +210,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.switch_icon_state_of_device()
 
-           
+    def switch_mode_Light(self, mode:str):
+        '''Hide or Show "scene" element on Light device screen'''
+        match mode:
+            case 'White':
+                self.editScene_Light.setVisible(False)
+                self.colourSceneEdit_Light.setVisible(False)
+                self.sceneMode_Light.setVisible(False)
+                self.editSceneButton_Light.setVisible(False)
+
+                self.current_device.set_mode(mode.lower())
+            case 'Scene':
+                self.sceneMode_Light.setVisible(True)
+                self.editSceneButton_Light.setVisible(True)
+
+                self.current_device.set_mode(mode.lower())
+
+    def switch_mode_RGB_Light(self):
+        '''Switch mode of RGB Light'''
+        mode = self.mode.currentWidget().objectName()
+        self.current_device.set_mode(mode)
+
+    def change_brightness(self, value):
+        '''Change brightness of Light'''
+        self.current_device.set_brightness(value)
+    
+    def change_colourTemp(self, value):
+        '''Change Light Temperature'''
+        self.current_device.set_colourTemp(value)
+    
+    def change_hsv(self):
+        '''Change colour in 'colour' mode'''
+        h = self.dial_color.value() / 100
+        s = self.colourSlider.value() / 100
+        v = self.brightSlider_color.value() / 100
+
+        self.current_device.set_hsv(h, s, v)
+
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
