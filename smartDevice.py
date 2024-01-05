@@ -2,11 +2,12 @@ import tinytuya
 import json
 
 class Light:
-    def __init__(self, id:str, ip:str, local_key:str, ver:float):
+    def __init__(self, id:str, ip:str, local_key:str, ver:float, nowait=True):
         self.id = id
         self.ip = ip
         self.local_key = local_key
         self.ver = ver
+        self.nowait = nowait
 
         self.device = tinytuya.BulbDevice(
             dev_id=self.id,
@@ -38,20 +39,28 @@ class Light:
     def get_state(self):
         '''Return state of Light'''
         return self.device.state()
+    
+    def get_brightness(self):
+        '''Return brightness value'''
+        return self.device.brightness()
+    
+    def get_colourtemp(self):
+        '''Return colourtemp value'''
+        return self.device.colourtemp()
 
     def set_state(self, value:bool):
         '''On or Off Bulb'''
-        self.device.set_value(20, value)
+        self.device.set_value(20, value, nowait=self.nowait)
 
     def set_mode(self, mode:str):
         '''Set white, colour, scene and music mode'''
-        self.device.set_mode(mode)
+        self.device.set_mode(mode,nowait=self.nowait)
 
     def set_brightness(self, value:int):
-        self.device.set_brightness_percentage(value)
+        self.device.set_brightness_percentage(value, nowait=self.nowait)
 
     def set_colourTemp(self, value:int):
-        self.device.set_colourtemp_percentage(value)
+        self.device.set_colourtemp_percentage(value, nowait=self.nowait)
 
     def set_scene(self, value:str):
         '''
@@ -69,12 +78,16 @@ class Light:
         0000: brightness: 0 to 1000, in hexadecimal...
         0000: color_temp: 0 to 1000, in hexadecimal...
         '''
-        self.device.set_value(25, value)
+        self.device.set_value(25, value, nowait=self.nowait)
 
 class RGB_Light(Light):
 
+    def get_hsv(self):
+        '''Return hsv value'''
+        return self.device.colour_hsv()
+
     def set_hsv(self, h:float, s:float, v:float):
-        self.device.set_hsv(h, s, v)
+        self.device.set_hsv(h, s, v, nowait=self.nowait)
 
     def send_music_data(self, value:str):
         '''

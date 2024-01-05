@@ -2046,7 +2046,7 @@ class Ui_MainWindow(object):
         self.whiteRound_white.setText("")
         self.brightness_white.setText(QCoreApplication.translate("MainWindow", u"Brightness", None))
         self.mode.setTabText(self.mode.indexOf(self.white), QCoreApplication.translate("MainWindow", u"White", None))
-        self.colourTemp.setText(QCoreApplication.translate("MainWindow", u"Colour", None))
+        self.colourTemp.setText(QCoreApplication.translate("MainWindow", u"Saturation", None))
         self.brightness_color.setText(QCoreApplication.translate("MainWindow", u"Brightness", None))
         self.rgb.setText("")
         self.mode.setTabText(self.mode.indexOf(self.colour), QCoreApplication.translate("MainWindow", u"Color", None))

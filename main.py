@@ -61,11 +61,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.removeButton_start.clicked.connect(lambda: self.remove_device())
         self.removeButton.clicked.connect(lambda: self.remove_device())
 
+        self.screens.currentChanged.connect(self.set_device_state)
+        self.type_screens.currentChanged.connect(self.set_device_state)
+
         # Change mode on Light screen
         self.white_Light.clicked.connect(lambda: self.switch_mode_Light(self.white_Light.text()))
         self.scene_Light.clicked.connect(lambda: self.switch_mode_Light(self.scene_Light.text()))
 
         self.mode.currentChanged.connect(self.switch_mode_RGB_Light)
+        
 
         # Switch state of device on main screen
         self.onOFF_Light.clicked.connect(lambda: self.switch_state_of_device())
@@ -123,8 +127,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.devicesList_start.addItem(deviceName)
             self.devicesList.addItem(deviceName)
             self.clear_addFrame()
-            self.screens.setCurrentIndex(2)
             self.type_screens.setCurrentIndex(device_types[deviceType])
+            self.screens.setCurrentIndex(2)
 
             with open('devicesList.json', 'w') as f:
                 f.write(json.dumps(self.active_devices, indent=4))
@@ -179,12 +183,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                               selected_device['key'],
                                               float(selected_device['ver']))
 
-        self.screens.setCurrentIndex(2)
-
         deviceType = selected_device['type']
         self.type_screens.setCurrentIndex(device_types[deviceType]) # Switch on device type screen
 
         self.switch_icon_state_of_device() # Switch device state(on/off)
+
+        self.screens.setCurrentIndex(2)
 
     def switch_icon_state_of_device(self):
         '''Switching the button icon to the one corresponding to the device state'''
@@ -210,26 +214,84 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.switch_icon_state_of_device()
 
+    def set_device_state(self):
+        '''Set on screen device state by type'''
+        device = self.type_screens.currentWidget().objectName()
+
+        match device:
+            case 'RGB_Light':
+                self.switch_mode_RGB_Light()
+            case 'Light':
+                mode = self.current_device.get_state()['mode']
+                self.switch_mode_Light(mode)
+
     def switch_mode_Light(self, mode:str):
-        '''Hide or Show "scene" element on Light device screen'''
+        '''Hide or Show "scene" element on Light device screen.
+        Set saved Light state(mode, brightness, colourTemp)'''
+        mode = mode.lower()
         match mode:
-            case 'White':
+            case 'white':
                 self.editScene_Light.setVisible(False)
                 self.colourSceneEdit_Light.setVisible(False)
                 self.sceneMode_Light.setVisible(False)
                 self.editSceneButton_Light.setVisible(False)
 
-                self.current_device.set_mode(mode.lower())
-            case 'Scene':
+                self.current_device.set_mode(mode)
+                
+                colourTemp = self.current_device.get_colourtemp() / 10
+                brightness = self.current_device.get_brightness() / 10
+
+                self.dial_Light.setValue(colourTemp)
+                self.brightSlider_Light.setValue(brightness)
+            case 'scene':
                 self.sceneMode_Light.setVisible(True)
                 self.editSceneButton_Light.setVisible(True)
 
-                self.current_device.set_mode(mode.lower())
+                self.current_device.set_mode(mode)
+            case _: # Set white mode
+                self.editScene_Light.setVisible(False)
+                self.colourSceneEdit_Light.setVisible(False)
+                self.sceneMode_Light.setVisible(False)
+                self.editSceneButton_Light.setVisible(False)
 
-    def switch_mode_RGB_Light(self):
-        '''Switch mode of RGB Light'''
-        mode = self.mode.currentWidget().objectName()
+                self.current_device.set_mode('white') 
+                
+                colourTemp = self.current_device.get_colourtemp() / 10
+                brightness = self.current_device.get_brightness() / 10
+
+                self.dial_Light.setValue(colourTemp)
+                self.brightSlider_Light.setValue(brightness)
+
+    def switch_mode_RGB_Light(self, index=None):
+        '''Switch mode of RGB Light.
+        Set saved RGB Light state(mode, hue, saturation, brightness)'''
+        if index != None:
+            mode = self.mode.currentWidget().objectName()
+        else:
+            modes = {'white': 0, 'colour': 1, 'scene': 2, 'music': 3}
+            mode = self.current_device.get_state()['mode']
+
+            self.mode.setCurrentIndex(modes[mode])
+
         self.current_device.set_mode(mode)
+
+        match mode:
+            case 'white':
+                colourTemp = self.current_device.get_colourtemp() / 10
+                brightness = self.current_device.get_brightness() / 10
+
+                self.dial_white.setValue(colourTemp)
+                self.brightSlider_white.setValue(brightness)
+            case 'colour':
+                hsv = self.current_device.get_hsv()
+                self.dial_color.setValue(hsv[0]*100)
+                self.colourSlider.setValue(hsv[1]*100)
+                self.brightSlider_color.setValue(hsv[2]*100)
+
+            case 'scene':
+                pass
+            case 'music':
+                pass
 
     def change_brightness(self, value):
         '''Change brightness of Light'''
