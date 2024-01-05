@@ -15,12 +15,12 @@ To obtain data to connect the device, use [instructions](https://github.com/jaso
 
 ## Features
 - [ ] RGB Light
-    - [ ] White mode
-    - [ ] Color mode
+    - [X] White mode
+    - [X] Color mode
     - [ ] Scene mode
     - [ ] Music mode
 - [ ] Light
-    - [ ] White mode
+    - [X] White mode
     - [ ] Scene mode
 
 ## Installation
