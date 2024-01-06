@@ -40,6 +40,10 @@ class Light:
         '''Return state of Light'''
         return self.device.state()
     
+    def get_status(self):
+        '''Return full status of Light'''
+        return self.device.status()
+    
     def get_brightness(self):
         '''Return brightness value'''
         return self.device.brightness()

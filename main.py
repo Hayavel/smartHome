@@ -220,8 +220,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         match device:
             case 'RGB_Light':
+                with open('lightScene.json', 'r') as f:
+                    scenes_data = f.read()
+                    self.scenes_data = json.loads(scenes_data)
+
                 self.switch_mode_RGB_Light()
             case 'Light':
+                with open('lightScene.json', 'r') as f:
+                    scenes_data = f.read()
+                    self.scenes_data = json.loads(scenes_data)
+
                 mode = self.current_device.get_state()['mode']
                 self.switch_mode_Light(mode)
 
@@ -235,6 +243,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.colourSceneEdit_Light.setVisible(False)
                 self.sceneMode_Light.setVisible(False)
                 self.editSceneButton_Light.setVisible(False)
+                self.dial_Light.setVisible(True)
 
                 self.current_device.set_mode(mode)
                 
@@ -246,8 +255,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             case 'scene':
                 self.sceneMode_Light.setVisible(True)
                 self.editSceneButton_Light.setVisible(True)
+                self.dial_Light.setVisible(False)
 
                 self.current_device.set_mode(mode)
+                self.set_Light_scenes('Light')
+
             case _: # Set white mode
                 self.editScene_Light.setVisible(False)
                 self.colourSceneEdit_Light.setVisible(False)
@@ -289,7 +301,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.brightSlider_color.setValue(hsv[2]*100)
 
             case 'scene':
-                pass
+                self.set_Light_scenes('RGB Light')
             case 'music':
                 pass
 
@@ -308,6 +320,55 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         v = self.brightSlider_color.value() / 100
 
         self.current_device.set_hsv(h, s, v)
+
+    def set_Light_scenes(self, light_type:str):
+        '''Set Scene Image and Name for Light or RGB Light'''
+        data = self.scenes_data[light_type]
+
+        status = self.current_device.get_status()
+
+        for key, scene in data.items():
+            if status['dps']['25'] == scene['data']:
+                self.current_scene = [key, data[key]]
+                break
+            else:
+                self.current_scene = ['0', data['0']]
+
+        match light_type:
+            case 'RGB Light':
+                sceneLabels = [self.scene1Label, self.scene2Label, self.scene3Label, self.scene4Label,
+                               self.scene5Label, self.scene6Label, self.scene7Label, self.scene8Label]
+                sceneButtons = [self.scene1Button, self.scene2Button, self.scene3Button, self.scene4Button,
+                                self.scene5Button, self.scene6Button, self.scene7Button, self.scene8Button]
+                self.set_name_scenes(sceneLabels, sceneButtons, data)
+                
+                pixmap = QPixmap(self.current_scene[1]['image'])
+                self.active_scene.clear()
+                self.active_scene.setPixmap(pixmap)
+
+
+            case 'Light':
+                sceneLabels = [self.scene1Label_Light, self.scene2Label_Light, self.scene3Label_Light,
+                               self.scene4Label_Light, self.scene5Label_Light, self.scene6Label_Light,
+                               self.scene7Label_Light, self.scene8Label_Light]
+                sceneButtons = [self.scene1Button_Light, self.scene2Button_Light, self.scene3Button_Light,
+                                self.scene4Button_Light, self.scene5Button_Light, self.scene6Button_Light,
+                                self.scene7Button_Light, self.scene8Button_Light]
+                self.set_name_scenes(sceneLabels, sceneButtons, data)
+
+                pixmap = QPixmap(self.current_scene[1]['image'])
+                self.whiteRound_Light.clear()
+                self.whiteRound_Light.setPixmap(pixmap)
+
+
+
+    def set_name_scenes(self, sceneLabels, sceneButtons, data):
+        '''Set actual scene's name and image'''
+
+        for id in range(len(sceneButtons)):
+            sceneLabels[id].setText(data[str(id)]['name'])
+            image = QIcon(data[str(id)]['image'])
+            sceneButtons[id].setIcon(image)
 
 if __name__ == '__main__':
 
