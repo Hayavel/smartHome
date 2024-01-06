@@ -1272,7 +1272,7 @@ class Ui_MainWindow(object):
         self.brightSlider_Light.setOrientation(Qt.Horizontal)
         self.whiteRound_Light = QLabel(self.Light)
         self.whiteRound_Light.setObjectName(u"whiteRound_Light")
-        self.whiteRound_Light.setGeometry(QRect(230, 145, 450, 450))
+        self.whiteRound_Light.setGeometry(QRect(230, 120, 450, 450))
         self.whiteRound_Light.setLayoutDirection(Qt.LeftToRight)
         self.whiteRound_Light.setStyleSheet(u"")
         self.whiteRound_Light.setPixmap(QPixmap(u"design/coldWarm.png"))
@@ -1280,7 +1280,7 @@ class Ui_MainWindow(object):
         self.whiteRound_Light.setAlignment(Qt.AlignCenter)
         self.onOFF_Light = QPushButton(self.Light)
         self.onOFF_Light.setObjectName(u"onOFF_Light")
-        self.onOFF_Light.setGeometry(QRect(405, 320, 100, 100))
+        self.onOFF_Light.setGeometry(QRect(405, 295, 100, 100))
         self.onOFF_Light.setLayoutDirection(Qt.LeftToRight)
         self.onOFF_Light.setStyleSheet(u"QPushButton { \n"
 "	background-color: rgba(120, 120, 120, 0);\n"
@@ -1323,7 +1323,7 @@ class Ui_MainWindow(object):
         self.dial_Light = QDial(self.Light)
         self.dial_Light.setObjectName(u"dial_Light")
         self.dial_Light.setEnabled(True)
-        self.dial_Light.setGeometry(QRect(200, 120, 510, 500))
+        self.dial_Light.setGeometry(QRect(200, 95, 510, 500))
         self.dial_Light.setLayoutDirection(Qt.LeftToRight)
         self.dial_Light.setStyleSheet(u"QDial{\n"
 "	background-color: rgb(0, 0, 0);\n"

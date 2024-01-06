@@ -84,6 +84,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.colourSlider.valueChanged.connect(self.change_hsv)
         self.brightSlider_Light.valueChanged.connect(self.change_brightness)
 
+        self.sceneLabels_RGB = [self.scene1Label, self.scene2Label, self.scene3Label, self.scene4Label,
+                               self.scene5Label, self.scene6Label, self.scene7Label, self.scene8Label]
+        self.sceneButtons_RGB = [self.scene1Button, self.scene2Button, self.scene3Button, self.scene4Button,
+                        self.scene5Button, self.scene6Button, self.scene7Button, self.scene8Button]
+        self.sceneLabels_Light = [self.scene1Label_Light, self.scene2Label_Light, self.scene3Label_Light,
+                        self.scene4Label_Light, self.scene5Label_Light, self.scene6Label_Light,
+                        self.scene7Label_Light, self.scene8Label_Light]
+        self.sceneButtons_Light = [self.scene1Button_Light, self.scene2Button_Light, self.scene3Button_Light,
+                        self.scene4Button_Light, self.scene5Button_Light, self.scene6Button_Light,
+                        self.scene7Button_Light, self.scene8Button_Light]
+        
+        for ind, button in enumerate(self.sceneButtons_RGB):
+            button.clicked.connect(lambda: self.set_current_scene(str(ind)))
+
 
     def _adding_devices_in_devicesList(self):
         '''Add all local devices'''
@@ -259,6 +273,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.current_device.set_mode(mode)
                 self.set_Light_scenes('Light')
+                self.set_name_and_image_scenes('Light')
 
             case _: # Set white mode
                 self.editScene_Light.setVisible(False)
@@ -302,6 +317,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             case 'scene':
                 self.set_Light_scenes('RGB Light')
+                self.set_name_and_image_scenes('RGB Light')
             case 'music':
                 pass
 
@@ -336,34 +352,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         match light_type:
             case 'RGB Light':
-                sceneLabels = [self.scene1Label, self.scene2Label, self.scene3Label, self.scene4Label,
-                               self.scene5Label, self.scene6Label, self.scene7Label, self.scene8Label]
-                sceneButtons = [self.scene1Button, self.scene2Button, self.scene3Button, self.scene4Button,
-                                self.scene5Button, self.scene6Button, self.scene7Button, self.scene8Button]
-                self.set_name_scenes(sceneLabels, sceneButtons, data)
-                
                 pixmap = QPixmap(self.current_scene[1]['image'])
                 self.active_scene.clear()
                 self.active_scene.setPixmap(pixmap)
 
-
             case 'Light':
-                sceneLabels = [self.scene1Label_Light, self.scene2Label_Light, self.scene3Label_Light,
-                               self.scene4Label_Light, self.scene5Label_Light, self.scene6Label_Light,
-                               self.scene7Label_Light, self.scene8Label_Light]
-                sceneButtons = [self.scene1Button_Light, self.scene2Button_Light, self.scene3Button_Light,
-                                self.scene4Button_Light, self.scene5Button_Light, self.scene6Button_Light,
-                                self.scene7Button_Light, self.scene8Button_Light]
-                self.set_name_scenes(sceneLabels, sceneButtons, data)
-
                 pixmap = QPixmap(self.current_scene[1]['image'])
                 self.whiteRound_Light.clear()
                 self.whiteRound_Light.setPixmap(pixmap)
 
-
-
-    def set_name_scenes(self, sceneLabels, sceneButtons, data):
+    def set_name_and_image_scenes(self, light_type:str):
         '''Set actual scene's name and image'''
+
+        data = self.scenes_data[light_type]
+
+        match light_type:
+            case 'RGB Light':
+                sceneButtons = self.sceneButtons_RGB
+                sceneLabels = self.sceneLabels_RGB
+            case 'Light':
+                sceneButtons = self.sceneButtons_Light
+                sceneLabels = self.sceneLabels_Light
 
         for id in range(len(sceneButtons)):
             sceneLabels[id].setText(data[str(id)]['name'])
