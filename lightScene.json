@@ -1,0 +1,310 @@
+{   
+    "RGB Light": {
+        "0": {
+            "name": "Night",
+            "image": "design/sceneImage/night.png",
+            "white": true,
+            "scene_id": 0,
+            "transition_interval": 12,
+            "lightning_duration": 12,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 1000,
+                    "color_temp": 0
+                }
+            ],
+            "data": "000c0c0000000000000003e80000"
+        },
+        "1": {
+            "name": "Read",
+            "image": "design/sceneImage/read.png",
+            "white": true,
+            "scene_id": 1,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "010e0d0000000000000003e801f4"
+        },
+        "2": {
+            "name": "Work",
+            "image": "design/sceneImage/work.png",
+            "white": true,
+            "scene_id": 2,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "020e0d0000000000000003e803e8"
+        },
+        "3": {
+            "name": "Leisure",
+            "image": "design/sceneImage/leisure.png",
+            "white": true,
+            "scene_id": 3,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "030e0d0000000000000001f401f4"
+        },
+        "4": {
+            "name": "Soft",
+            "image": "design/sceneImage/soft.png",
+            "white": false,
+            "scene_id": 4,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "04464602007803e803e800000000464602007803e8000a00000000"
+        },
+        "5": {
+            "name": "Colours",
+            "image": "design/sceneImage/colour.png",
+            "white": false,
+            "scene_id": 5,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "05464601000003e803e800000000464601007803e803e80000000046460100f003e803e800000000464601003d03e803e80000000046460100ae03e803e800000000464601011303e803e800000000"
+        },
+        "6": {
+            "name": "Dazzling",
+            "image": "design/sceneImage/dazzling.png",
+            "white": false,
+            "scene_id": 6,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "06464601000003e803e800000000464601007803e803e80000000046460100f003e803e800000000"
+        },
+        "7": {
+            "name": "Fabulous",
+            "image": "design/sceneImage/fabulous.png",
+            "white": false,
+            "scene_id": 7,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "07464602000003e803e800000000464602007803e803e80000000046460200f003e803e800000000464602003d03e803e80000000046460200ae03e803e800000000464602011303e803e800000000"
+        }
+    },
+    "Light": {
+        "0": {
+            "name": "Night",
+            "image": "design/sceneImage/night.png",
+            "white": true,
+            "scene_id": 0,
+            "transition_interval": 12,
+            "lightning_duration": 12,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 1000,
+                    "color_temp": 0
+                }
+            ],
+            "data": "000c0c0000000000000003e80000"
+        },
+        "1": {
+            "name": "Read",
+            "image": "design/sceneImage/read.png",
+            "white": true,
+            "scene_id": 1,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "010e0d0000000000000003e801f4"
+        },
+        "2": {
+            "name": "Work",
+            "image": "design/sceneImage/work.png",
+            "white": true,
+            "scene_id": 2,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "020e0d0000000000000003e803e8"
+        },
+        "3": {
+            "name": "Leisure",
+            "image": "design/sceneImage/leisure.png",
+            "white": true,
+            "scene_id": 3,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "030e0d0000000000000001f401f4"
+        },
+        "4": {
+            "name": "Soft",
+            "image": "design/sceneImage/soft.png",
+            "white": false,
+            "scene_id": 4,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "04464602007803e803e800000000464602007803e8000a00000000"
+        },
+        "5": {
+            "name": "Colours",
+            "image": "design/sceneImage/colour.png",
+            "white": false,
+            "scene_id": 5,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "05464601000003e803e800000000464601007803e803e80000000046460100f003e803e800000000464601003d03e803e80000000046460100ae03e803e800000000464601011303e803e800000000"
+        },
+        "6": {
+            "name": "Dazzling",
+            "image": "design/sceneImage/dazzling.png",
+            "white": false,
+            "scene_id": 6,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "06464601000003e803e800000000464601007803e803e80000000046460100f003e803e800000000"
+        },
+        "7": {
+            "name": "Fabulous",
+            "image": "design/sceneImage/fabulous.png",
+            "white": false,
+            "scene_id": 7,
+            "transition_interval": 11,
+            "lightning_duration": 10,
+            "lightning_mode": 0,
+            "color_list": [
+                {
+                    "hue": 0,
+                    "saturation": 0,
+                    "value": 0,
+                    "brightness": 200,
+                    "color_temp": 0
+                }
+            ],
+            "data": "07464602000003e803e800000000464602007803e803e80000000046460200f003e803e800000000464602003d03e803e80000000046460200ae03e803e800000000464602011303e803e800000000"
+        }
+    }
+}
