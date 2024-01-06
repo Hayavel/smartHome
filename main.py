@@ -95,8 +95,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.scene4Button_Light, self.scene5Button_Light, self.scene6Button_Light,
                         self.scene7Button_Light, self.scene8Button_Light]
         
-        for ind, button in enumerate(self.sceneButtons_RGB):
-            button.clicked.connect(lambda: self.set_current_scene(str(ind)))
+        self.scene1Button.clicked.connect(lambda: self.switch_current_scene('RGB Light','0'))
+        self.scene2Button.clicked.connect(lambda: self.switch_current_scene('RGB Light','1'))
+        self.scene3Button.clicked.connect(lambda: self.switch_current_scene('RGB Light','2'))
+        self.scene4Button.clicked.connect(lambda: self.switch_current_scene('RGB Light','3'))
+        self.scene5Button.clicked.connect(lambda: self.switch_current_scene('RGB Light','4'))
+        self.scene6Button.clicked.connect(lambda: self.switch_current_scene('RGB Light','5'))
+        self.scene7Button.clicked.connect(lambda: self.switch_current_scene('RGB Light','6'))
+        self.scene8Button.clicked.connect(lambda: self.switch_current_scene('RGB Light','7'))
+
+        self.scene1Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','0'))
+        self.scene2Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','1'))
+        self.scene3Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','2'))
+        self.scene4Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','3'))
+        self.scene5Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','4'))
+        self.scene6Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','5'))
+        self.scene7Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','6'))
+        self.scene8Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','7'))
 
 
     def _adding_devices_in_devicesList(self):
@@ -266,6 +281,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.dial_Light.setValue(colourTemp)
                 self.brightSlider_Light.setValue(brightness)
+
+                self.whiteRound_Light.clear()
+                pixmap = QPixmap('design/coldWarm.png')
+                self.whiteRound_Light.setPixmap(pixmap)
             case 'scene':
                 self.sceneMode_Light.setVisible(True)
                 self.editSceneButton_Light.setVisible(True)
@@ -378,6 +397,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             sceneLabels[id].setText(data[str(id)]['name'])
             image = QIcon(data[str(id)]['image'])
             sceneButtons[id].setIcon(image)
+    
+    def switch_current_scene(self, light_type:str, id:str):
+        self.current_scene = [id, self.scenes_data[light_type][id]]
+        self.current_device.set_scene(self.current_scene[1]['data'])
+        
+        pixmap = QPixmap(self.current_scene[1]['image'])
+        match light_type:
+            case 'RGB Light':
+                self.active_scene.clear()
+                self.active_scene.setPixmap(pixmap)
+            case 'Light':
+                self.whiteRound_Light.clear()
+                self.whiteRound_Light.setPixmap(pixmap)
 
 if __name__ == '__main__':
 
