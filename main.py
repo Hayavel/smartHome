@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (QMainWindow, QApplication, QPushButton, QComboBox
 from PySide6.QtGui import QPixmap, QIcon, QFontDatabase, QFont
 
 from ui import Ui_MainWindow
-from test import ColourButton
+from colourButton import ColourButton
 from warning import WarningDialog, RemoveDeviceDialog
 
 import sys
