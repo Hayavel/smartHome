@@ -151,26 +151,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         deviceVersion = self.ver.text()
         deviceType = self.deviceType.currentText() if self.deviceType.currentIndex()!=-1 else ''
 
-        if deviceName!='' and deviceId!='' and deviceIp!='' and\
+        try:
+            float(deviceVersion)
+            if deviceName!='' and deviceId!='' and deviceIp!='' and\
            deviceKey!='' and deviceVersion!='' and deviceType!='':
             
-            self.active_devices[deviceName] = {}
-            self.active_devices[deviceName]['type'] = deviceType
-            self.active_devices[deviceName]['id'] = deviceId
-            self.active_devices[deviceName]['ip'] = deviceIp
-            self.active_devices[deviceName]['key'] = deviceKey
-            self.active_devices[deviceName]['ver'] = deviceVersion
+                self.active_devices[deviceName] = {}
+                self.active_devices[deviceName]['type'] = deviceType
+                self.active_devices[deviceName]['id'] = deviceId
+                self.active_devices[deviceName]['ip'] = deviceIp
+                self.active_devices[deviceName]['key'] = deviceKey
+                self.active_devices[deviceName]['ver'] = deviceVersion
 
-            self.devicesList_start.addItem(deviceName)
-            self.devicesList.addItem(deviceName)
-            self.clear_addFrame()
-            self.type_screens.setCurrentIndex(device_types[deviceType])
-            self.screens.setCurrentIndex(2)
+                self.devicesList_start.addItem(deviceName)
+                self.devicesList.addItem(deviceName)
+                self.clear_addFrame()
+                self.type_screens.setCurrentIndex(device_types[deviceType])
+                self.set_selected_device(deviceName)
+                self.screens.setCurrentIndex(2)
 
-            with open('devicesList.json', 'w') as f:
-                f.write(json.dumps(self.active_devices, indent=4))
+                with open('devicesList.json', 'w') as f:
+                    f.write(json.dumps(self.active_devices, indent=4))
 
-        else:
+            else:
+                dlg = WarningDialog()
+                dlg.exec()
+        except ValueError:
             dlg = WarningDialog()
             dlg.exec()
 
@@ -203,6 +209,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.devicesList_start.removeItem(removed_device_index)
             self.devicesList.removeItem(removed_device_index)
             self.active_devices.pop(removed_device)
+
+            with open('devicesList.json', 'w') as f:
+                f.write(json.dumps(self.active_devices, indent=4))
 
     def set_selected_device(self, text:str):
         '''Switch on device type screen
@@ -253,22 +262,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def set_device_state(self):
         '''Set on screen device state by type'''
-        device = self.type_screens.currentWidget().objectName()
+        if self.screens.currentIndex() != 1:
+            device = self.type_screens.currentWidget().objectName()
 
-        match device:
-            case 'RGB_Light':
-                with open('lightScene.json', 'r') as f:
-                    scenes_data = f.read()
-                    self.scenes_data = json.loads(scenes_data)
+            match device:
+                case 'RGB_Light':
+                    with open('lightScene.json', 'r') as f:
+                        scenes_data = f.read()
+                        self.scenes_data = json.loads(scenes_data)
 
-                self.switch_mode_RGB_Light()
-            case 'Light':
-                with open('lightScene.json', 'r') as f:
-                    scenes_data = f.read()
-                    self.scenes_data = json.loads(scenes_data)
+                    self.switch_mode_RGB_Light()
+                case 'Light':
+                    with open('lightScene.json', 'r') as f:
+                        scenes_data = f.read()
+                        self.scenes_data = json.loads(scenes_data)
 
-                mode = self.current_device.get_state()['mode']
-                self.switch_mode_Light(mode)
+                    mode = self.current_device.get_state()['mode']
+                    self.switch_mode_Light(mode)
 
     def switch_mode_Light(self, mode:str):
         '''Hide or Show "scene" element on Light device screen.
