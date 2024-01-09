@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (QMainWindow, QApplication, QPushButton, QComboBox
 from PySide6.QtGui import QPixmap, QIcon, QFontDatabase, QFont
 
 from ui import Ui_MainWindow
+from test import ColourButton
 from warning import WarningDialog, RemoveDeviceDialog
 
 import sys
@@ -126,6 +127,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.warmMode.toggled.connect(lambda: self.set_mode_to_colourSceneBar('white'))
         self.colourMode.toggled.connect(lambda: self.set_mode_to_colourSceneBar('colour'))
+
+        self.addNewColour.clicked.connect(self.set_new_colour_to_editScene)
+        self.addNewColour.clicked.connect(lambda: self.add_new_colour_in_scene(self.sceneColoursList.children()[-1].objectName()))
 
     def _adding_devices_in_devicesList(self):
         '''Add all local devices'''
@@ -452,6 +456,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         light_type = light_type.replace('_', ' ')
         data = deepcopy(self.scenes_data[light_type][self.current_scene[0]])
         self.current_scene[1] =  data
+        colours_count = len(data['color_list'])
+        for i, widget in enumerate(self.sceneColoursList.children()):
+            if i >= colours_count:
+                widget.deleteLater()
 
     def add_scene_data_to_editScene(self):
         '''Get actual scene data, and add to EditScene Panel'''
@@ -470,10 +478,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.brightSceneSlider.setValue(data['color_list'][0]['brightness'])
                         self.colourSceneSlider.setValue(data['color_list'][0]['color_temp'])
                     case False:
-                        self.set_mode_to_colourScenebar('colour')
+                        self.set_mode_to_colourSceneBar('colour')
                         self.colourMode.setChecked(True)
+
                         for i, color in enumerate(data['color_list']):
-                            self.add_new_color_in_scene(i, color)
+                            self.add_new_colour_in_scene(i, color)
+                        self.add_new_colour_in_scene(i+1)
+
                 image = QIcon(data['image'])
                 self.sceneImageButton.setIcon(image)
 
@@ -504,6 +515,57 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         with open(f'design/sceneColourBarEdit_{mode}.css', 'r') as f:
             self.colourSceneBar.setStyleSheet(f.read())
+    
+    def add_new_colour_in_scene(self, i, color=None):
+        '''Add colour button in sceneColorList with colour from scene data or
+          without(with Plus icon)'''
+        if type(i) == str:
+            if self.current_baseColour.objectName() != i:
+                return
+            i = int(i[-1]) + 1
+
+        button = ColourButton()
+        button.setParent(self.sceneColoursList)
+        button.setObjectName(f'baseColour{i}')
+        x = 5 + (50*i)
+        button.setGeometry(x, 5, 40, 40)
+        if color:
+            stylesheet = self.set_colour(color)
+            button.setStyleSheet(stylesheet)
+        button.setVisible(True)
+        button.clicked.connect(self.colourSceneEdit.show)
+        button.clicked.connect(self.get_current_baseColour)
+
+    def set_colour(self, color:dict):
+        '''Read and convert HSV data to baseColour button stylesheet'''
+        if self.colourMode.isChecked() == True:
+            hue = color['hue']
+            if hue == 360:
+                hue -= 1
+
+            saturation = 0 + (((color['saturation'] - 0)*(255-0)) / 1000)
+
+            value = 0 + (((color['value'] - 0)*(255-0)) / 1000)
+            
+            data = f'hsv({hue}, {saturation}, {value});'
+            stylesheet = f'background-color: {data}'
+            return stylesheet
+        
+        elif self.warmMode.isChecked() == True:
+            ... # Coming soon
+
+    def get_current_baseColour(self):
+        '''Saved clicked baseColour button for further editing'''
+        self.current_baseColour = self.sender()
+
+    def set_new_colour_to_editScene(self):
+        '''Set current colour to last clicked baseColour button'''
+        hue = self.colourSceneSlider.value()
+        saturation = self.colourTempSceneBar.value()
+        value = self.brightSceneBar.value()
+        hsv = {'hue': hue, 'saturation': saturation, 'value': value}
+        stylesheet = self.set_colour(hsv)
+        self.current_baseColour.setStyleSheet(stylesheet)
 
 if __name__ == '__main__':
 
