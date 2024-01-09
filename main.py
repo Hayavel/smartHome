@@ -10,6 +10,7 @@ from warning import WarningDialog, RemoveDeviceDialog
 import sys
 import json
 import time
+from copy import deepcopy
 
 from smartDevice import *
 from roundedImage import rounded_image
@@ -116,6 +117,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.sceneImageButton.clicked.connect(self.set_new_image_to_scene)
         self.sceneImageButton_Light.clicked.connect(self.set_new_image_to_scene)
+
+        self.exitFromScene.clicked.connect(self.close_editScene_panel)
+        self.exitFromScene_Light.clicked.connect(self.close_editScene_panel)
 
 
     def _adding_devices_in_devicesList(self):
@@ -362,7 +366,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def set_Light_scenes(self, light_type:str):
         '''Set Scene Image and Name for Light or RGB Light'''
-        data = self.scenes_data[light_type]
+        data = deepcopy(self.scenes_data[light_type])
 
         status = self.current_device.get_status()
 
@@ -387,7 +391,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def set_name_and_image_scenes(self, light_type:str):
         '''Set actual scene's name and image'''
 
-        data = self.scenes_data[light_type]
+        data = deepcopy(self.scenes_data[light_type])
 
         match light_type:
             case 'RGB Light':
@@ -426,6 +430,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             button = self.sender()
             button.setIcon(image)
             self.current_scene[1]['image'] = new_path_image
+            print(self.scenes_data['RGB Light'][self.current_scene[0]])
+            print(self.current_scene)
+
+    def close_editScene_panel(self):
+        '''If closed EditScene Panel, then return old Scene data'''
+        light_type = self.type_screens.currentWidget().objectName()
+        light_type = light_type.replace('_', ' ')
+        data = deepcopy(self.scenes_data[light_type][self.current_scene[0]])
+        self.current_scene[1] =  data
+        print(self.scenes_data[light_type][self.current_scene[0]])
+        print(self.current_scene)
 
 if __name__ == '__main__':
 
