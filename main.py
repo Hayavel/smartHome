@@ -12,7 +12,7 @@ import json
 import time
 
 from smartDevice import *
-#from roundedImage import rounded_image
+from roundedImage import rounded_image
 #import hexadecimal as hexDec
 #import local_statistics as lStat
 
@@ -112,6 +112,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.scene6Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','5'))
         self.scene7Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','6'))
         self.scene8Button_Light.clicked.connect(lambda: self.switch_current_scene('Light','7'))
+
+
+        self.sceneImageButton.clicked.connect(self.set_new_image_to_scene)
+        self.sceneImageButton_Light.clicked.connect(self.set_new_image_to_scene)
 
 
     def _adding_devices_in_devicesList(self):
@@ -410,6 +414,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             case 'Light':
                 self.whiteRound_Light.clear()
                 self.whiteRound_Light.setPixmap(pixmap)
+    
+    def set_new_image_to_scene(self):
+        '''Call QFileDialog to change image.
+        Image save in 'design/sceneImage/' folder after accept changes'''
+        filename, _ = QFileDialog.getOpenFileName(self, 'Open Directory', '', 'Image (*.png *.jpg *jpeg)')
+        if filename:
+            new_path_image = rounded_image(filename, 'design/sceneImage/')
+
+            image = QIcon(new_path_image)
+            button = self.sender()
+            button.setIcon(image)
+            self.current_scene[1]['image'] = new_path_image
 
 if __name__ == '__main__':
 
