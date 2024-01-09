@@ -105,10 +105,17 @@
             "lightning_mode": 0,
             "color_list": [
                 {
-                    "hue": 0,
-                    "saturation": 0,
-                    "value": 0,
-                    "brightness": 200,
+                    "hue": 360,
+                    "saturation": 1000,
+                    "value": 1000,
+                    "brightness": 0,
+                    "color_temp": 0
+                },
+                {
+                    "hue": 240,
+                    "saturation": 1000,
+                    "value": 1000,
+                    "brightness": 0,
                     "color_temp": 0
                 }
             ],
