@@ -1735,7 +1735,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "")
-        self.colourSceneSlider_Light.setMaximum(100)
+        self.colourSceneSlider_Light.setMaximum(1000)
         self.colourSceneSlider_Light.setOrientation(Qt.Horizontal)
         self.colourSceneBar_Light = QProgressBar(self.colourSceneEdit_Light)
         self.colourSceneBar_Light.setObjectName(u"colourSceneBar_Light")
@@ -1750,6 +1750,7 @@ class Ui_MainWindow(object):
 "	border-radius: 5px;\n"
 "}\n"
 "")
+        self.colourSceneBar_Light.setMaximum(1000)
         self.colourSceneBar_Light.setValue(0)
         self.colourSceneBar_Light.setTextVisible(False)
         self.brightSceneSlider_Light = QSlider(self.colourSceneEdit_Light)

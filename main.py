@@ -121,6 +121,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.exitFromScene.clicked.connect(self.close_editScene_panel)
         self.exitFromScene_Light.clicked.connect(self.close_editScene_panel)
 
+        self.editSceneButton.clicked.connect(self.add_scene_data_to_editScene)
+        self.editSceneButton_Light.clicked.connect(self.add_scene_data_to_editScene)
+        
+        self.warmMode.toggled.connect(lambda: self.set_mode_to_colourSceneBar('white'))
+        self.colourMode.toggled.connect(lambda: self.set_mode_to_colourSceneBar('colour'))
 
     def _adding_devices_in_devicesList(self):
         '''Add all local devices'''
@@ -440,8 +445,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             button = self.sender()
             button.setIcon(image)
             self.current_scene[1]['image'] = new_path_image
-            print(self.scenes_data['RGB Light'][self.current_scene[0]])
-            print(self.current_scene)
 
     def close_editScene_panel(self):
         '''If closed EditScene Panel, then return old Scene data'''
@@ -449,8 +452,58 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         light_type = light_type.replace('_', ' ')
         data = deepcopy(self.scenes_data[light_type][self.current_scene[0]])
         self.current_scene[1] =  data
-        print(self.scenes_data[light_type][self.current_scene[0]])
-        print(self.current_scene)
+
+    def add_scene_data_to_editScene(self):
+        '''Get actual scene data, and add to EditScene Panel'''
+        parent = self.sender().parent().objectName()
+        data = self.current_scene[1]
+        match parent:
+            case 'scene':
+                self.nameSceneEdit.setText(data['name'])
+                self.speedFlickerSlider.setValue(data['transition_interval'])
+                self.modeColourFlickerBox.setCurrentIndex(data['lightning_mode'])
+                match data['white']:
+                    case True:
+                        self.warmMode.setChecked(True)
+                        self.set_mode_to_colourSceneBar('white')
+
+                        self.brightSceneSlider.setValue(data['color_list'][0]['brightness'])
+                        self.colourSceneSlider.setValue(data['color_list'][0]['color_temp'])
+                    case False:
+                        self.set_mode_to_colourScenebar('colour')
+                        self.colourMode.setChecked(True)
+                        for i, color in enumerate(data['color_list']):
+                            self.add_new_color_in_scene(i, color)
+                image = QIcon(data['image'])
+                self.sceneImageButton.setIcon(image)
+
+            case 'Light':
+                self.nameSceneEdit_Light.setText(data['name'])
+                self.speedFlickerSlider_Light.setValue(data['transition_interval'])
+                self.modeColourFlickerBox_Light.setCurrentIndex(data['lightning_mode'])
+
+                self.brightSceneSlider_Light.setValue(data['color_list'][0]['brightness'])
+                self.colourSceneSlider_Light.setValue(data['color_list'][0]['color_temp'])
+
+                image = QIcon(data['image'])
+                self.sceneImageButton_Light.setIcon(image)
+
+    def set_mode_to_colourSceneBar(self, mode:str):
+        '''Set actual stylesheet to colourSceneBar(Colour or Warm)'''
+        match mode:
+            case 'white':
+                self.colourSceneBar.setMaximum(1000)
+                self.colourSceneSlider.setMaximum(1000)
+                self.colourTempSceneBar.setVisible(False)
+                self.colourTempSceneSlider.setVisible(False)
+            case 'colour':
+                self.colourSceneBar.setMaximum(360)
+                self.colourSceneSlider.setMaximum(360)
+                self.colourTempSceneBar.setVisible(True)
+                self.colourTempSceneSlider.setVisible(True)
+
+        with open(f'design/sceneColourBarEdit_{mode}.css', 'r') as f:
+            self.colourSceneBar.setStyleSheet(f.read())
 
 if __name__ == '__main__':
 
