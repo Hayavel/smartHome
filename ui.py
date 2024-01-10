@@ -802,7 +802,8 @@ class Ui_MainWindow(object):
 "	border-radius: 37%;\n"
 "	border-top: 0px;\n"
 "	border-bottom: 0px;\n"
-"}")
+"}\n"
+"")
         self.sceneImageButton.setIconSize(QSize(75, 75))
         self.colourSceneEdit = QFrame(self.editScene)
         self.colourSceneEdit.setObjectName(u"colourSceneEdit")
@@ -993,6 +994,18 @@ class Ui_MainWindow(object):
         self.colourTempSceneBar.setMaximum(1000)
         self.colourTempSceneBar.setValue(0)
         self.colourTempSceneBar.setTextVisible(False)
+        self.colourBrightness = QLabel(self.colourSceneEdit)
+        self.colourBrightness.setObjectName(u"colourBrightness")
+        self.colourBrightness.setGeometry(QRect(10, 170, 380, 20))
+        self.colourBrightness.setStyleSheet(u"QLabel{\n"
+"	font-size: 14px;\n"
+"}")
+        self.colourTempSceneLabel = QLabel(self.colourSceneEdit)
+        self.colourTempSceneLabel.setObjectName(u"colourTempSceneLabel")
+        self.colourTempSceneLabel.setGeometry(QRect(10, 230, 380, 20))
+        self.colourTempSceneLabel.setStyleSheet(u"QLabel{\n"
+"	font-size: 14px;\n"
+"}")
         self.colourTempSceneBar.raise_()
         self.brightSceneBar.raise_()
         self.colourSceneBar.raise_()
@@ -1004,6 +1017,8 @@ class Ui_MainWindow(object):
         self.colourMode.raise_()
         self.warmMode.raise_()
         self.colourTempSceneSlider.raise_()
+        self.colourBrightness.raise_()
+        self.colourTempSceneLabel.raise_()
         self.speedFlicker.raise_()
         self.nameScene.raise_()
         self.nameSceneEdit.raise_()
@@ -1044,7 +1059,7 @@ class Ui_MainWindow(object):
 "	border-bottom: 2px solid rgb(236, 236, 236);\n"
 "}")
         icon1 = QIcon()
-        icon1.addFile(u"SmartBulb/design/edit.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u"design/edit.png", QSize(), QIcon.Normal, QIcon.Off)
         self.editSceneButton.setIcon(icon1)
         self.editSceneButton.setIconSize(QSize(24, 24))
         self.sceneMode = QFrame(self.scene)
@@ -2057,6 +2072,8 @@ class Ui_MainWindow(object):
         self.deleteSceneColour.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.colourMode.setText("")
         self.warmMode.setText("")
+        self.colourBrightness.setText(QCoreApplication.translate("MainWindow", u"Brightness", None))
+        self.colourTempSceneLabel.setText(QCoreApplication.translate("MainWindow", u"Saturation", None))
         self.editSceneButton.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.scene1Button.setText("")
         self.scene1Label.setText(QCoreApplication.translate("MainWindow", u"Scene1", None))

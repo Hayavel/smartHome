@@ -120,7 +120,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sceneImageButton_Light.clicked.connect(self.set_new_image_to_scene)
 
         self.exitFromScene.clicked.connect(self.close_editScene_panel)
+        self.exitFromScene.clicked.connect(self.colourSceneEdit.hide)
         self.exitFromScene_Light.clicked.connect(self.close_editScene_panel)
+        self.exitFromScene_Light.clicked.connect(self.colourSceneEdit_Light.hide)
 
         self.editSceneButton.clicked.connect(self.add_scene_data_to_editScene)
         self.editSceneButton_Light.clicked.connect(self.add_scene_data_to_editScene)
@@ -475,8 +477,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.warmMode.setChecked(True)
                         self.set_mode_to_colourSceneBar('white')
 
-                        self.brightSceneSlider.setValue(data['color_list'][0]['brightness'])
-                        self.colourSceneSlider.setValue(data['color_list'][0]['color_temp'])
+                        for i, color in enumerate(data['color_list']):
+                            self.add_new_colour_in_scene(i, color)
+                        self.add_new_colour_in_scene(i+1)
                     case False:
                         self.set_mode_to_colourSceneBar('colour')
                         self.colourMode.setChecked(True)
@@ -507,11 +510,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.colourSceneSlider.setMaximum(1000)
                 self.colourTempSceneBar.setVisible(False)
                 self.colourTempSceneSlider.setVisible(False)
+                self.colourTempSceneLabel.setVisible(False)
             case 'colour':
                 self.colourSceneBar.setMaximum(360)
                 self.colourSceneSlider.setMaximum(360)
                 self.colourTempSceneBar.setVisible(True)
                 self.colourTempSceneSlider.setVisible(True)
+                self.colourTempSceneLabel.setVisible(True)
 
         with open(f'design/sceneColourBarEdit_{mode}.css', 'r') as f:
             self.colourSceneBar.setStyleSheet(f.read())
@@ -532,6 +537,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if color:
             stylesheet = self.set_colour(color)
             button.setStyleSheet(stylesheet)
+            button.setIcon(QIcon())
         button.setVisible(True)
         button.clicked.connect(self.colourSceneEdit.show)
         button.clicked.connect(self.get_current_baseColour)
@@ -548,24 +554,50 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             value = 0 + (((color['value'] - 0)*(255-0)) / 1000)
             
             data = f'hsv({hue}, {saturation}, {value});'
-            stylesheet = f'background-color: {data}'
-            return stylesheet
         
         elif self.warmMode.isChecked() == True:
-            ... # Coming soon
+            start = [255, 221, 161] # const
+            end = [220, 249, 255] # const
+
+            color_temp = color['color_temp']
+
+            k_R = start[0] + (color_temp/1000) * (end[0] - start[0])
+            k_G = start[1] + (color_temp/1000) * (end[1] - start[1])
+            k_B = start[2] + (color_temp/1000) * (end[2] - start[2])
+            
+            data = f'rgb({k_R}, {k_G}, {k_B});'   
+
+        stylesheet = f'background-color: {data}'
+        return stylesheet     
 
     def get_current_baseColour(self):
         '''Saved clicked baseColour button for further editing'''
         self.current_baseColour = self.sender()
+        id = int(self.current_baseColour.objectName()[-1])
+        try: # If add new colour
+            color = self.current_scene[1]['color_list'][id]
+            if self.current_scene[1]['white']:
+                self.colourSceneSlider.setValue(color['color_temp'])
+                self.brightSceneSlider.setValue(color['brightness'])
+            else:
+                self.colourSceneSlider.setValue(color['hue'])
+                self.colourTempSceneSlider.setValue(color['saturation'])
+                self.brightSceneSlider.setValue(color['value'])
+        except IndexError:
+            pass
 
     def set_new_colour_to_editScene(self):
         '''Set current colour to last clicked baseColour button'''
         hue = self.colourSceneSlider.value()
         saturation = self.colourTempSceneBar.value()
         value = self.brightSceneBar.value()
-        hsv = {'hue': hue, 'saturation': saturation, 'value': value}
+
+        brightness = self.brightSceneBar.value()
+        color_temp = self.colourSceneSlider.value()
+        hsv = {'hue': hue, 'saturation': saturation, 'value': value, 'brightness': brightness, 'color_temp': color_temp}
         stylesheet = self.set_colour(hsv)
         self.current_baseColour.setStyleSheet(stylesheet)
+        self.current_baseColour.setIcon(QIcon())
 
 if __name__ == '__main__':
 
