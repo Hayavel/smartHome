@@ -799,19 +799,9 @@ class Ui_MainWindow(object):
         self.sceneImageButton.setObjectName(u"sceneImageButton")
         self.sceneImageButton.setGeometry(QRect(280, 420, 75, 75))
         self.sceneImageButton.setStyleSheet(u"QPushButton { \n"
-"	background-color: #ecd105;\n"
 "	border-radius: 37%;\n"
 "	border-top: 0px;\n"
 "	border-bottom: 0px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"	background-color: #ddc004;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"	 background-color: #c6ac03;\n"
-"}\n"
-"QPushButton:!enabled {\n"
-"	 background-color: #c6b43e;\n"
 "}")
         self.sceneImageButton.setIconSize(QSize(75, 75))
         self.colourSceneEdit = QFrame(self.editScene)

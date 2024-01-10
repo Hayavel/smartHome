@@ -32,8 +32,8 @@
                     "hue": 0,
                     "saturation": 0,
                     "value": 0,
-                    "brightness": 200,
-                    "color_temp": 0
+                    "brightness": 1000,
+                    "color_temp": 1000
                 }
             ],
             "data": "010e0d0000000000000003e801f4"
