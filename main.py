@@ -59,6 +59,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.select_start.clicked.connect(lambda: self.set_selected_device(self.devicesList_start.currentText()))
         self.select.clicked.connect(lambda: self.set_selected_device(self.devicesList.currentText()))
+        self.select.clicked.connect(self.sideBar.hide)
 
         self.removeButton_start.clicked.connect(lambda: self.remove_device())
         self.removeButton.clicked.connect(lambda: self.remove_device())
@@ -119,9 +120,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sceneImageButton.clicked.connect(self.set_new_image_to_scene)
         self.sceneImageButton_Light.clicked.connect(self.set_new_image_to_scene)
 
-        self.exitFromScene.clicked.connect(self.close_editScene_panel)
+        self.exitFromScene.clicked.connect(lambda: self.close_editScene_panel('RGB Light'))
         self.exitFromScene.clicked.connect(self.colourSceneEdit.hide)
-        self.exitFromScene_Light.clicked.connect(self.close_editScene_panel)
+        self.exitFromScene_Light.clicked.connect(lambda: self.close_editScene_panel('Light'))
         self.exitFromScene_Light.clicked.connect(self.colourSceneEdit_Light.hide)
 
         self.editSceneButton.clicked.connect(self.add_scene_data_to_editScene)
@@ -130,11 +131,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.warmMode.toggled.connect(lambda: self.set_mode_to_colourSceneBar('white'))
         self.colourMode.toggled.connect(lambda: self.set_mode_to_colourSceneBar('colour'))
 
-        self.addNewColour.clicked.connect(self.set_new_colour_to_editScene)
-        self.addNewColour.clicked.connect(lambda: self.add_new_colour_in_scene(self.sceneColoursList.children()[-1].objectName()))
-        self.deleteSceneColour.clicked.connect(self.delete_current_colour)
+        self.addNewColour.clicked.connect(lambda: self.set_new_colour_to_editScene('RGB Light'))
+        self.addNewColour.clicked.connect(lambda: self.add_new_colour_in_scene('RGB Light',
+                                                                    self.sceneColoursList.children()[-1].objectName()))
+        self.deleteSceneColour.clicked.connect(lambda: self.delete_current_colour('RGB Light'))
 
-        self.addNewScene.clicked.connect(self.save_new_Scene_data)
+        self.addNewScene.clicked.connect(lambda: self.save_new_Scene_data('RGB Light'))
+
+
+        self.addNewColour_Light.clicked.connect(lambda: self.set_new_colour_to_editScene('Light'))
+        self.addNewColour_Light.clicked.connect(lambda: self.add_new_colour_in_scene('Light',
+                                                            self.sceneColoursList_Light.children()[-1].objectName()))
+        self.deleteSceneColour_Light.clicked.connect(lambda: self.delete_current_colour('Light'))
+
+        self.addNewScene_Light.clicked.connect(lambda: self.save_new_Scene_data('Light'))
 
     def _adding_devices_in_devicesList(self):
         '''Add all local devices'''
@@ -455,14 +465,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             button.setIcon(image)
             self.current_scene[1]['image'] = new_path_image
 
-    def close_editScene_panel(self):
+    def close_editScene_panel(self, light_type:str):
         '''If closed EditScene Panel, then return old Scene data'''
-        light_type = self.type_screens.currentWidget().objectName()
-        light_type = light_type.replace('_', ' ')
+
         data = deepcopy(self.scenes_data[light_type][self.current_scene[0]])
         self.current_scene[1] =  data
         colours_count = len(data['color_list'])
-        for i, widget in enumerate(self.sceneColoursList.children()):
+        if light_type == 'RGB Light':
+            colours_list = self.sceneColoursList
+        else:
+            colours_list = self.sceneColoursList_Light
+        for i, widget in enumerate(colours_list.children()):
             if i >= colours_count:
                 widget.deleteLater()
 
@@ -484,8 +497,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.set_mode_to_colourSceneBar('colour')
 
                 for i, color in enumerate(data['color_list']):
-                    self.add_new_colour_in_scene(i, color)
-                self.add_new_colour_in_scene(i+1)
+                    self.add_new_colour_in_scene('RGB Light', i, color)
+                self.add_new_colour_in_scene('RGB Light',i+1)
 
                 image = QIcon(data['image'])
                 self.sceneImageButton.setIcon(image)
@@ -495,8 +508,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.speedFlickerSlider_Light.setValue(data['transition_interval'])
                 self.modeColourFlickerBox_Light.setCurrentIndex(data['lightning_mode'])
 
-                self.brightSceneSlider_Light.setValue(data['color_list'][0]['brightness'])
-                self.colourSceneSlider_Light.setValue(data['color_list'][0]['color_temp'])
+                for i, color in enumerate(data['color_list']):
+                    self.add_new_colour_in_scene('Light', i, color)
+                self.add_new_colour_in_scene('Light', i+1)
 
                 image = QIcon(data['image'])
                 self.sceneImageButton_Light.setIcon(image)
@@ -520,7 +534,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         with open(f'design/sceneColourBarEdit_{mode}.css', 'r') as f:
             self.colourSceneBar.setStyleSheet(f.read())
     
-    def add_new_colour_in_scene(self, i, color=None):
+    def add_new_colour_in_scene(self, light_type:str, i, color=None):
         '''Add colour button in sceneColorList with colour from scene data or
           without(with Plus icon)'''
         if type(i) == str:
@@ -528,42 +542,61 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 return
             i = int(i[-1]) + 1
 
-        for c in self.sceneColoursList.children():
+        if light_type == 'RGB Light':
+            colours_list = self.sceneColoursList
+            scene_edit = self.colourSceneEdit
+        elif light_type == 'Light':
+            colours_list = self.sceneColoursList_Light
+            scene_edit = self.colourSceneEdit_Light
+
+        for c in colours_list.children():
             if c.objectName() == f'baseColour{i}':
                 button = c
                 break
         else:
             button = ColourButton()
-            button.setParent(self.sceneColoursList)
+            button.setParent(colours_list)
             button.setObjectName(f'baseColour{i}')
 
         x = 5 + (50*i)
         button.setGeometry(x, 5, 40, 40)
         if color:
-            stylesheet = self.set_colour(color)
+            stylesheet = self.set_colour(light_type, color)
             button.setStyleSheet(stylesheet)
             button.setIcon(QIcon())
         else:
             button.setStyleSheet('')
             button.setIcon(QIcon('design/plus.png'))
         button.setVisible(True)
-        button.clicked.connect(self.colourSceneEdit.show)
+        button.clicked.connect(scene_edit.show)
         button.clicked.connect(self.get_current_baseColour)
 
-    def set_colour(self, color:dict):
+    def set_colour(self, light_type:str, color:dict):
         '''Read and convert HSV data to baseColour button stylesheet'''
-        if self.colourMode.isChecked() == True:
-            hue = color['hue']
-            if hue == 360:
-                hue -= 1
+        if light_type == 'RGB Light':
+            if self.colourMode.isChecked() == True:
+                hue = color['hue']
+                if hue == 360:
+                    hue -= 1
 
-            saturation = 0 + (((color['saturation'] - 0)*(255-0)) / 1000)
+                saturation = 0 + (((color['saturation'] - 0)*(255-0)) / 1000)
 
-            value = 0 + (((color['value'] - 0)*(255-0)) / 1000)
+                value = 0 + (((color['value'] - 0)*(255-0)) / 1000)
+                
+                data = f'hsv({hue}, {saturation}, {value});'
             
-            data = f'hsv({hue}, {saturation}, {value});'
-        
-        elif self.warmMode.isChecked() == True:
+            elif self.warmMode.isChecked() == True:
+                start = [255, 221, 161] # const
+                end = [220, 249, 255] # const
+
+                color_temp = color['color_temp']
+
+                k_R = start[0] + (color_temp/1000) * (end[0] - start[0])
+                k_G = start[1] + (color_temp/1000) * (end[1] - start[1])
+                k_B = start[2] + (color_temp/1000) * (end[2] - start[2])
+                
+                data = f'rgb({k_R}, {k_G}, {k_B});'
+        elif light_type == 'Light':
             start = [255, 221, 161] # const
             end = [220, 249, 255] # const
 
@@ -573,7 +606,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             k_G = start[1] + (color_temp/1000) * (end[1] - start[1])
             k_B = start[2] + (color_temp/1000) * (end[2] - start[2])
             
-            data = f'rgb({k_R}, {k_G}, {k_B});'   
+            data = f'rgb({k_R}, {k_G}, {k_B});'
 
         stylesheet = f'background-color: {data}'
         return stylesheet     
@@ -584,30 +617,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         id = int(self.current_baseColour.objectName()[-1])
         try: # If add new colour
             color = self.current_scene[1]['color_list'][id]
-            if self.current_scene[1]['white']:
-                self.colourSceneSlider.setValue(color['color_temp'])
-                self.brightSceneSlider.setValue(color['brightness'])
-            else:
-                self.colourSceneSlider.setValue(color['hue'])
-                self.colourTempSceneSlider.setValue(color['saturation'])
-                self.brightSceneSlider.setValue(color['value'])
+            light_type = self.type_screens.currentWidget().objectName()
+            if light_type == 'RGB_Light':
+                if self.current_scene[1]['white']:
+                    self.colourSceneSlider.setValue(color['color_temp'])
+                    self.brightSceneSlider.setValue(color['brightness'])
+                else:
+                    self.colourSceneSlider.setValue(color['hue'])
+                    self.colourTempSceneSlider.setValue(color['saturation'])
+                    self.brightSceneSlider.setValue(color['value'])
+            elif light_type == 'Light':
+                self.colourSceneSlider_Light.setValue(color['color_temp'])
+                self.brightSceneSlider_Light.setValue(color['brightness'])
         except IndexError:
             pass
 
-    def set_new_colour_to_editScene(self):
+    def set_new_colour_to_editScene(self, light_type:str):
         '''Set current colour to last clicked baseColour button'''
-        if self.colourMode.isChecked():
-            hue = self.colourSceneSlider.value()
-            saturation = self.colourTempSceneBar.value()
-            value = self.brightSceneBar.value()
-            brightness = 0
-            color_temp = 0
-        else:
+        if light_type == 'RGB Light':
+            if self.colourMode.isChecked():
+                hue = self.colourSceneSlider.value()
+                saturation = self.colourTempSceneBar.value()
+                value = self.brightSceneBar.value()
+                brightness = 0
+                color_temp = 0
+            else:
+                hue = 0
+                saturation = 0
+                value = 0
+                brightness = self.brightSceneBar.value()
+                color_temp = self.colourSceneSlider.value()
+        elif light_type == 'Light':
             hue = 0
             saturation = 0
             value = 0
-            brightness = self.brightSceneBar.value()
-            color_temp = self.colourSceneSlider.value()
+            brightness = self.brightSceneBar_Light.value()
+            color_temp = self.colourSceneSlider_Light.value()
+
         color = {'hue': hue, 'saturation': saturation, 'value': value, 'brightness': brightness, 'color_temp': color_temp}
 
         color_id = int(self.current_baseColour.objectName()[-1])
@@ -618,20 +664,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.current_scene[1]['color_list'].append(color)
 
 
-        stylesheet = self.set_colour(color)
+        stylesheet = self.set_colour(light_type, color)
         self.current_baseColour.setStyleSheet(stylesheet)
         self.current_baseColour.setIcon(QIcon())
 
-    def save_new_Scene_data(self):
+    def save_new_Scene_data(self, light_type:str):
         '''Save new Scene data and send to Light'''
         scene_id = self.current_scene[1]['scene_id']
-        light_type = self.type_screens.currentWidget().objectName()
-        light_type = light_type.replace('_', ' ')
 
-        name = self.nameSceneEdit.text()
-        transition_interval = self.speedFlickerSlider.value()
-        lightning_duration = self.speedFlickerSlider.value()
-        lightning_mode = self.modeColourFlickerBox.currentIndex()
+        if light_type == 'RGB Light':
+            name = self.nameSceneEdit.text()
+            transition_interval = self.speedFlickerSlider.value()
+            lightning_duration = self.speedFlickerSlider.value()
+            lightning_mode = self.modeColourFlickerBox.currentIndex()
+        elif light_type == 'Light':
+            name = self.nameSceneEdit_Light.text()
+            transition_interval = self.speedFlickerSlider_Light.value()
+            lightning_duration = self.speedFlickerSlider_Light.value()
+            lightning_mode = self.modeColourFlickerBox_Light.currentIndex()
 
         color_list = self.current_scene[1]['color_list']
 
@@ -651,18 +701,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.scenes_data[light_type][str(scene_id)] = self.current_scene[1]
         with open('lightScene.json', 'w') as f:
             f.write(json.dumps(self.scenes_data, indent=4))
-        self.set_name_and_image_scenes('RGB Light')
-        self.switch_current_scene('RGB Light', str(scene_id))
+        self.set_name_and_image_scenes(light_type)
+        self.switch_current_scene(light_type, str(scene_id))
 
-    def delete_current_colour(self):
+    def delete_current_colour(self, light_type:str):
         '''Delete color and shifts the list of color button by one'''
         color_id = int(self.current_baseColour.objectName()[-1])
         self.current_scene[1]['color_list'].pop(color_id)
 
-        color_button_list = self.sceneColoursList.children()
+        if light_type == 'RGB Light':
+            colours_list = self.sceneColoursList
+            scene_edit = self.colourSceneEdit
+        elif light_type == 'Light':
+            colours_list = self.sceneColoursList_Light
+            scene_edit = self.colourSceneEdit_Light
+
+        color_button_list = colours_list.children()
 
         for id, color in enumerate(color_button_list[:-2]):
-            stylesheet = self.set_colour(self.current_scene[1]['color_list'][id])
+            stylesheet = self.set_colour(light_type, self.current_scene[1]['color_list'][id])
             color.setStyleSheet(stylesheet)
 
         color_button_list[-2].setStyleSheet('')
@@ -670,7 +727,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         color_button_list[-1].deleteLater()
 
-        self.colourSceneEdit.hide()
+        scene_edit.hide()
 
 if __name__ == '__main__':
 

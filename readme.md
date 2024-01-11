@@ -19,9 +19,9 @@ To obtain data to connect the device, use [instructions](https://github.com/jaso
     - [X] Color mode
     - [X] Scene mode
     - [ ] Music mode
-- [ ] Light
+- [X] Light
     - [X] White mode
-    - [ ] Scene mode
+    - [X] Scene mode
 
 ## Installation
 - Download and extract the repository.

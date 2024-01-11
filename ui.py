@@ -1669,10 +1669,6 @@ class Ui_MainWindow(object):
 "}")
         self.sceneColoursList_Light.setFrameShape(QFrame.StyledPanel)
         self.sceneColoursList_Light.setFrameShadow(QFrame.Raised)
-        self.baseColour_Light = QPushButton(self.sceneColoursList_Light)
-        self.baseColour_Light.setObjectName(u"baseColour_Light")
-        self.baseColour_Light.setGeometry(QRect(15, 5, 40, 40))
-        self.baseColour_Light.setStyleSheet(u"image: url(design/plus.png);")
         self.sceneImage_Light = QLabel(self.editScene_Light)
         self.sceneImage_Light.setObjectName(u"sceneImage_Light")
         self.sceneImage_Light.setGeometry(QRect(10, 440, 380, 30))
@@ -1681,20 +1677,11 @@ class Ui_MainWindow(object):
         self.sceneImageButton_Light.setObjectName(u"sceneImageButton_Light")
         self.sceneImageButton_Light.setGeometry(QRect(280, 420, 75, 75))
         self.sceneImageButton_Light.setStyleSheet(u"QPushButton { \n"
-"	background-color: #ecd105;\n"
 "	border-radius: 37%;\n"
 "	border-top: 0px;\n"
 "	border-bottom: 0px;\n"
 "}\n"
-"QPushButton:hover {\n"
-"	background-color: #ddc004;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"	 background-color: #c6ac03;\n"
-"}\n"
-"QPushButton:!enabled {\n"
-"	 background-color: #c6b43e;\n"
-"}")
+"")
         self.sceneImageButton_Light.setIconSize(QSize(75, 75))
         self.colourSceneEdit_Light = QFrame(self.editScene_Light)
         self.colourSceneEdit_Light.setObjectName(u"colourSceneEdit_Light")
@@ -1806,6 +1793,12 @@ class Ui_MainWindow(object):
         self.deleteSceneColour_Light.setGeometry(QRect(300, 50, 91, 24))
         self.deleteSceneColour_Light.setIcon(icon)
         self.deleteSceneColour_Light.setIconSize(QSize(16, 16))
+        self.colourBrightness_2 = QLabel(self.colourSceneEdit_Light)
+        self.colourBrightness_2.setObjectName(u"colourBrightness_2")
+        self.colourBrightness_2.setGeometry(QRect(10, 170, 380, 20))
+        self.colourBrightness_2.setStyleSheet(u"QLabel{\n"
+"	font-size: 14px;\n"
+"}")
         self.addNewColour_Light.raise_()
         self.exitFromColour_Light.raise_()
         self.colourSceneBar_Light.raise_()
@@ -1813,6 +1806,7 @@ class Ui_MainWindow(object):
         self.deleteSceneColour_Light.raise_()
         self.brightSceneSlider_Light.raise_()
         self.colourSceneSlider_Light.raise_()
+        self.colourBrightness_2.raise_()
         self.nameScene_Light.raise_()
         self.nameSceneEdit_Light.raise_()
         self.colourScene_Light.raise_()
@@ -2022,7 +2016,6 @@ class Ui_MainWindow(object):
         self.exitFromColour_Light.clicked.connect(self.colourSceneEdit_Light.hide)
         self.addNewColour_Light.clicked.connect(self.colourSceneEdit_Light.hide)
         self.addNewScene_Light.clicked.connect(self.editScene_Light.hide)
-        self.baseColour_Light.clicked.connect(self.colourSceneEdit_Light.show)
         self.editSceneButton_Light.clicked.connect(self.editScene_Light.show)
         self.speedFlickerSlider_Light.valueChanged.connect(self.speedFlickerBar_Light.setValue)
         self.brightSceneSlider_Light.valueChanged.connect(self.brightSceneBar_Light.setValue)
@@ -2127,12 +2120,12 @@ class Ui_MainWindow(object):
         self.speedFlicker_Light.setText(QCoreApplication.translate("MainWindow", u"Jumping speed", None))
         self.addNewScene_Light.setText(QCoreApplication.translate("MainWindow", u"OK", None))
         self.exitFromScene_Light.setText(QCoreApplication.translate("MainWindow", u"X", None))
-        self.baseColour_Light.setText("")
         self.sceneImage_Light.setText(QCoreApplication.translate("MainWindow", u"Scene image", None))
         self.sceneImageButton_Light.setText("")
         self.addNewColour_Light.setText(QCoreApplication.translate("MainWindow", u"OK", None))
         self.exitFromColour_Light.setText(QCoreApplication.translate("MainWindow", u"X", None))
         self.deleteSceneColour_Light.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
+        self.colourBrightness_2.setText(QCoreApplication.translate("MainWindow", u"Brightness", None))
         self.deviceName_onScreen.setText(QCoreApplication.translate("MainWindow", u"Device name", None))
         self.sideBarButton.setText("")
         self.sideBarClose.setText(QCoreApplication.translate("MainWindow", u"Close", None))
