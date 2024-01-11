@@ -1,4 +1,4 @@
-{   
+{
     "RGB Light": {
         "0": {
             "name": "Night",
@@ -96,13 +96,13 @@
             "data": "04464602007803e803e800000000464602007803e8000a00000000"
         },
         "5": {
-            "name": "Colours",
+            "name": "Colour",
             "image": "design/sceneImage/colour.png",
             "white": false,
             "scene_id": 5,
-            "transition_interval": 11,
-            "lightning_duration": 10,
-            "lightning_mode": 0,
+            "transition_interval": 100,
+            "lightning_duration": 100,
+            "lightning_mode": 2,
             "color_list": [
                 {
                     "hue": 360,
@@ -117,9 +117,23 @@
                     "value": 1000,
                     "brightness": 0,
                     "color_temp": 0
+                },
+                {
+                    "hue": 299,
+                    "saturation": 1000,
+                    "value": 1000,
+                    "brightness": 0,
+                    "color_temp": 0
+                },
+                {
+                    "hue": 113,
+                    "saturation": 1000,
+                    "value": 1000,
+                    "brightness": 0,
+                    "color_temp": 0
                 }
             ],
-            "data": "05464601000003e803e800000000464601007803e803e80000000046460100f003e803e800000000464601003d03e803e80000000046460100ae03e803e800000000464601011303e803e800000000"
+            "data": "05646402016803e803e80000000064640200f003e803e800000000646402012b03e803e800000000646402007103e803e800000000"
         },
         "6": {
             "name": "Dazzling",

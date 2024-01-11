@@ -17,7 +17,7 @@ To obtain data to connect the device, use [instructions](https://github.com/jaso
 - [ ] RGB Light
     - [X] White mode
     - [X] Color mode
-    - [ ] Scene mode
+    - [X] Scene mode
     - [ ] Music mode
 - [ ] Light
     - [X] White mode
