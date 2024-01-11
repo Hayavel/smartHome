@@ -132,6 +132,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.addNewColour.clicked.connect(self.set_new_colour_to_editScene)
         self.addNewColour.clicked.connect(lambda: self.add_new_colour_in_scene(self.sceneColoursList.children()[-1].objectName()))
+        self.deleteSceneColour.clicked.connect(self.delete_current_colour)
 
         self.addNewScene.clicked.connect(self.save_new_Scene_data)
 
@@ -622,7 +623,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.current_baseColour.setIcon(QIcon())
 
     def save_new_Scene_data(self):
-        '''Save new Scene data and send on Light'''
+        '''Save new Scene data and send to Light'''
         scene_id = self.current_scene[1]['scene_id']
         light_type = self.type_screens.currentWidget().objectName()
         light_type = light_type.replace('_', ' ')
@@ -652,6 +653,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             f.write(json.dumps(self.scenes_data, indent=4))
         self.set_name_and_image_scenes('RGB Light')
         self.switch_current_scene('RGB Light', str(scene_id))
+
+    def delete_current_colour(self):
+        '''Delete color and shifts the list of color button by one'''
+        color_id = int(self.current_baseColour.objectName()[-1])
+        self.current_scene[1]['color_list'].pop(color_id)
+
+        color_button_list = self.sceneColoursList.children()
+
+        for id, color in enumerate(color_button_list[:-2]):
+            stylesheet = self.set_colour(self.current_scene[1]['color_list'][id])
+            color.setStyleSheet(stylesheet)
+
+        color_button_list[-2].setStyleSheet('')
+        color_button_list[-2].setIcon(QIcon('design/plus.png'))
+        
+        color_button_list[-1].deleteLater()
+
+        self.colourSceneEdit.hide()
 
 if __name__ == '__main__':
 
