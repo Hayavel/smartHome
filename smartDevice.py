@@ -18,20 +18,20 @@ class Light:
             connection_retry_limit=1,
             connection_retry_delay=1)
 
-    def get_actual_devices_ip(self):
+    def get_actual_devices_ip(self, filename):
         devices = tinytuya.deviceScan(maxretry=4)
         if self.ip not in devices:
             for device in devices.values():
                 if device['gwId'] == self.id:
                     self.ip = device['ip']
-                    with open('devicesList.json', 'r') as f:
+                    with open(filename, 'r') as f:
                         new = f.read()
                         new = json.loads(new)
                     for n in new.values():
                         if n['id'] == self.id:
                             n['ip'] = self.ip
                             break
-                    with open('devicesList.json', 'w') as f:
+                    with open(filename, 'w') as f:
                         f.write(json.dumps(new, indent=4))
                     break
         self.__init__(self.id, self.ip, self.local_key, self.ver)

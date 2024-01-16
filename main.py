@@ -21,6 +21,7 @@ import hexadecimal as hexDec
 
 device_types = {'RGB Light': 0, # Device type and Page interface
                 'Light': 1}
+devicesList_filename = 'devicesList.json'
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
@@ -149,7 +150,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def _adding_devices_in_devicesList(self):
         '''Add all local devices'''
         try:
-            with open('devicesList.json', 'r') as f:
+            with open(devicesList_filename, 'r') as f:
                 self.active_devices = f.read()
                 self.active_devices = json.loads(self.active_devices)
         except (json.decoder.JSONDecodeError, FileNotFoundError):
@@ -194,7 +195,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.set_selected_device(deviceName)
                 self.screens.setCurrentIndex(2)
 
-                with open('devicesList.json', 'w') as f:
+                with open(devicesList_filename, 'w') as f:
                     f.write(json.dumps(self.active_devices, indent=4))
 
             else:
@@ -234,7 +235,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.devicesList.removeItem(removed_device_index)
             self.active_devices.pop(removed_device)
 
-            with open('devicesList.json', 'w') as f:
+            with open(devicesList_filename, 'w') as f:
                 f.write(json.dumps(self.active_devices, indent=4))
 
     def set_selected_device(self, text:str):
@@ -252,6 +253,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                               selected_device['ip'],
                                               selected_device['key'],
                                               float(selected_device['ver']))
+
+
+        match self.current_device.get_state(): # Check correct device's local ip
+            case {'Error': 'Invalid JSON Response from Device'}:
+                self.current_device.get_actual_devices_ip(devicesList_filename)
 
         deviceType = selected_device['type']
         self.type_screens.setCurrentIndex(device_types[deviceType]) # Switch on device type screen
