@@ -1,6 +1,4 @@
-from PySide6.QtWidgets import (QMainWindow, QApplication, QPushButton, QComboBox,
-                               QProgressBar, QSlider, QLineEdit, QDial, QLabel,
-                               QFrame, QRadioButton, QFileDialog)
+from PySide6.QtWidgets import (QMainWindow, QApplication, QFileDialog)
 
 from PySide6.QtGui import QPixmap, QIcon, QFontDatabase, QFont
 
@@ -10,7 +8,6 @@ from warning import WarningDialog, RemoveDeviceDialog
 
 import sys
 import json
-import time
 from copy import deepcopy
 
 from smartDevice import *
