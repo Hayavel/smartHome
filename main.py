@@ -387,14 +387,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def change_brightness(self):
         '''Change brightness of Light'''
-        sender = self.sender()
-        self.current_device.set_brightness(sender.value())
+        match self.type_screens.currentWidget().objectName():
+            case 'RGB_Light':
+                value = self.brightSlider_white.value()
+                self.current_device.set_brightness(value)
+            case 'Light':
+                value = self.brightSlider_Light.value()
+                self.current_device.set_brightness(value)
     
     @Slot()
     def change_colourTemp(self):
         '''Change Light Temperature'''
-        sender = self.sender()
-        self.current_device.set_colourTemp(sender.value())
+        match self.type_screens.currentWidget().objectName():
+            case 'RGB_Light':
+                value = self.dial_white.value()
+                self.current_device.set_colourTemp(value)
+            case 'Light':
+                value = self.dial_Light.value()
+                self.current_device.set_colourTemp(value)
     
     @Slot()
     def change_hsv(self):
