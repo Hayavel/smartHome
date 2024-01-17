@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import (QMainWindow, QApplication, QFileDialog)
 
 from PySide6.QtGui import QPixmap, QIcon, QFontDatabase, QFont
+from PySide6.QtCore import QThreadPool, Slot
 
 from ui import Ui_MainWindow
 from colourButton import ColourButton
@@ -33,6 +34,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self._adding_devices_in_devicesList() # Data preload
         self._adding_device_types_in_deviceType() # Data preload
+        self.threadpool = QThreadPool()
+        self.threadpool.setMaxThreadCount(1)
 
         # Hide element in RGB Light screen
         self.sideBar.setVisible(False)
@@ -73,17 +76,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
 
         # Switch state of device on main screen
-        self.onOFF_Light.clicked.connect(lambda: self.switch_state_of_device())
-        self.onOFF_RGB_Light.clicked.connect(lambda: self.switch_state_of_device())
+        self.onOFF_Light.clicked.connect(lambda: self.threadpool.start(self.switch_state_of_device))
+        self.onOFF_RGB_Light.clicked.connect(lambda: self.threadpool.start(self.switch_state_of_device))
 
-        self.dial_white.valueChanged.connect(self.change_colourTemp)
-        self.dial_color.valueChanged.connect(self.change_hsv)
-        self.dial_Light.valueChanged.connect(self.change_colourTemp)
+        self.dial_white.valueChanged.connect(lambda: self.threadpool.start(self.change_colourTemp))
+        self.dial_color.valueChanged.connect(lambda: self.threadpool.start(self.change_hsv))
+        self.dial_Light.valueChanged.connect(lambda: self.threadpool.start(self.change_colourTemp))
         
-        self.brightSlider_white.valueChanged.connect(self.change_brightness)
-        self.brightSlider_color.valueChanged.connect(self.change_hsv)
-        self.colourSlider.valueChanged.connect(self.change_hsv)
-        self.brightSlider_Light.valueChanged.connect(self.change_brightness)
+        self.brightSlider_white.valueChanged.connect(lambda: self.threadpool.start(self.change_brightness))
+        self.brightSlider_color.valueChanged.connect(lambda: self.threadpool.start(self.change_hsv))
+        self.colourSlider.valueChanged.connect(lambda: self.threadpool.start(self.change_hsv))
+        self.brightSlider_Light.valueChanged.connect(lambda: self.threadpool.start(self.change_brightness))
 
         self.sceneLabels_RGB = [self.scene1Label, self.scene2Label, self.scene3Label, self.scene4Label,
                                self.scene5Label, self.scene6Label, self.scene7Label, self.scene8Label]
@@ -279,6 +282,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                  icon = QIcon('design/modeOFF.png')
                  exec(f'{name_button}.setIcon(icon)') # Switching the icon of the current button
 
+    @Slot()
     def switch_state_of_device(self):
         '''Switching the state of the device itself'''
         state = self.current_device.get_state()
@@ -294,18 +298,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             match device:
                 case 'RGB_Light':
-                    with open('lightScene.json', 'r') as f:
-                        scenes_data = f.read()
-                        self.scenes_data = json.loads(scenes_data)
-
                     self.switch_mode_RGB_Light()
                 case 'Light':
-                    with open('lightScene.json', 'r') as f:
-                        scenes_data = f.read()
-                        self.scenes_data = json.loads(scenes_data)
-
                     mode = self.current_device.get_state()['mode']
                     self.switch_mode_Light(mode)
+                    
+            with open('lightScene.json', 'r') as f:
+                scenes_data = f.read()
+                self.scenes_data = json.loads(scenes_data)
 
     def switch_mode_Light(self, mode:str):
         '''Hide or Show "scene" element on Light device screen.
@@ -385,14 +385,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             case 'music':
                 pass
 
-    def change_brightness(self, value):
+    @Slot()
+    def change_brightness(self):
         '''Change brightness of Light'''
-        self.current_device.set_brightness(value)
+        sender = self.sender()
+        self.current_device.set_brightness(sender.value())
     
-    def change_colourTemp(self, value):
+    @Slot()
+    def change_colourTemp(self):
         '''Change Light Temperature'''
-        self.current_device.set_colourTemp(value)
+        sender = self.sender()
+        self.current_device.set_colourTemp(sender.value())
     
+    @Slot()
     def change_hsv(self):
         '''Change colour in 'colour' mode'''
         h = self.dial_color.value() / 100
