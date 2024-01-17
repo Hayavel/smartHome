@@ -295,6 +295,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''Set on screen device state by type'''
         if self.screens.currentIndex() != 1:
             device = self.type_screens.currentWidget().objectName()
+            with open('lightScene.json', 'r') as f:
+                scenes_data = f.read()
+                self.scenes_data = json.loads(scenes_data)
 
             match device:
                 case 'RGB_Light':
@@ -302,10 +305,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 case 'Light':
                     mode = self.current_device.get_state()['mode']
                     self.switch_mode_Light(mode)
-                    
-            with open('lightScene.json', 'r') as f:
-                scenes_data = f.read()
-                self.scenes_data = json.loads(scenes_data)
 
     def switch_mode_Light(self, mode:str):
         '''Hide or Show "scene" element on Light device screen.
