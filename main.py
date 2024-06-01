@@ -14,7 +14,7 @@ from copy import deepcopy
 from smartDevice import *
 from roundedImage import rounded_image
 import hexadecimal as hexDec
-#import local_statistics as lStat
+import audioRecorder as ar
 
 
 device_types = {'RGB Light': 0, # Device type and Page interface
@@ -745,6 +745,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         color_button_list[-1].deleteLater()
 
         scene_edit.hide()
+
+    def convert_audio_to_color(self):
+        pass
+
+    @Slot()
+    def record_audio(self):
+        pass
+
 
 if __name__ == '__main__':
 
