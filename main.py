@@ -777,7 +777,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         while True:
             data = self.recorder.stream.read(10240)
-            buffer = np.frombuffer(data, dtype=np.float32)
+            try:
+                buffer = np.frombuffer(data, dtype=np.float32)
+            except ValueError: # If audio data is none
+                buffer = [0.0]
             
             self.threadpool.start(self.convert_audio_to_color(buffer))
 
