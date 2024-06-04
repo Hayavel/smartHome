@@ -42,3 +42,25 @@ def scene_data(scene_id:int, transition_interval:int, lightning_duration:int, li
         result_data += interval_duration_mode + hue + saturation + value + brightness + color_temp
     
     return result_data
+
+def music_data(hue:int, saturation=1000, value=1000, brightness=0, color_temp=0, mode=0):
+
+    '''
+    Example: 1016803E803E800000000
+    1:    mode: indicates gradient mode (0.Jumping, 1.Gradient)
+    0168: hue: 0 to 360, in hexadecimal 0X0000 to 0X0168
+    03E8: saturation: 0 to 1000, in hexadecimal 0X0000 to 0X03E8
+    03E8: value: 0 to 1000, in hexadecimal 0X0000 to 0X03E8
+    0000: brightness: 0 to 1000, in hexadecimal...
+    0000: color_temp: 0 to 1000, in hexadecimal...
+    '''
+
+    hex_hue = digit_to_4hex(hue)
+    hex_saturation = digit_to_4hex(saturation)
+    hex_value = digit_to_4hex(value)
+    hex_brightness = digit_to_4hex(brightness)
+    hex_color_temp = digit_to_4hex(color_temp)
+
+    result_data = str(mode) + hex_hue + hex_saturation + hex_value + hex_brightness + hex_color_temp
+
+    return result_data

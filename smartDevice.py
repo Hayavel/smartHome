@@ -102,9 +102,10 @@ class RGB_Light(Light):
         1: indicates modes(0.jumping, 1.gradient)
         0076: indicates hue is 0x0076
         03E8: indicates saturation is 0x03E8
+        03E8: indicates value is 0x03E8
         0012: indicates brightness is 18%
         0025: indicates color temperature is 37%
         '''
-        #self.device.set_socketPersistent(True)
+        self.device.set_socketPersistent(True)
         payload = self.device.generate_payload(tinytuya.CONTROL, {'27': value})
         self.device.send(payload)
