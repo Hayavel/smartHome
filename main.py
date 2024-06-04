@@ -10,6 +10,7 @@ from warning import WarningDialog, RemoveDeviceDialog
 import sys
 import json
 from copy import deepcopy
+import numpy as np
 
 from smartDevice import *
 from roundedImage import rounded_image
@@ -19,6 +20,7 @@ import audioRecorder as ar
 
 device_types = {'RGB Light': 0, # Device type and Page interface
                 'Light': 1}
+modes = {'white': 0, 'colour': 1, 'scene': 2, 'music': 3}
 devicesList_filename = 'devicesList.json'
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -358,7 +360,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if index != None:
             mode = self.mode.currentWidget().objectName()
         else:
-            modes = {'white': 0, 'colour': 1, 'scene': 2, 'music': 3}
             mode = self.current_device.get_state()['mode']
 
             self.mode.setCurrentIndex(modes[mode])
@@ -382,7 +383,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.set_Light_scenes('RGB Light')
                 self.set_name_and_image_scenes('RGB Light')
             case 'music':
-                pass
+                self.start_record_audio()
+                self.threadpool.start(self.record_audio)
+
 
     @Slot()
     def change_brightness(self):
@@ -671,7 +674,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             brightness = self.brightSceneBar_Light.value()
             color_temp = self.colourSceneSlider_Light.value()
 
-        color = {'hue': hue, 'saturation': saturation, 'value': value, 'brightness': brightness, 'color_temp': color_temp}
+        color = {'hue': hue, 'saturation': saturation, 'value': value,
+                 'brightness': brightness, 'color_temp': color_temp}
 
         color_id = int(self.current_baseColour.objectName()[-1])
 
@@ -746,12 +750,41 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         scene_edit.hide()
 
-    def convert_audio_to_color(self):
-        pass
+    @Slot()
+    def convert_audio_to_color(self, data):
+        '''
+        Convert median audio data to color of bulb.
+        And send it to device
+        '''
+        median = int(ar.convert_audio(data, min_range=240, max_range=0))
+        color = hexDec.music_data(median)
+        self.current_device.send_music_data(color)
+
+    def start_record_audio(self):
+        '''
+        Create an AudioRecorder object and start recording
+        '''
+        self.recorder = ar.AudioRecorder()
+        self.target_device = self.recorder.get_default_wasapi_device()
+        self.sample_size = self.recorder.get_sample_size()
+        self.sample_rate = self.target_device['defaultSampleRate']
+        self.recorder.start_recording(self.target_device)
 
     @Slot()
     def record_audio(self):
-        pass
+        '''
+        Real-time recording function
+        '''
+        while True:
+            data = self.recorder.stream.read(10240)
+            buffer = np.frombuffer(data, dtype=np.float32)
+            
+            self.threadpool.start(self.convert_audio_to_color(buffer))
+
+            if self.mode.currentIndex() != modes["music"]:
+                self.recorder.stop_stream()
+                self.recorder.close_stream()
+                break
 
 
 if __name__ == '__main__':
