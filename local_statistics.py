@@ -27,6 +27,8 @@ def normalisation_samples(samples:list, min_range:int=-1, max_range:int=1, round
         samples.sort()
 
     range_samples = max(samples) - min(samples)
+    if range_samples == 0.0:
+        return [0.0]
     first = min(samples)
     normalized = [round(min_range + (((i - first)*(max_range-min_range)) / range_samples), rounded) for i in samples]
 
