@@ -1,5 +1,4 @@
 import pyaudiowpatch as pyaudio
-from queue import Queue
 import local_statistics as lStat
 
 CHANNELS = 1
@@ -19,7 +18,6 @@ class AudioRecorder:
 
     def __init__(self):
         self.p = pyaudio.PyAudio()
-        self.output_queue = Queue()
         self.stream = None
 
     def get_sample_size(self, data_format=FORMAT):
