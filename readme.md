@@ -14,11 +14,11 @@ Controlling and monitoring Tuya devices on your network requires the following:
 To obtain data to connect the device, use [instructions](https://github.com/jasonacox/tinytuya#tuya-device-preparation).
 
 ## Features
-- [ ] RGB Light
+- [X] RGB Light
     - [X] White mode
     - [X] Color mode
     - [X] Scene mode
-    - [ ] Music mode
+    - [X] Music mode
 - [X] Light
     - [X] White mode
     - [X] Scene mode
