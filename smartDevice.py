@@ -106,6 +106,5 @@ class RGB_Light(Light):
         0012: indicates brightness is 18%
         0025: indicates color temperature is 37%
         '''
-        self.device.set_socketPersistent(True)
         payload = self.device.generate_payload(tinytuya.CONTROL, {'27': value})
         self.device.send(payload)
