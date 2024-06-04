@@ -78,8 +78,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
 
         # Switch state of device on main screen
-        self.onOFF_Light.clicked.connect(lambda: self.threadpool.start(self.switch_state_of_device))
-        self.onOFF_RGB_Light.clicked.connect(lambda: self.threadpool.start(self.switch_state_of_device))
+        self.onOFF_Light.clicked.connect(lambda: self.switch_state_of_device())
+        self.onOFF_RGB_Light.clicked.connect(lambda: self.switch_state_of_device())
 
         self.dial_white.valueChanged.connect(lambda: self.threadpool.start(self.change_colourTemp))
         self.dial_color.valueChanged.connect(lambda: self.threadpool.start(self.change_hsv))
@@ -284,7 +284,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                  icon = QIcon('design/modeOFF.png')
                  exec(f'{name_button}.setIcon(icon)') # Switching the icon of the current button
 
-    @Slot()
     def switch_state_of_device(self):
         '''Switching the state of the device itself'''
         state = self.current_device.get_state()
