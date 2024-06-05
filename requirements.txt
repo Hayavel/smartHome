@@ -1,5 +1,4 @@
 PySide6
 tinytuya
 pyaudiowpatch
-librosa
 numpy
